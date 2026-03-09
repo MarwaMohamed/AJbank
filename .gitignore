@@ -39,3 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude
+.claude/
+
+# source/reference files
+*.pdf
+*.docx
+*.png
+resoruces/
+temp-*.html
+Homepage_Content_Extracted.md
