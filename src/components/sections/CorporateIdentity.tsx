@@ -34,21 +34,29 @@ export function CorporateIdentity() {
   }, [prefersReduced]);
 
   return (
-    <section id="corporate-identity" className="relative bg-white py-32 md:py-40">
-      <div className="mx-auto max-w-5xl px-6">
+    <section id="corporate-identity" className="relative py-32 md:py-40 overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/corporate-map.png')" }}
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-5xl px-6">
         <FadeInView>
-          <SectionMarker number={c.number} label={c.label} />
+          <SectionMarker number={c.number} label={c.label} light />
         </FadeInView>
 
         <div className="mt-16 max-w-3xl">
           <FadeInView delay={0.1}>
-            <h2 className="text-3xl font-bold md:text-5xl" style={{ color: "#1b1b1b" }}>
+            <h2 className="text-3xl font-bold text-white md:text-5xl">
               {c.title}
             </h2>
           </FadeInView>
 
           <FadeInView delay={0.2}>
-            <p className="mt-6 text-lg leading-relaxed" style={{ color: "#a2a9ac" }}>
+            <p className="mt-6 text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
               {c.description}
             </p>
           </FadeInView>
@@ -73,11 +81,11 @@ export function CorporateIdentity() {
               <div>
                 <AnimatedCounter
                   value={stat.value}
-                  suffix={stat.suffix}
-                  className="text-4xl font-extrabold md:text-5xl"
+                  suffix={(stat as any).suffix}
+                  className="text-6xl font-black md:text-8xl tracking-tighter"
                   style={{ color: "#b88463" }}
                 />
-                <p className="mt-2 text-sm" style={{ color: "#a2a9ac" }}>
+                <p className="mt-2 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
                   {stat.label}
                 </p>
               </div>

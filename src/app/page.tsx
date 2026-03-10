@@ -3,8 +3,7 @@ import { Navigation } from "@/components/layout/Navigation";
 import { Hero } from "@/components/sections/Hero";
 import { AtAGlance } from "@/components/sections/AtAGlance";
 import { KeyFacts } from "@/components/sections/KeyFacts";
-import { CeoMessage } from "@/components/sections/CeoMessage";
-import { MarqueeBanner } from "@/components/sections/MarqueeBanner";
+import { LeadershipMessages } from "@/components/sections/LeadershipMessages";
 import { Strategy } from "@/components/sections/Strategy";
 import { CorporateIdentity } from "@/components/sections/CorporateIdentity";
 import { Sustainability } from "@/components/sections/Sustainability";
@@ -19,8 +18,7 @@ export default function HomePage() {
         <Hero />
         <AtAGlance />
         <KeyFacts />
-        <CeoMessage />
-        <MarqueeBanner />
+        <LeadershipMessages />
         <Strategy />
         <CorporateIdentity />
         <Sustainability />

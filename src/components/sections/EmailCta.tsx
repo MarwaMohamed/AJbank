@@ -16,20 +16,20 @@ export function EmailCta() {
   };
 
   return (
-    <section id="contact" className="relative py-32 md:py-40" style={{ background: "#f7f7f7" }}>
+    <section id="contact" className="relative py-32 md:py-40">
       <div className="mx-auto max-w-2xl px-6 text-center">
         <FadeInView>
           <SectionMarker number="008" label="Contact" />
         </FadeInView>
 
         <FadeInView delay={0.1}>
-          <h2 className="mt-12 text-3xl font-bold md:text-5xl" style={{ color: "#1b1b1b" }}>
+          <h2 className="mt-12 text-3xl font-bold text-white md:text-5xl">
             {c.title}
           </h2>
         </FadeInView>
 
         <FadeInView delay={0.2}>
-          <p className="mt-6 text-lg" style={{ color: "#a2a9ac" }}>
+          <p className="mt-6 text-lg" style={{ color: "rgba(255,255,255,0.45)" }}>
             {c.description}
           </p>
         </FadeInView>
@@ -50,10 +50,14 @@ export function EmailCta() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={c.placeholder}
                 required
-                className="flex-1 rounded-xl border bg-white px-5 py-4 text-sm outline-none transition-all duration-200"
-                style={{ borderColor: "#d9dcdd", color: "#1b1b1b" }}
+                className="flex-1 rounded-xl border px-5 py-4 text-sm outline-none transition-all duration-200 placeholder:text-white/30"
+                style={{
+                  borderColor: "rgba(255,255,255,0.1)",
+                  background: "rgba(255,255,255,0.05)",
+                  color: "#ffffff",
+                }}
                 onFocus={(e) => { e.target.style.borderColor = "#b88463"; e.target.style.boxShadow = "0 0 0 3px rgba(184,132,99,0.15)"; }}
-                onBlur={(e) => { e.target.style.borderColor = "#d9dcdd"; e.target.style.boxShadow = "none"; }}
+                onBlur={(e) => { e.target.style.borderColor = "rgba(255,255,255,0.1)"; e.target.style.boxShadow = "none"; }}
               />
               <button
                 type="submit"

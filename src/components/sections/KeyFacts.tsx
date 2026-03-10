@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { content } from "@/lib/content";
@@ -10,219 +10,197 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── Background gradients per card ── */
-const CARD_BACKGROUNDS = [
-  "linear-gradient(135deg, #00132e 0%, #001a3d 50%, #0a2244 100%)",
-  "linear-gradient(135deg, #0a1628 0%, #1a1030 50%, #2a1040 100%)",
-  "linear-gradient(135deg, #1c0e0a 0%, #301d10 50%, #4a2e1a 100%)",
-  "linear-gradient(135deg, #0a1628 0%, #0d1520 50%, #162030 100%)",
-  "linear-gradient(135deg, #18100c 0%, #2a1a10 50%, #3d2818 100%)",
-  "linear-gradient(135deg, #00132e 0%, #000d33 50%, #001040 100%)",
-];
-
-/* ── All stat cards data flattened ── */
 function getAllCards() {
   const c = content.keyFacts;
   return [
-    { group: c.page1Title, ...c.page1[0] },
-    { group: c.page1Title, ...c.page1[1] },
-    { group: c.page1Title, ...c.page1[2] },
-    { group: c.page2Title, ...c.page2[0] },
-    { group: c.page2Title, ...c.page2[1] },
-    { group: c.page2Title, ...c.page2[2] },
+    { group: c.page1Title, ...c.page1[0] }, // 0: Assets
+    { group: c.page1Title, ...c.page1[1] }, // 1: Financing
+    { group: c.page1Title, ...c.page1[2] }, // 2: Deposits
+    { group: c.page2Title, ...c.page2[0] }, // 3: Total Income
+    { group: c.page2Title, ...c.page2[1] }, // 4: Net Income
+    { group: c.page2Title, ...c.page2[2] }, // 5: CAR
   ];
+}
+
+function FactCard({ card, index, className, darkText = false }: { card: any, index: number, className: string, darkText?: boolean }) {
+  const color = darkText ? "rgba(0,0,0,0.85)" : "#B78260";
+  const mutedColor = darkText ? "rgba(0,0,0,0.15)" : "rgba(183,130,96,0.2)";
+
+  return (
+    <div className={`kf-grid-item flex flex-col justify-between p-8 md:p-10 rounded-[16px] shadow-sm overflow-hidden ${className}`}>
+      {/* Top Header */}
+      <div className={`flex items-start justify-between font-bold tracking-tight mb-8 ${darkText ? "text-black" : "text-white"}`}>
+        <p className="text-lg md:text-xl leading-snug max-w-[200px]">{card.label}</p>
+        <span className="text-[10px] uppercase tracking-[0.2em] font-medium opacity-60 text-right max-w-[100px] leading-tight">
+          {card.group}
+        </span>
+      </div>
+
+      <div className="flex flex-col mt-auto">
+        {/* Visualizations based on index */}
+        {index === 0 && (
+          <div className="mb-6 flex gap-1 h-8 items-end w-24">
+            <div className="w-1/4 bg-current opacity-30 h-[40%]" style={{ color }} />
+            <div className="w-1/4 bg-current opacity-50 h-[60%]" style={{ color }} />
+            <div className="w-1/4 bg-current opacity-70 h-[80%]" style={{ color }} />
+            <div className="w-1/4 bg-current h-[100%]" style={{ color }} />
+          </div>
+        )}
+
+        {index === 5 && (
+          <div className="mb-6 relative w-1/2">
+            <div className="w-full h-1.5 rounded-full" style={{ backgroundColor: mutedColor }} />
+            <div className="absolute top-0 left-0 h-1.5 rounded-full w-[19%]" style={{ backgroundColor: color }} />
+          </div>
+        )}
+
+        {/* Number Area */}
+        <div className={`flex items-end ${darkText ? "text-black" : "text-white"}`}>
+          <div
+            className="text-[80px] md:text-[96px] lg:text-[110px] xl:text-[130px] font-medium leading-[0.8] tracking-tighter relative"
+            style={{ fontFamily: "'PP Cirka', 'Palatino Linotype', serif" }}
+          >
+            {/* Ring visualization for index 2 */}
+            {index === 2 && (
+              <svg viewBox="0 0 100 100" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] -z-10 opacity-30 pointer-events-none">
+                <circle cx="50" cy="50" r="48" fill="none" strokeWidth="1" stroke="currentColor" strokeDasharray="4 4" />
+                <circle cx="50" cy="50" r="40" fill="none" strokeWidth="0.5" stroke="currentColor" />
+              </svg>
+            )}
+            <AnimatedCounter
+              value={card.value}
+              decimals={card.decimals}
+            />
+          </div>
+          <div className="flex items-baseline mb-1 lg:mb-2 ml-2 gap-1">
+            {card.suffix && (
+              <span
+                className="text-4xl md:text-5xl lg:text-7xl font-normal"
+                style={{
+                  fontFamily: "'PP Cirka', 'Palatino Linotype', serif",
+                  color: darkText ? "rgba(0,0,0,0.6)" : "#b88463"
+                }}
+              >
+                {card.suffix}
+              </span>
+            )}
+            {card.prefix && (
+              <span className="text-2xl md:text-3xl font-light opacity-70 ml-2">
+                {card.prefix.trim()}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Download Button */}
+        <div className="mt-8 flex justify-start">
+          <button
+            className={`group flex items-center gap-[12px] rounded-full border px-[16px] py-[6px] transition-all ${darkText
+              ? "border-black/20 text-black hover:bg-black/5"
+              : "border-white/20 text-white hover:bg-white/5"
+              }`}
+            aria-label="Download full report"
+          >
+            <span className="text-[14px] md:text-[16px] font-medium">
+              Download block
+            </span>
+            <div
+              className={`flex h-[32px] w-[32px] shrink-0 items-center justify-center rounded-full border transition-all ${darkText ? "border-black/20" : "border-white/20"
+                }`}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export function KeyFacts() {
   const c = content.keyFacts;
   const sectionRef = useRef<HTMLElement>(null);
-  const cardsContainerRef = useRef<HTMLDivElement>(null);
-  const bgRef = useRef<HTMLDivElement>(null);
-  const [activeCard, setActiveCard] = useState(0);
-  const prefersReduced = useReducedMotion();
   const cards = getAllCards();
+  const prefersReduced = useReducedMotion();
 
   useEffect(() => {
-    if (prefersReduced || !sectionRef.current || !cardsContainerRef.current) return;
+    if (prefersReduced || !sectionRef.current) return;
 
-    const cardEls = cardsContainerRef.current.querySelectorAll<HTMLElement>(".kf-card");
-    const bgLayers = bgRef.current?.querySelectorAll<HTMLElement>(".kf-bg") ?? [];
-    const totalCards = cardEls.length;
-    const sectionHeight = totalCards * 100; // vh per card step
+    const items = sectionRef.current.querySelectorAll(".kf-grid-item");
 
-    const ctx = gsap.context(() => {
-      // Pin the section
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top top",
-        end: `+=${sectionHeight}vh`,
-        pin: true,
-        pinSpacing: true,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          const newActive = Math.min(
-            totalCards - 1,
-            Math.floor(progress * totalCards)
-          );
-          setActiveCard(newActive);
-
-          // Animate cards: current card rises to center, previous cards recede
-          cardEls.forEach((card, i) => {
-            if (i < newActive) {
-              // Previous cards: move up, scale down, and fully hide after 1 step
-              const distance = newActive - i;
-              gsap.to(card, {
-                y: -(distance * 40),
-                scale: 1 - distance * 0.05,
-                opacity: distance === 1 ? 0.4 : 0,
-                zIndex: i,
-                duration: 0.5,
-                ease: "power2.out",
-              });
-            } else if (i === newActive) {
-              // Active card: full size, centered
-              gsap.to(card, {
-                y: 0,
-                scale: 1,
-                opacity: 1,
-                zIndex: totalCards,
-                duration: 0.5,
-                ease: "power2.out",
-              });
-            } else {
-              // Upcoming cards: below the stack, hidden
-              gsap.to(card, {
-                y: 80,
-                scale: 0.95,
-                opacity: 0,
-                zIndex: 0,
-                duration: 0.3,
-                ease: "power2.out",
-              });
-            }
-          });
-
-          // Animate background gradient transitions
-          bgLayers.forEach((bg, i) => {
-            gsap.to(bg, {
-              opacity: i === newActive ? 1 : 0,
-              duration: 0.8,
-              ease: "power2.inOut",
-            });
-          });
+    gsap.fromTo(
+      items,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 75%",
         },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, [prefersReduced, cards.length]);
+      }
+    );
+  }, [prefersReduced]);
 
   return (
     <section
       ref={sectionRef}
       id="key-facts"
-      className="relative flex h-screen w-full flex-col overflow-hidden"
+      className="relative w-full overflow-hidden bg-[#f6f5f3] py-24 md:py-32 lg:py-40"
     >
-      {/* Dynamic background layers */}
-      <div ref={bgRef} className="absolute inset-0 z-0">
-        {cards.map((_, i) => (
-          <div
-            key={i}
-            className="kf-bg absolute inset-0 transition-opacity"
-            style={{
-              background: CARD_BACKGROUNDS[i % CARD_BACKGROUNDS.length],
-              opacity: i === 0 ? 1 : 0,
-            }}
-          />
-        ))}
+      {/* Header */}
+      <div className="relative z-10 mx-auto max-w-[1400px] px-6 md:px-12 w-full text-black">
+        <SectionMarker number={c.number} label={c.label} />
+        <div className="mt-4 mb-6 h-px w-full bg-black/10" />
+        <h2 className="text-[32px] md:text-[40px] lg:text-[50px] font-light leading-tight max-w-2xl tracking-tight" style={{ fontFamily: "Tajawal, sans-serif" }}>
+          Key Facts & Figures
+        </h2>
       </div>
 
-      {/* Fixed header */}
-      <div className="relative z-10 px-6 pt-16 md:px-12 md:pt-20">
-        <div className="mx-auto max-w-5xl">
-          <SectionMarker number={c.number} label={c.label} light />
-          <h2 className="mt-6 text-2xl font-bold text-white md:text-4xl">
-            Key Facts <span style={{ color: "#b88463" }}>&</span> Figures
-          </h2>
-        </div>
-      </div>
+      {/* Grid Layout (3 Flex Columns mimicking CSS Grid) */}
+      <div className="relative z-10 mx-auto mt-12 md:mt-16 max-w-[1400px] px-6 md:px-12 w-full">
+        <div className="flex flex-col lg:flex-row gap-6 md:gap-8 min-h-[800px] xl:min-h-[900px]">
 
-      {/* Group label */}
-      <div className="relative z-10 mt-6 px-6 md:px-12">
-        <div className="mx-auto max-w-5xl">
-          <p
-            className="text-xs font-semibold uppercase tracking-[0.25em] transition-all duration-500"
-            style={{ color: "rgba(184,132,99,0.7)" }}
-          >
-            {cards[activeCard]?.group}
-          </p>
-        </div>
-      </div>
+          {/* Column 1 */}
+          <div className="flex flex-col gap-6 md:gap-8 w-full lg:w-1/3">
+            <FactCard card={cards[0]} index={0} className="flex-[0.9] min-h-[240px] bg-[#000d33]" />
+            <FactCard card={cards[4]} index={4} className="flex-[0.8] min-h-[250px] bg-[#DCC2B2]" darkText />
+          </div>
 
-      {/* Stacking cards */}
-      <div className="relative z-10 flex flex-1 items-center px-6 md:px-12">
-        <div ref={cardsContainerRef} className="relative mx-auto w-full max-w-5xl">
-          {cards.map((card, i) => (
-            <div
-              key={i}
-              className="kf-card absolute inset-x-0 rounded-3xl border border-white/[0.08] p-8 md:p-12"
-              style={{
-                background: "linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)",
-                backdropFilter: "blur(40px)",
-                WebkitBackdropFilter: "blur(40px)",
-                boxShadow: "0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)",
-                opacity: i === 0 ? 1 : 0,
-                transform: i === 0 ? "translateY(0) scale(1)" : "translateY(80px) scale(0.95)",
-                willChange: "transform, opacity",
-              }}
-            >
-              <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-                {/* Big stat number */}
-                <div>
-                  <AnimatedCounter
-                    value={card.value}
-                    prefix={card.prefix}
-                    suffix={card.suffix}
-                    decimals={card.decimals}
-                    className="text-6xl font-extrabold leading-none md:text-8xl lg:text-[120px]"
-                    style={{ color: "#cfa77c" }}
-                  />
-                </div>
-                {/* Label */}
-                <div className="max-w-sm md:pb-3">
-                  <p className="text-base font-medium leading-relaxed text-white/70 md:text-lg">
-                    {card.label}
-                  </p>
-                </div>
-              </div>
-
-              {/* Subtle bottom accent line */}
-              <div className="mt-8 h-px w-full" style={{ background: "rgba(184,132,99,0.15)" }} />
-              <div className="mt-4 flex items-center justify-between">
-                <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-white/30">
-                  {card.group}
-                </span>
-                <span className="text-xs tabular-nums text-white/30">
-                  {String(i + 1).padStart(2, "0")} / {String(cards.length).padStart(2, "0")}
-                </span>
-              </div>
+          {/* Column 2 */}
+          <div className="flex flex-col gap-6 md:gap-8 w-full lg:w-1/3">
+            <div className="kf-grid-item flex-[1.2] relative min-h-[350px] rounded-[16px] overflow-hidden shadow-sm">
+              <img src="/images/keyfact.png" className="absolute inset-0 w-full h-full object-cover scale-[1.2] origin-left lg:scale-[1.25] xl:scale-[1.3] -translate-x-2" alt="" />
+              <div className="absolute inset-0 bg-black/10" />
             </div>
-          ))}
-        </div>
-      </div>
+            <FactCard card={cards[1]} index={1} className="flex-1 min-h-[300px] bg-[#1c0e0a]" />
+          </div>
 
-      {/* Progress dots */}
-      <div className="relative z-10 flex items-center justify-center gap-2 pb-10">
-        {cards.map((_, i) => (
-          <div
-            key={i}
-            className="h-1 rounded-full transition-all duration-500"
-            style={{
-              width: activeCard === i ? 24 : 6,
-              background: activeCard === i ? "#b88463" : "rgba(255,255,255,0.2)",
-            }}
-          />
-        ))}
+          {/* Column 3 */}
+          <div className="flex flex-col gap-6 md:gap-8 w-full lg:w-1/3">
+            <FactCard card={cards[3]} index={3} className="flex-1 min-h-[280px] bg-[#CCA991]" darkText />
+            <FactCard card={cards[2]} index={2} className="flex-1 min-h-[280px] bg-[#B78260]" />
+            <FactCard card={cards[5]} index={5} className="flex-1 min-h-[280px] bg-[#0a1628]" />
+          </div>
+
+        </div>
       </div>
     </section>
   );

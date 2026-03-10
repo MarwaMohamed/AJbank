@@ -26,7 +26,7 @@ export const SECTIONS = [
   { id: "hero", label: "Home", number: "001" },
   { id: "at-a-glance", label: "At a Glance", number: "002" },
   { id: "key-facts", label: "Key Facts", number: "003" },
-  { id: "ceo-message", label: "CEO Message", number: "004" },
+  { id: "leadership-messages", label: "Messages", number: "004" },
   { id: "strategy", label: "Strategy", number: "005" },
   { id: "corporate-identity", label: "Identity", number: "006" },
   { id: "sustainability", label: "Sustainability", number: "007" },

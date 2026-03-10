@@ -12,8 +12,6 @@ export const content = {
 
   hero: {
     theme: "Wealth Grows Here.",
-    subtitle: "Annual Report 2025",
-    ticker: "ANNUAL REPORT 2025",
     scroll: "Scroll to explore",
   },
 
@@ -63,18 +61,38 @@ export const content = {
     ],
   },
 
-  ceoMessage: {
+  leadershipMessages: {
     number: "004",
-    label: "CEO's Message",
-    name: "Naif Abdulkareem Al-Abdulkareem",
-    title: "Chief Executive Officer",
-    quote:
-      "This theme reflects the Bank's decisive transition from building foundations and strengthening infrastructure to a phase centered on value realization.",
-    body: "Together, we remain focused on disciplined execution, sustainable growth, and delivering enduring value to all our stakeholders.",
-  },
-
-  marquee: {
-    text: "ANNUAL REPORT 2025",
+    label: "Leadership Messages",
+    cards: [
+      {
+        role: "Chairman's Message",
+        name: "Faisal Hamad Almansour",
+        title: "Chairman of the Board",
+        image: "/images/board/Faisal Almansour.png",
+        quote:
+          "The Board's strategic oversight has guided the Bank through a transformative era, ensuring that governance, risk discipline, and innovation remain at the core of every decision we take.",
+        body: "Our commitment to shareholder value is matched only by our dedication to the communities we serve and the national agenda we proudly support.",
+      },
+      {
+        role: "CEO's Message",
+        name: "Hamad Abdulaziz AlEsa",
+        title: "Chief Executive Officer",
+        image: "/images/board/Hamad AlEsa.png",
+        quote:
+          "This theme reflects the Bank's decisive transition from building foundations and strengthening infrastructure to a phase centered on value realization.",
+        body: "Together, we remain focused on disciplined execution, sustainable growth, and delivering enduring value to all our stakeholders.",
+      },
+      {
+        role: "CFO's Message",
+        name: "Hani Mohammed Araki",
+        title: "Chief Financial Officer",
+        image: "/images/board/Hani Araki.png",
+        quote:
+          "Our financial results reflect the maturity of our strategy — with net profit growing 22%, total assets reaching SAR 165.9 billion, and an NPL ratio maintained at a healthy 1.03%.",
+        body: "These outcomes are the direct result of disciplined capital allocation, prudent risk management, and consistent operational efficiency across all business lines.",
+      },
+    ],
   },
 
   strategy: {
@@ -85,32 +103,35 @@ export const content = {
         key: "ourStrategy",
         title: "Our Strategy",
         subtitle: "The One Bank Approach",
+        image: "/images/strategy/focus-2.png",
         description:
-          "Aljazira Bank's 2025 business model represents the culmination of a multi-year journey of institutional development and operational transformation, shaped by digital-led growth, cross-sector integration, and disciplined risk management.",
+          "Aljazira Bank's 2025 business model represents the culmination of a multi-year journey of institutional development and operational transformation, shaped by digital-led growth and cross-sector integration. Our model is anchored in a robust Shariah governance framework, integrating Retail, Corporate, SME, Treasury, and Aljazira Capital within a unified operating model.",
       },
       {
-        key: "businessModel",
-        title: "Business Model",
-        subtitle: "Where Integration Creates Value",
-        description:
-          "The model is anchored in a robust Shariah governance framework and the 'One Bank' approach, integrating Retail, Corporate & SME, Treasury, and Aljazira Capital within a unified operating model designed to maximize value across the customer lifecycle.",
-      },
-      {
-        key: "strategicPillars",
-        title: "Strategic Pillars",
-        subtitle: "Three Pillars of Growth",
-        pillars: [
+        key: "strategicFocus",
+        title: "Bank Focus 2025",
+        subtitle: "Key Strategic Initiatives",
+        image: "/images/strategy/focus-1.png",
+        items: [
           {
-            heading: "Create a distinctive value proposition",
-            desc: "Delivering clear, integrated value through specialized banking solutions",
+            heading: "Launching the New Identity",
+            desc: "Full institutional implementation of the ajb brand, updating our narrative to reflect our strategic maturity and operational excellence.",
           },
           {
-            heading: "Grow digitally",
-            desc: "Digital transformation as the primary growth driver",
+            heading: "Digital-Led Growth",
+            desc: "Accelerating the migration of core customer journeys to digital-first channels, reducing time-to-market and enhancing scalability.",
           },
           {
-            heading: "Build a thriving organization",
-            desc: "Financial discipline, talent enablement, and operational resilience",
+            heading: "SME & Corporate Empowerment",
+            desc: "Driving economic expansion through specialized digital onboarding and tailored banking solutions for the corporate sector.",
+          },
+          {
+            heading: "Value Realization",
+            desc: "Transitioning to a phase of tangible benefits from previous digital investments, resulting in improved efficiency and asset quality.",
+          },
+          {
+            heading: "Operational Resilience",
+            desc: "Ensuring a balance between growth and stability through rigorous risk management and business continuity readiness.",
           },
         ],
       },

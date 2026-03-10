@@ -1,6 +1,7 @@
 "use client";
 
 import { content } from "@/lib/content";
+import { FadeInView } from "@/components/ui/FadeInView";
 
 export function Footer() {
   const c = content.footer;
@@ -19,24 +20,28 @@ export function Footer() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-6">
-        <div className="mb-8 flex justify-center gap-8 text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-          {c.links.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="group relative transition-colors duration-200 hover:text-[#b88463]"
-            >
-              {link.label}
-              <span
-                className="absolute bottom-0 left-0 h-px w-0 transition-all duration-300 group-hover:w-full"
-                style={{ background: "#b88463" }}
-              />
-            </a>
-          ))}
-        </div>
-        <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
-          {c.copyright}
-        </p>
+        <FadeInView delay={0.1}>
+          <div className="mb-8 flex justify-center gap-8 text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+            {c.links.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="group relative transition-colors duration-200 hover:text-[#b88463]"
+              >
+                {link.label}
+                <span
+                  className="absolute bottom-0 left-0 h-px w-0 transition-all duration-300 group-hover:w-full"
+                  style={{ background: "#b88463" }}
+                />
+              </a>
+            ))}
+          </div>
+        </FadeInView>
+        <FadeInView delay={0.2}>
+          <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
+            {c.copyright}
+          </p>
+        </FadeInView>
       </div>
     </footer>
   );
