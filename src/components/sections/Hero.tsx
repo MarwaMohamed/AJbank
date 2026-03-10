@@ -105,7 +105,7 @@ export function Hero() {
           ref={bgImageRef}
           className="absolute inset-0 h-full w-full"
           style={{
-            backgroundImage: "url(/images/hero/hero-bg-final.png)",
+            backgroundImage: "url(images/hero/hero-bg-final.png)",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -128,7 +128,7 @@ export function Hero() {
       >
         <div className="logo-inner h-full w-full flex items-center justify-start" style={{ opacity: prefersReduced ? 1 : 0 }}>
           <img
-            src="/images/ajb-logo-new.png"
+            src="images/ajb-logo-new.png"
             alt="Aljazira Bank Logo"
             className="max-h-full w-full object-contain object-left pointer-events-none"
           />
@@ -198,7 +198,7 @@ export function Hero() {
       >
         <div className="shapes-inner h-full w-full" style={{ opacity: prefersReduced ? 1 : 0 }}>
           <img
-            src="/images/hero/shapes.png"
+            src="images/hero/shapes.png"
             alt=""
             className="h-full w-full object-contain object-right"
           />

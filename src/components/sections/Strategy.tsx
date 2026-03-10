@@ -63,7 +63,7 @@ export function Strategy() {
       ref={sectionRef}
       id="strategy"
       className="relative w-full overflow-hidden bg-[#CCA991] bg-cover bg-center pt-12 pb-24 md:pt-16 md:pb-32 lg:pt-16 lg:pb-40"
-      style={{ backgroundImage: "url(/images/strategy/strategy-bg.png)" }}
+      style={{ backgroundImage: "url(images/strategy/strategy-bg.png)" }}
     >
       <div className="mx-auto max-w-7xl px-6 md:px-24 lg:px-40">
         <FadeInView>

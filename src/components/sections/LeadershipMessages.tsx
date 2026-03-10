@@ -279,7 +279,7 @@ export function LeadershipMessages() {
                     }}
                   >
                     <img
-                      src="/images/strategy/vectorbg.png"
+                      src="images/strategy/vectorbg.png"
                       alt=""
                       className="w-full h-full object-contain"
                       style={{

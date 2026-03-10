@@ -88,7 +88,7 @@ export function AtAGlance() {
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: "url(/images/glance/glance-bg-new.png)",
+          backgroundImage: "url(images/glance/glance-bg-new.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundColor: "#0a0700",
