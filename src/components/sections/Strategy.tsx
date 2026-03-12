@@ -438,18 +438,19 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
   }
 
   // Default layout: left text + right image with brand clip-path
+  const hasImage = "image" in tab && (tab as any).image;
   return (
     <div
       className="relative flex h-full w-full flex-col lg:flex-row lg:items-stretch"
     >
-      {/* Left side: Content */}
-      <div className="z-10 flex w-full flex-col justify-start px-6 md:pl-32 md:pr-12 lg:w-[48%] lg:pl-[12vw] xl:pl-[15vw] lg:pr-16 pt-6 lg:pt-10 pb-4">
+      {/* Left side: Content (centered when no image) */}
+      <div className={`z-10 flex w-full flex-col justify-start pt-6 lg:pt-10 pb-4 ${hasImage ? "px-6 md:pl-32 md:pr-12 lg:w-[48%] lg:pl-[12vw] xl:pl-[15vw] lg:pr-16" : "px-6 md:px-16 lg:w-full items-center text-center"}`}>
         <FadeInView>
           <h3 className="text-[28px] font-light leading-[1.15] md:text-[36px] lg:text-[42px]" style={{ color: "#001421" }}>
             {tab.subtitle}
           </h3>
 
-          <div className="mt-5 lg:mt-6 space-y-5 lg:space-y-8 max-w-xl">
+          <div className={`mt-5 lg:mt-6 space-y-5 lg:space-y-8 ${hasImage ? "max-w-xl" : "max-w-3xl w-full"}`}>
             {"items" in tab ? (
               (tab.items as Array<{ title: string; description: string }>).map((item: { title: string; description: string }, i: number) => (
                 <AnimatedStrategyItem key={i} item={item} index={i} isActive={isActive ?? true} />
