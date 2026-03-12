@@ -7,6 +7,7 @@ import { content } from "@/lib/content";
 import { FadeInView } from "@/components/ui/FadeInView";
 import { SectionMarker } from "@/components/ui/SectionMarker";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
+import { KeyVisualShape } from "@/components/ui/KeyVisualShape";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -34,12 +35,23 @@ export function CorporateIdentity() {
   }, [prefersReduced]);
 
   return (
-    <section id="corporate-identity" className="relative py-32 md:py-40 overflow-hidden">
+    <section id="corporate-identity" className="relative py-32 md:py-40 overflow-hidden" style={{ backgroundColor: "#001421" }}>
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: "url('images/corporate-map.png')" }}
+        />
+      </div>
+
+      {/* Decorative key visual shape */}
+      <div className="pointer-events-none absolute -right-12 top-16 md:right-8 lg:right-16">
+        <KeyVisualShape
+          variant="single"
+          style="outline"
+          opacity={0.06}
+          className="h-[400px] w-[280px] md:h-[500px] md:w-[350px]"
+          id="ci"
         />
       </div>
 
@@ -50,13 +62,13 @@ export function CorporateIdentity() {
 
         <div className="mt-16 max-w-3xl">
           <FadeInView delay={0.1}>
-            <h2 className="text-3xl font-bold text-white md:text-5xl">
+            <h2 className="text-3xl font-light text-white md:text-5xl">
               {c.title}
             </h2>
           </FadeInView>
 
           <FadeInView delay={0.2}>
-            <p className="mt-6 text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+            <p className="mt-6 text-lg leading-[1.2]" style={{ color: "rgba(255,255,255,0.65)" }}>
               {c.description}
             </p>
           </FadeInView>
@@ -64,12 +76,12 @@ export function CorporateIdentity() {
 
         {/* Vertical connector line */}
         <div className="py-12">
-          <div ref={lineRef} className="h-20 w-px" style={{ background: "#b88463" }} />
+          <div ref={lineRef} className="h-20 w-px" style={{ background: "#b27f59" }} />
         </div>
 
         {/* Purpose */}
         <FadeInView delay={0.3}>
-          <p className="text-xs font-semibold tracking-[0.25em] uppercase" style={{ color: "#b88463" }}>
+          <p className="text-xs font-medium tracking-[0.25em] uppercase" style={{ color: "#b27f59" }}>
             {c.purpose}
           </p>
         </FadeInView>
@@ -82,10 +94,10 @@ export function CorporateIdentity() {
                 <AnimatedCounter
                   value={stat.value}
                   suffix={(stat as any).suffix}
-                  className="text-6xl font-black md:text-8xl tracking-tighter"
-                  style={{ color: "#b88463" }}
+                  className="text-6xl font-bold md:text-8xl tracking-tighter"
+                  style={{ color: "#ffffff" }}
                 />
-                <p className="mt-2 text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
+                <p className="mt-2 text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>
                   {stat.label}
                 </p>
               </div>

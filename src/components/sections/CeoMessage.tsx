@@ -49,7 +49,7 @@ export function CeoMessage() {
       className="relative flex min-h-screen items-center overflow-hidden py-24 text-white"
       style={{
         background:
-          "linear-gradient(165deg, #000d33 0%, #00071c 30%, #000000 55%, #301d10 78%, #7e4d2c 95%)",
+          "linear-gradient(165deg, #001421 0%, #000e18 25%, #000000 55%, #3d2414 73%, #8c684a 95%)",
       }}
     >
       <div className="mx-auto max-w-6xl px-6">
@@ -62,25 +62,25 @@ export function CeoMessage() {
           <div>
             <TextReveal
               as="blockquote"
-              className="text-2xl font-bold leading-relaxed md:text-3xl"
+              className="text-2xl font-medium leading-[1.15] md:text-3xl"
               splitBy="words"
               stagger={0.05}
-              style={{ color: "#cfa77c" }}
+              style={{ color: "rgba(255,255,255,0.85)" }}
             >
               {c.quote}
             </TextReveal>
 
             <FadeInView delay={0.5}>
-              <p className="mt-10 text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+              <p className="mt-10 text-base leading-[1.2]" style={{ color: "rgba(255,255,255,0.65)" }}>
                 {c.body}
               </p>
             </FadeInView>
 
             <FadeInView delay={0.7}>
               <div className="mt-12">
-                <div className="mb-2 h-px w-12" style={{ background: "#b88463" }} />
+                <div className="mb-2 h-px w-12" style={{ background: "#b27f59" }} />
                 <p className="text-sm font-bold text-white">{c.name}</p>
-                <p className="text-xs" style={{ color: "rgba(184,132,99,0.7)" }}>
+                <p className="text-xs" style={{ color: "rgba(178,127,89,0.7)" }}>
                   {c.title}
                 </p>
               </div>
@@ -90,20 +90,20 @@ export function CeoMessage() {
           {/* Portrait placeholder */}
           <div
             ref={portraitRef}
-            className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-3xl"
+            className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden"
             style={{
               opacity: prefersReduced ? 1 : 0,
               background:
-                "linear-gradient(180deg, rgba(184,132,99,0.15) 0%, rgba(0,13,51,0.3) 100%)",
+                "linear-gradient(180deg, rgba(178,127,89,0.15) 0%, rgba(0,13,51,0.3) 100%)",
             }}
           >
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center">
                 <div
                   className="mx-auto mb-4 h-28 w-28 rounded-full"
-                  style={{ background: "rgba(184,132,99,0.12)" }}
+                  style={{ background: "rgba(178,127,89,0.12)" }}
                 />
-                <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
+                <p className="text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>
                   CEO Portrait
                 </p>
               </div>

@@ -35,7 +35,7 @@ export function Navigation() {
     }
   };
 
-  const isLight = ["strategy", "corporate-identity"].includes(activeSection);
+  const isLight = ["strategy", "corporate-identity", "sustainability"].includes(activeSection);
 
   return (
     <nav
@@ -55,7 +55,7 @@ export function Navigation() {
           className="absolute top-0 left-0 w-full"
           style={{
             height: `${scrollProgress * 100}%`,
-            background: "#b88463",
+            background: "#b27f59",
             transition: "height 0.1s linear",
           }}
         />
@@ -86,11 +86,11 @@ export function Navigation() {
                   width: isActive ? "6px" : "4px",
                   height: isActive ? "6px" : "4px",
                   background: isActive
-                    ? "#b88463"
+                    ? "#b27f59"
                     : isHovered
-                      ? "rgba(184,132,99,0.6)"
+                      ? "rgba(178,127,89,0.6)"
                       : isLight ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.2)",
-                  boxShadow: isActive ? "0 0 6px rgba(184,132,99,0.6)" : "none",
+                  boxShadow: isActive ? "0 0 6px rgba(178,127,89,0.6)" : "none",
                 }}
               />
 
@@ -98,7 +98,7 @@ export function Navigation() {
               <span
                 className="text-[13px] font-bold tabular-nums tracking-wider transition-all duration-300"
                 style={{
-                  color: isActive || isHovered ? "#b88463" : isLight ? "rgba(0,0,0,0.25)" : "rgba(255,255,255,0.25)",
+                  color: isActive || isHovered ? "#b27f59" : isLight ? "rgba(0,0,0,0.25)" : "rgba(255,255,255,0.25)",
                 }}
               >
                 {number}
@@ -110,7 +110,7 @@ export function Navigation() {
                 style={{
                   maxWidth: showLabel ? "120px" : "0px",
                   opacity: showLabel ? (isActive ? 1 : isHovered ? 0.8 : (isLight ? 0.5 : 0.35)) : 0,
-                  color: isActive ? "#b88463" : isLight ? "rgba(0,0,0,0.7)" : "rgba(255,255,255,0.9)",
+                  color: isActive ? "#b27f59" : isLight ? "rgba(0,0,0,0.7)" : "rgba(255,255,255,0.9)",
                 }}
               >
                 {label}
@@ -122,7 +122,7 @@ export function Navigation() {
                   className="ml-[-4px] block h-[1px] transition-all duration-500"
                   style={{
                     width: isActive ? "16px" : "8px",
-                    background: "#b88463",
+                    background: "#b27f59",
                     opacity: isActive ? 1 : 0.5,
                   }}
                 />

@@ -62,9 +62,16 @@ export function AnimatedCounter({
     };
   }, [value, prefix, suffix, decimals, duration, prefersReduced]);
 
+  /* Render an invisible placeholder of the final value to reserve width,
+     preventing layout shift as the counter animates from 0 → target.    */
+  const finalText = `${prefix}${value.toFixed(decimals)}${suffix}`;
+
   return (
-    <span ref={ref} className={className} style={style} aria-label={`${prefix}${value}${suffix}`}>
-      {display}
+    <span ref={ref} className={`relative inline-block ${className}`} style={{ ...style, fontVariantNumeric: "tabular-nums" }} aria-label={finalText}>
+      {/* Invisible placeholder — sets the minimum size */}
+      <span className="invisible" aria-hidden="true">{finalText}</span>
+      {/* Visible animated value — positioned on top */}
+      <span className="absolute inset-0">{display}</span>
     </span>
   );
 }

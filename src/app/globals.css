@@ -1,10 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --color-gold: #b88463;
-  --color-gold-dark: #b27e59;
-  --color-gold-light: #cfa77c;
-  --color-navy: #00132e;
+  /* ── AJB Official Brand Colors (Interbrand Sept 2025) ── */
+  /* Primary */
+  --color-sand: #b27f59;
+  --color-dark-sand: #8c684a;
+  --color-midnight-blue: #001421;
+  --color-pearl: #ffffff;
+  /* Secondary */
+  --color-dune: #cda991;
+  --color-slate: #333f48;       /* Pantone 7546 */
+  --color-grey: #5b6770;        /* Pantone 431 */
+  --color-grey-light: #a2aaad;  /* Pantone 429 */
+  /* Legacy aliases for Tailwind theme */
+  --color-gold: #b27f59;
+  --color-gold-dark: #8c684a;
+  --color-gold-light: #cda991;
+  --color-navy: #001421;
   --color-navy-deep: #000d33;
   --color-text-primary: #1b1b1b;
   --color-text-secondary: #343f48;
@@ -12,12 +24,12 @@
   --color-text-dim: #4e4e4e;
   --color-border: #d9dcdd;
   --gradient-dark: linear-gradient(15deg,
-      #000d33 0%,
-      #00071c 25%,
+      #001421 0%,
+      #000e18 25%,
       #000000 53%,
-      #301d10 73%,
-      #7e4d2c 109%,
-      #9e6137 125%);
+      #3d2414 73%,
+      #8c684a 109%,
+      #b27f59 125%);
 }
 
 @theme inline {
@@ -68,7 +80,7 @@ html.lenis body {
 
 /* Selection */
 ::selection {
-  background-color: var(--color-gold);
+  background-color: var(--color-sand);
   color: white;
 }
 
@@ -82,7 +94,7 @@ html.lenis body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-gold);
+  background: var(--color-sand);
   border-radius: 2px;
 }
 

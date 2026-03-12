@@ -9,13 +9,13 @@ export function SectionMarker({ number, label, light = false }: SectionMarkerPro
     <div className="flex items-center gap-3">
       <span
         className="text-xs font-bold tabular-nums tracking-wider"
-        style={{ color: "#b88463" }}
+        style={{ color: "#b27f59" }}
       >
         {number}
       </span>
       <span
         className="h-px w-6"
-        style={{ background: "#b88463", opacity: 0.4 }}
+        style={{ background: "#b27f59", opacity: 0.4 }}
       />
       <span
         className="text-[11px] font-bold uppercase tracking-[0.2em]"

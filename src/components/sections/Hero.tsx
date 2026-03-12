@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { content } from "@/lib/content";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { KeyVisualShape } from "@/components/ui/KeyVisualShape";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -113,8 +114,8 @@ export function Hero() {
           <div
             className="absolute inset-0 h-full w-full"
             style={{
-              background: "linear-gradient(165deg, #000d33 0%, #00071c 30%, #000000 55%, #301d10 78%, #7e4d2c 95%, #9e6137 110%)",
-              opacity: 0.6,
+              background: "linear-gradient(165deg, #001421 0%, #000e18 25%, #000000 55%, #3d2414 73%, #8c684a 95%, #b27f59 110%)",
+              opacity: 0.25,
             }}
           />
         </div>
@@ -143,12 +144,12 @@ export function Hero() {
         {/* Headline */}
         <h1
           ref={headlineRef}
-          className="flex flex-col text-left font-normal"
+          className="flex flex-col text-left font-light"
         >
           <span
-            className="hero-line block text-[38px] leading-[0.95] md:text-[64px] lg:text-[102px] lg:leading-[0.95]"
+            className="hero-line block text-[38px] leading-[1.15] md:text-[64px] lg:text-[102px] lg:leading-[1.15]"
             style={{
-              color: "#B88463",
+              color: "#b27f59",
               display: "block",
               opacity: prefersReduced ? 1 : 0,
             }}
@@ -156,7 +157,7 @@ export function Hero() {
             Wealth
           </span>
           <span
-            className="hero-line block text-[38px] leading-[0.95] md:text-[64px] lg:text-[102px] lg:leading-[0.95]"
+            className="hero-line block text-[38px] leading-[1.15] md:text-[64px] lg:text-[102px] lg:leading-[1.15]"
             style={{
               color: "#ffffff",
               display: "block",
@@ -176,10 +177,10 @@ export function Hero() {
             className="sub-item text-sm font-bold uppercase tracking-widest text-white/90"
             style={{ opacity: prefersReduced ? 1 : 0 }}
           >
-            / ABOUT US
+            / Annual Report 2025
           </p>
           <p
-            className="sub-item mt-4 text-[13px] leading-[1.7] text-white/75 md:text-[15px] lg:text-[16px]"
+            className="sub-item mt-4 text-[13px] leading-[1.2] text-white/75 md:text-[15px] lg:text-[16px]"
             style={{ opacity: prefersReduced ? 1 : 0 }}
           >
             Aljazira Bank is a Saudi Joint Stock Company and a full-service bank
@@ -194,7 +195,7 @@ export function Hero() {
       {/* Shapes Image — moved outside max-w-7xl to prevent overlap */}
       <div
         ref={shapesRef}
-        className="absolute right-8 lg:right-16 xl:right-32 top-1/2 z-[1] hidden h-[80%] w-[38%] -translate-y-1/2 lg:block"
+        className="absolute right-4 md:right-8 lg:right-16 xl:right-32 top-1/2 z-[1] h-[50%] w-[30%] -translate-y-1/2 opacity-40 md:h-[65%] md:w-[35%] md:opacity-60 lg:h-[80%] lg:w-[38%] lg:opacity-100"
       >
         <div className="shapes-inner h-full w-full" style={{ opacity: prefersReduced ? 1 : 0 }}>
           <img
@@ -213,13 +214,13 @@ export function Hero() {
         <div className="scroll-inner flex flex-col items-center gap-3" style={{ opacity: prefersReduced ? 1 : 0 }}>
           <span
             className="text-[10px] font-medium uppercase tracking-[0.3em]"
-            style={{ color: "rgba(207,167,124,0.6)" }}
+            style={{ color: "rgba(178,127,89,0.6)" }}
           >
             {scroll}
           </span>
           <div
             className="h-10 w-px animate-pulse"
-            style={{ background: "linear-gradient(to bottom, rgba(184,132,99,0.6), transparent)" }}
+            style={{ background: "linear-gradient(to bottom, rgba(178,127,89,0.6), transparent)" }}
           />
         </div>
       </div>

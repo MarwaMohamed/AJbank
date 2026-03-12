@@ -20,7 +20,7 @@ export function Marquee({
     .map((_, i) => (
       <span key={i} className="whitespace-nowrap">
         {text}
-        <span className="mx-6" style={{ color: "#b88463" }}>{separator}</span>
+        <span className="mx-6" style={{ color: "#b27f59" }}>{separator}</span>
       </span>
     ));
 

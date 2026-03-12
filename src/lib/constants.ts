@@ -1,12 +1,25 @@
+/* ── AJB Official Brand Colors (Interbrand Sept 2025) ── */
 export const COLORS = {
+  sand: {
+    DEFAULT: "#b27f59",   // Primary Sand (Pantone 4645 C)
+    dark: "#8c684a",      // Primary Dark Sand (Pantone 4635 C)
+    light: "#cda991",     // Dune (Pantone 4665 C) — secondary
+  },
+  // Legacy aliases (gold → sand) for backward compat
   gold: {
-    DEFAULT: "#b88463",
-    dark: "#b27e59",
-    light: "#cfa77c",
+    DEFAULT: "#b27f59",
+    dark: "#8c684a",
+    light: "#cda991",
   },
   navy: {
-    DEFAULT: "#00132e",
-    deep: "#000d33",
+    DEFAULT: "#001421",   // Primary Midnight Blue (Pantone 296 C)
+    deep: "#000d33",      // Gradient stop
+  },
+  slate: "#333f48",       // Pantone 7546 — secondary
+  dune: "#cda991",        // Pantone 4665 C — secondary
+  grey: {
+    DEFAULT: "#5b6770",   // Pantone 431
+    light: "#a2aaad",     // Pantone 429
   },
   text: {
     primary: "#1b1b1b",
@@ -16,11 +29,12 @@ export const COLORS = {
   },
   border: "#d9dcdd",
   white: "#ffffff",
+  pearl: "#ffffff",       // Primary Pearl
   black: "#000000",
 } as const;
 
 export const GRADIENT_DARK =
-  "linear-gradient(15deg, #000d33 0%, #00071c 25%, #000000 53%, #301d10 73%, #7e4d2c 109%, #9e6137 125%)";
+  "linear-gradient(15deg, #001421 0%, #000e18 25%, #000000 53%, #3d2414 73%, #8c684a 109%, #b27f59 125%)";
 
 export const SECTIONS = [
   { id: "hero", label: "Home", number: "001" },

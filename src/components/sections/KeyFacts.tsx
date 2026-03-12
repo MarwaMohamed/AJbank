@@ -23,14 +23,15 @@ function getAllCards() {
 }
 
 function FactCard({ card, index, className, darkText = false }: { card: any, index: number, className: string, darkText?: boolean }) {
-  const color = darkText ? "rgba(0,0,0,0.85)" : "#B78260";
-  const mutedColor = darkText ? "rgba(0,0,0,0.15)" : "rgba(183,130,96,0.2)";
+  /* Brand-aligned colors: Midnight Blue (#001421) for dark text, Pearl for light */
+  const color = darkText ? "rgba(0,20,33,0.85)" : "rgba(255,255,255,0.7)";
+  const mutedColor = darkText ? "rgba(0,20,33,0.12)" : "rgba(255,255,255,0.2)";
 
   return (
     <div className={`kf-grid-item flex flex-col justify-between p-8 md:p-10 rounded-[16px] shadow-sm overflow-hidden ${className}`}>
       {/* Top Header */}
-      <div className={`flex items-start justify-between font-bold tracking-tight mb-8 ${darkText ? "text-black" : "text-white"}`}>
-        <p className="text-lg md:text-xl leading-snug max-w-[200px]">{card.label}</p>
+      <div className="flex items-start justify-between font-medium tracking-tight mb-8" style={{ color: darkText ? "#001421" : "#ffffff" }}>
+        <p className="text-lg md:text-xl leading-[1.15] max-w-[200px]">{card.label}</p>
         <span className="text-[10px] uppercase tracking-[0.2em] font-medium opacity-60 text-right max-w-[100px] leading-tight">
           {card.group}
         </span>
@@ -54,11 +55,11 @@ function FactCard({ card, index, className, darkText = false }: { card: any, ind
           </div>
         )}
 
-        {/* Number Area */}
-        <div className={`flex items-end ${darkText ? "text-black" : "text-white"}`}>
+        {/* Number Area — fixed height to prevent layout shift during counter animation */}
+        <div className="flex items-end" style={{ color: darkText ? "#001421" : "#ffffff", minHeight: "clamp(80px, 12vw, 130px)" }}>
           <div
             className="text-[80px] md:text-[96px] lg:text-[110px] xl:text-[130px] font-medium leading-[0.8] tracking-tighter relative"
-            style={{ fontFamily: "'PP Cirka', 'Palatino Linotype', serif" }}
+            style={{ fontFamily: "Tajawal, sans-serif", fontVariantNumeric: "tabular-nums" }}
           >
             {/* Ring visualization for index 2 */}
             {index === 2 && (
@@ -77,8 +78,8 @@ function FactCard({ card, index, className, darkText = false }: { card: any, ind
               <span
                 className="text-4xl md:text-5xl lg:text-7xl font-normal"
                 style={{
-                  fontFamily: "'PP Cirka', 'Palatino Linotype', serif",
-                  color: darkText ? "rgba(0,0,0,0.6)" : "#b88463"
+                  fontFamily: "Tajawal, sans-serif",
+                  color: darkText ? "rgba(0,20,33,0.55)" : "rgba(255,255,255,0.5)"
                 }}
               >
                 {card.suffix}
@@ -95,18 +96,21 @@ function FactCard({ card, index, className, darkText = false }: { card: any, ind
         {/* Download Button */}
         <div className="mt-8 flex justify-start">
           <button
-            className={`group flex items-center gap-[12px] rounded-full border px-[16px] py-[6px] transition-all ${darkText
-              ? "border-black/20 text-black hover:bg-black/5"
-              : "border-white/20 text-white hover:bg-white/5"
-              }`}
+            className="group flex items-center gap-[12px] rounded-full border px-[16px] py-[6px] transition-all"
+            style={{
+              borderColor: darkText ? "rgba(0,20,33,0.2)" : "rgba(255,255,255,0.2)",
+              color: darkText ? "#001421" : "#ffffff",
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = darkText ? "rgba(0,20,33,0.05)" : "rgba(255,255,255,0.05)"}
+            onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
             aria-label="Download full report"
           >
             <span className="text-[14px] md:text-[16px] font-medium">
-              Download block
+              Download Report
             </span>
             <div
-              className={`flex h-[32px] w-[32px] shrink-0 items-center justify-center rounded-full border transition-all ${darkText ? "border-black/20" : "border-white/20"
-                }`}
+              className="flex h-[32px] w-[32px] shrink-0 items-center justify-center rounded-full border transition-all"
+              style={{ borderColor: darkText ? "rgba(0,20,33,0.2)" : "rgba(255,255,255,0.2)" }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -163,13 +167,13 @@ export function KeyFacts() {
     <section
       ref={sectionRef}
       id="key-facts"
-      className="relative w-full overflow-hidden bg-[#f6f5f3] py-24 md:py-32 lg:py-40"
+      className="relative w-full overflow-hidden bg-white py-24 md:py-32 lg:py-40"
     >
       {/* Header */}
-      <div className="relative z-10 mx-auto max-w-[1400px] px-6 md:px-12 w-full text-black">
+      <div className="relative z-10 mx-auto max-w-[1400px] px-6 md:px-12 w-full" style={{ color: "#001421" }}>
         <SectionMarker number={c.number} label={c.label} />
-        <div className="mt-4 mb-6 h-px w-full bg-black/10" />
-        <h2 className="text-[32px] md:text-[40px] lg:text-[50px] font-light leading-tight max-w-2xl tracking-tight" style={{ fontFamily: "Tajawal, sans-serif" }}>
+        <div className="mt-4 mb-6 h-px w-full" style={{ background: "rgba(0,20,33,0.1)" }} />
+        <h2 className="text-[32px] md:text-[40px] lg:text-[50px] font-light leading-[1.15] max-w-2xl tracking-tight" style={{ fontFamily: "Tajawal, sans-serif", color: "#001421" }}>
           Key Facts & Figures
         </h2>
       </div>
@@ -180,24 +184,24 @@ export function KeyFacts() {
 
           {/* Column 1 */}
           <div className="flex flex-col gap-6 md:gap-8 w-full lg:w-1/3">
-            <FactCard card={cards[0]} index={0} className="flex-[0.9] min-h-[240px] bg-[#000d33]" />
-            <FactCard card={cards[4]} index={4} className="flex-[0.8] min-h-[250px] bg-[#DCC2B2]" darkText />
+            <FactCard card={cards[0]} index={0} className="flex-[0.9] min-h-[240px] bg-[#001421]" />
+            <FactCard card={cards[4]} index={4} className="flex-[0.8] min-h-[250px] bg-[#cda991]" darkText />
           </div>
 
           {/* Column 2 */}
           <div className="flex flex-col gap-6 md:gap-8 w-full lg:w-1/3">
             <div className="kf-grid-item flex-[1.2] relative min-h-[350px] rounded-[16px] overflow-hidden shadow-sm">
-              <img src="images/keyfact.png" className="absolute inset-0 w-full h-full object-cover scale-[1.2] origin-left lg:scale-[1.25] xl:scale-[1.3] -translate-x-2" alt="" />
-              <div className="absolute inset-0 bg-black/10" />
+              <img src="images/keyfact.png" className="absolute inset-0 w-full h-full object-cover" alt="" />
+              <div className="absolute inset-0" style={{ background: "rgba(0,20,33,0.10)" }} />
             </div>
-            <FactCard card={cards[1]} index={1} className="flex-1 min-h-[300px] bg-[#1c0e0a]" />
+            <FactCard card={cards[1]} index={1} className="flex-1 min-h-[300px] bg-[#001421]" />
           </div>
 
           {/* Column 3 */}
           <div className="flex flex-col gap-6 md:gap-8 w-full lg:w-1/3">
-            <FactCard card={cards[3]} index={3} className="flex-1 min-h-[280px] bg-[#CCA991]" darkText />
-            <FactCard card={cards[2]} index={2} className="flex-1 min-h-[280px] bg-[#B78260]" />
-            <FactCard card={cards[5]} index={5} className="flex-1 min-h-[280px] bg-[#0a1628]" />
+            <FactCard card={cards[3]} index={3} className="flex-1 min-h-[280px] bg-[#333f48]" />
+            <FactCard card={cards[2]} index={2} className="flex-1 min-h-[280px] bg-[#cda991]" darkText />
+            <FactCard card={cards[5]} index={5} className="flex-1 min-h-[280px] bg-[#001421]" />
           </div>
 
         </div>

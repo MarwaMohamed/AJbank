@@ -122,14 +122,14 @@ export function AtAGlance() {
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
         <h2
           ref={titleRef}
-          className="text-3xl font-bold uppercase leading-snug tracking-wide md:text-5xl lg:text-6xl md:leading-tight"
+          className="text-3xl font-light leading-[1.15] tracking-wide md:text-5xl lg:text-6xl"
         >
           {titleWords.map((word, i) => (
             <span
               key={i}
               className="ag-word inline-block"
               style={{
-                color: prefersReduced ? "#ffffff" : "rgba(255,255,255,0.18)",
+                color: prefersReduced ? "#ffffff" : "rgba(255,255,255,0.35)",
                 transition: prefersReduced ? "none" : "color 0.2s ease",
                 marginRight: "0.3em",
               }}
@@ -141,9 +141,9 @@ export function AtAGlance() {
 
         <p
           ref={descRef}
-          className="mx-auto mt-10 max-w-2xl text-lg leading-relaxed md:text-xl md:leading-relaxed"
+          className="mx-auto mt-10 max-w-2xl text-lg leading-[1.2] md:text-xl"
           style={{
-            color: "rgba(255,255,255,0.5)",
+            color: "rgba(255,255,255,0.65)",
             opacity: prefersReduced ? 1 : 0,
           }}
         >
