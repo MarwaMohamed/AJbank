@@ -46,7 +46,10 @@ next-env.d.ts
 # source/reference files
 *.pdf
 *.docx
-*.png
 resoruces/
 temp-*.html
 Homepage_Content_Extracted.md
+
+# ignore PNGs outside public (reference/source files)
+# but allow all images in public/ for deployment
+!/public/images/**
