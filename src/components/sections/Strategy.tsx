@@ -439,34 +439,53 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
 
   // Default layout: left text + right image with brand clip-path
   const hasImage = "image" in tab && (tab as any).image;
-  return (
-    <div
-      className="relative flex h-full w-full flex-col lg:flex-row lg:items-stretch"
-    >
-      {/* Left side: Content (centered when no image) */}
-      <div className={`z-10 flex w-full flex-col justify-start pt-6 lg:pt-10 pb-4 ${hasImage ? "px-6 md:pl-32 md:pr-12 lg:w-[48%] lg:pl-[12vw] xl:pl-[15vw] lg:pr-16" : "px-6 md:px-16 lg:w-full items-center text-center"}`}>
-        <FadeInView>
-          <h3 className="text-[28px] font-light leading-[1.15] md:text-[36px] lg:text-[42px]" style={{ color: "#001421" }}>
-            {tab.subtitle}
-          </h3>
 
-          <div className={`mt-5 lg:mt-6 space-y-5 lg:space-y-8 ${hasImage ? "max-w-xl" : "max-w-3xl w-full"}`}>
-            {"items" in tab ? (
-              (tab.items as Array<{ title: string; description: string }>).map((item: { title: string; description: string }, i: number) => (
-                <AnimatedStrategyItem key={i} item={item} index={i} isActive={isActive ?? true} />
-              ))
-            ) : (
+  if (!hasImage) {
+    return (
+      <div className="relative flex h-full w-full items-start justify-center px-6 md:px-16 pt-6 lg:pt-10 pb-4">
+        <div className="w-full max-w-3xl text-center">
+          <FadeInView>
+            <h3 className="text-[28px] font-light leading-[1.15] md:text-[36px] lg:text-[42px]" style={{ color: "#001421" }}>
+              {tab.subtitle}
+            </h3>
+            <div className="mt-5 lg:mt-6 space-y-5 lg:space-y-8">
+              {"items" in tab ? (
+                (tab.items as Array<{ title: string; description: string }>).map((item: { title: string; description: string }, i: number) => (
+                  <AnimatedStrategyItem key={i} item={item} index={i} isActive={isActive ?? true} />
+                ))
+              ) : (
+                <p className="text-[15px] lg:text-base leading-[1.5]" style={{ color: "rgba(0,20,33,0.6)" }}>
+                  {tab.description}
+                </p>
+              )}
+            </div>
+          </FadeInView>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative h-full w-full">
+      {/* Shared content frame — single box with consistent padding */}
+      <div className="mx-auto flex h-full max-w-[1400px] items-start gap-8 lg:gap-12 px-6 md:px-12 lg:px-16 xl:px-20 pt-8 lg:pt-12 pb-4">
+
+        {/* Left: Text */}
+        <div className="z-10 flex w-full flex-col lg:w-[45%] xl:w-[42%]">
+          <FadeInView>
+            <h3 className="text-[28px] font-light leading-[1.15] md:text-[36px] lg:text-[42px]" style={{ color: "#001421" }}>
+              {tab.subtitle}
+            </h3>
+            <div className="mt-5 lg:mt-6 max-w-xl">
               <p className="text-[15px] lg:text-base leading-[1.5]" style={{ color: "rgba(0,20,33,0.6)" }}>
                 {tab.description}
               </p>
-            )}
-          </div>
-        </FadeInView>
-      </div>
+            </div>
+          </FadeInView>
+        </div>
 
-      {/* Right side: Image with brand key visual shape clip-path */}
-      {"image" in tab && (tab as any).image && (
-        <div className="hidden lg:block lg:w-[52%] relative pl-4 xl:pl-8 pt-6 lg:pt-10">
+        {/* Right: Image with brand key visual shape */}
+        <div className="hidden lg:block lg:w-[55%] xl:w-[58%]">
           <svg width="0" height="0" className="absolute">
             <defs>
               <clipPath id={`brand-shape-${tab.key}`} clipPathUnits="objectBoundingBox">
@@ -475,21 +494,19 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
             </defs>
           </svg>
 
-          {/* Container for shape + accent — constrained size */}
           <div className="relative w-[340px] xl:w-[400px] aspect-[3/4]">
-            {/* Gold accent behind the shape — bottom right */}
+            {/* Gold accent */}
             <div
               className="absolute bottom-[5%] right-0 h-[40%] w-[55%]"
               style={{ background: "linear-gradient(135deg, #b27f59 0%, #8c684a 100%)" }}
             />
-
             {/* Clipped image */}
             <div
               className="absolute inset-0 overflow-hidden"
               style={{ clipPath: `url(#brand-shape-${tab.key})` }}
             >
               <Image
-                src={asset("image" in tab ? (tab as any).image : "")}
+                src={asset((tab as any).image)}
                 alt={tab.subtitle}
                 fill
                 className="object-cover"
@@ -499,7 +516,8 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
             </div>
           </div>
         </div>
-      )}
+
+      </div>
     </div>
   );
 }
