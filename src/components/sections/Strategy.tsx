@@ -182,7 +182,7 @@ function AnimatedStrategyItem({ item, isActive, index }: { item: any, isActive: 
         ref={textRef}
         className="opacity-0 -translate-x-4"
       >
-        <h4 className="text-xl font-bold" style={{ color: "#001421" }}>{item.heading}</h4>
+        <h4 className="text-[22px] lg:text-2xl font-medium" style={{ color: "#001421" }}>{item.heading}</h4>
         <p className="mt-2 lg:mt-3 text-sm lg:text-base leading-[1.2]" style={{ color: "rgba(0,20,33,0.6)" }}>
           {item.desc}
         </p>
