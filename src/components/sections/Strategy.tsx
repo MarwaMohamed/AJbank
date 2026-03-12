@@ -467,11 +467,10 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
 
   return (
     <div className="relative h-full w-full">
-      {/* Shared content frame — single box with consistent padding */}
-      <div className="mx-auto flex h-full max-w-[1400px] items-start gap-8 lg:gap-12 px-6 md:px-12 lg:px-16 xl:px-20 pt-8 lg:pt-12 pb-4">
+      <div className="mx-auto flex h-full max-w-[1400px] items-start gap-8 lg:gap-12 px-6 md:px-12 lg:px-16 xl:px-20 pb-4">
 
-        {/* Left: Text */}
-        <div className="z-10 flex w-full flex-col lg:w-[45%] xl:w-[42%]">
+        {/* Left: Text — has its own top padding */}
+        <div className="z-10 flex w-full flex-col lg:w-[45%] xl:w-[42%] pt-8 lg:pt-12">
           <FadeInView>
             <h3 className="text-[28px] font-light leading-[1.15] md:text-[36px] lg:text-[42px]" style={{ color: "#001421" }}>
               {tab.subtitle}
@@ -484,8 +483,8 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
           </FadeInView>
         </div>
 
-        {/* Right: Image with brand key visual shape */}
-        <div className="hidden lg:block lg:w-[55%] xl:w-[58%]">
+        {/* Right: Image — NO top padding, top edge aligns with tab bar line */}
+        <div className="hidden lg:flex lg:w-[55%] xl:w-[58%] justify-start pt-0">
           <svg width="0" height="0" className="absolute">
             <defs>
               <clipPath id={`brand-shape-${tab.key}`} clipPathUnits="objectBoundingBox">
@@ -495,12 +494,7 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
           </svg>
 
           <div className="relative w-[340px] xl:w-[400px] aspect-[3/4]">
-            {/* Gold accent */}
-            <div
-              className="absolute bottom-[5%] right-0 h-[40%] w-[55%]"
-              style={{ background: "linear-gradient(135deg, #b27f59 0%, #8c684a 100%)" }}
-            />
-            {/* Clipped image */}
+            {/* Clipped image — no background */}
             <div
               className="absolute inset-0 overflow-hidden"
               style={{ clipPath: `url(#brand-shape-${tab.key})` }}
