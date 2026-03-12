@@ -466,7 +466,7 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
 
       {/* Right side: Image with brand key visual shape clip-path */}
       {"image" in tab && (tab as any).image && (
-        <div className="hidden lg:flex lg:w-[52%] relative items-center justify-center">
+        <div className="hidden lg:flex lg:w-[52%] relative items-center justify-end pr-4 xl:pr-8">
           <svg width="0" height="0" className="absolute">
             <defs>
               <clipPath id={`brand-shape-${tab.key}`} clipPathUnits="objectBoundingBox">
@@ -475,25 +475,28 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
             </defs>
           </svg>
 
-          {/* Gold accent behind the shape — bottom right */}
-          <div
-            className="absolute bottom-[8%] right-[2%] h-[35%] w-[45%] rounded-sm"
-            style={{ background: "linear-gradient(135deg, #b27f59 0%, #8c684a 100%)" }}
-          />
-
-          {/* Clipped image */}
-          <div
-            className="relative w-full h-[85%] overflow-hidden"
-            style={{ clipPath: `url(#brand-shape-${tab.key})` }}
-          >
-            <Image
-              src={asset("image" in tab ? (tab as any).image : "")}
-              alt={tab.subtitle}
-              fill
-              className="object-cover"
-              style={{ objectPosition: "center 20%" }}
-              sizes="52vw"
+          {/* Container for shape + accent — constrained size */}
+          <div className="relative w-[340px] xl:w-[400px] aspect-[3/4]">
+            {/* Gold accent behind the shape — bottom right */}
+            <div
+              className="absolute bottom-[5%] right-0 h-[40%] w-[55%]"
+              style={{ background: "linear-gradient(135deg, #b27f59 0%, #8c684a 100%)" }}
             />
+
+            {/* Clipped image */}
+            <div
+              className="absolute inset-0 overflow-hidden"
+              style={{ clipPath: `url(#brand-shape-${tab.key})` }}
+            >
+              <Image
+                src={asset("image" in tab ? (tab as any).image : "")}
+                alt={tab.subtitle}
+                fill
+                className="object-cover"
+                style={{ objectPosition: "center 15%" }}
+                sizes="400px"
+              />
+            </div>
           </div>
         </div>
       )}
