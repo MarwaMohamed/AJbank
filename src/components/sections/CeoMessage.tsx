@@ -13,7 +13,9 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 gsap.registerPlugin(ScrollTrigger);
 
 export function CeoMessage() {
-  const c = content.ceoMessage;
+  const lm = content.leadershipMessages;
+  const ceo = lm.cards.find((card) => card.role === "CEO's Message") ?? lm.cards[1];
+  const c = { number: lm.number, label: lm.label, ...ceo };
   const sectionRef = useRef<HTMLElement>(null);
   const portraitRef = useRef<HTMLDivElement>(null);
   const prefersReduced = useReducedMotion();
