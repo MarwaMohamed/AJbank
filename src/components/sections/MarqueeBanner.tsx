@@ -12,7 +12,7 @@ export function MarqueeBanner() {
       }}
     >
       <Marquee
-        text={content.marquee.text}
+        text="WEALTH GROWS HERE"
         className="text-4xl font-bold tracking-[0.08em] md:text-7xl"
         separator=" — "
         repeat={5}

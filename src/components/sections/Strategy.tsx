@@ -450,7 +450,7 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
 
           <div className="mt-5 lg:mt-6 space-y-5 lg:space-y-8 max-w-xl">
             {"items" in tab ? (
-              tab.items.map((item, i) => (
+              (tab.items as Array<{ title: string; description: string }>).map((item: { title: string; description: string }, i: number) => (
                 <AnimatedStrategyItem key={i} item={item} index={i} isActive={isActive ?? true} />
               ))
             ) : (
