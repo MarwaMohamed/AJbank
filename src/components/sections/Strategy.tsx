@@ -469,7 +469,7 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
     <div className="relative h-full w-full">
       <div className="mx-auto flex h-full max-w-7xl items-start gap-8 lg:gap-12 px-6 md:px-24 lg:px-40 pb-4">
 
-        {/* Left: Text — has its own top padding */}
+        {/* Left: Text */}
         <div className="z-10 flex w-full flex-col lg:w-[45%] xl:w-[42%] pt-8 lg:pt-12">
           <FadeInView>
             <h3 className="text-[28px] font-light leading-[1.15] md:text-[36px] lg:text-[42px]" style={{ color: "#001421" }}>
@@ -483,32 +483,15 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
           </FadeInView>
         </div>
 
-        {/* Right: Image — NO top padding, top edge aligns with tab bar line */}
+        {/* Right: Image as-is, no clip-path, no cropping */}
         <div className="hidden lg:flex lg:w-[55%] xl:w-[58%] justify-start pt-0">
-          <svg width="0" height="0" className="absolute">
-            <defs>
-              <clipPath id={`brand-shape-${tab.key}`} clipPathUnits="objectBoundingBox">
-                <path d="M0.18,0 L1,0 L1,1 L0,1 L0,0.75 C0,0.75 0.05,0.68 0.08,0.62 C0.11,0.56 0.12,0.5 0.12,0.44 C0.12,0.38 0.11,0.32 0.08,0.26 C0.05,0.2 0,0.13 0,0.13 L0.18,0Z" />
-              </clipPath>
-            </defs>
-          </svg>
-
-          <div className="relative w-[340px] xl:w-[400px] aspect-[3/4]">
-            {/* Clipped image — no background */}
-            <div
-              className="absolute inset-0 overflow-hidden"
-              style={{ clipPath: `url(#brand-shape-${tab.key})` }}
-            >
-              <Image
-                src={asset((tab as any).image)}
-                alt={tab.subtitle}
-                fill
-                className="object-cover"
-                style={{ objectPosition: "center center" }}
-                sizes="400px"
-              />
-            </div>
-          </div>
+          <Image
+            src={asset((tab as any).image)}
+            alt={tab.subtitle}
+            width={500}
+            height={650}
+            className="h-auto w-full max-w-[420px] object-contain"
+          />
         </div>
 
       </div>
