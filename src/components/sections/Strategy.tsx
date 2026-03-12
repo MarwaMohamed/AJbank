@@ -466,7 +466,7 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
 
       {/* Right side: Image with brand key visual shape clip-path */}
       {"image" in tab && (tab as any).image && (
-        <div className="hidden lg:flex lg:w-[52%] relative items-center justify-end pr-4 xl:pr-8">
+        <div className="hidden lg:flex lg:w-[52%] relative items-start justify-end pr-4 xl:pr-8 pt-6 lg:pt-10">
           <svg width="0" height="0" className="absolute">
             <defs>
               <clipPath id={`brand-shape-${tab.key}`} clipPathUnits="objectBoundingBox">
