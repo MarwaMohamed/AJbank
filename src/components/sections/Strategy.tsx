@@ -467,7 +467,7 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
 
   return (
     <div className="relative h-full w-full">
-      <div className="mx-auto flex h-full max-w-[1400px] items-start gap-8 lg:gap-12 px-6 md:px-12 lg:px-16 xl:px-20 pb-4">
+      <div className="mx-auto flex h-full max-w-7xl items-start gap-8 lg:gap-12 px-6 md:px-24 lg:px-40 pb-4">
 
         {/* Left: Text — has its own top padding */}
         <div className="z-10 flex w-full flex-col lg:w-[45%] xl:w-[42%] pt-8 lg:pt-12">
@@ -504,7 +504,7 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
                 alt={tab.subtitle}
                 fill
                 className="object-cover"
-                style={{ objectPosition: "center 15%" }}
+                style={{ objectPosition: "center center" }}
                 sizes="400px"
               />
             </div>
