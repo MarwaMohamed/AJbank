@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { content } from "@/lib/content";
+import { asset } from "@/lib/basePath";
 import { FadeInView } from "@/components/ui/FadeInView";
 import { SectionMarker } from "@/components/ui/SectionMarker";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -68,7 +69,7 @@ export function Strategy() {
     >
       {/* Decorative Mask group SVG — brand key visual shape */}
       <div className="pointer-events-none absolute -right-20 top-1/2 -translate-y-1/2 opacity-[0.06] md:right-0 lg:right-12">
-        <img src="images/mask-group.svg" alt="" className="h-[600px] w-auto md:h-[800px] lg:h-[1000px]" />
+        <img src={asset("/images/mask-group.svg")} alt="" className="h-[600px] w-auto md:h-[800px] lg:h-[1000px]" />
       </div>
 
       {/* Subtle line graphic accent */}
@@ -359,7 +360,7 @@ function StrategyHubDiagram({ items, isActive }: { items: readonly { heading: st
         <g className="center-hub">
           <circle cx={cx} cy={cy} r="52" fill="#001421" />
           <image
-            href="/images/ajb-logo-new.png"
+            href={asset("/images/ajb-logo-new.png")}
             x={cx - 38}
             y={cy - 38}
             width="76"

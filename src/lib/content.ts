@@ -69,7 +69,7 @@ export const content = {
         role: "Chairman's Message",
         name: "Faisal Hamad Almansour",
         title: "Chairman of the Board",
-        image: "/images/board/Faisal Almansour.png",
+        image: "/images/board/Faisal-Almansour.png",
         quote:
           "The Board's strategic oversight has guided the Bank through a transformative era, ensuring that governance, risk discipline, and innovation remain at the core of every decision we take.",
         body: "Our commitment to shareholder value is matched only by our dedication to the communities we serve and the national agenda we proudly support.",
@@ -78,7 +78,7 @@ export const content = {
         role: "CEO's Message",
         name: "Hamad Abdulaziz AlEsa",
         title: "Chief Executive Officer",
-        image: "/images/board/Hamad AlEsa.png",
+        image: "/images/board/Hamad-AlEsa.png",
         quote:
           "This theme reflects the Bank's decisive transition from building foundations and strengthening infrastructure to a phase centered on value realization.",
         body: "Together, we remain focused on disciplined execution, sustainable growth, and delivering enduring value to all our stakeholders.",
@@ -87,7 +87,7 @@ export const content = {
         role: "CFO's Message",
         name: "Hani Mohammed Araki",
         title: "Chief Financial Officer",
-        image: "/images/board/Hani Araki.png",
+        image: "/images/board/Hani-Araki.png",
         quote:
           "Our financial results reflect the maturity of our strategy — with net profit growing 22%, total assets reaching SAR 165.9 billion, and an NPL ratio maintained at a healthy 1.03%.",
         body: "These outcomes are the direct result of disciplined capital allocation, prudent risk management, and consistent operational efficiency across all business lines.",

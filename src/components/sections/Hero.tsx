@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { content } from "@/lib/content";
+import { asset } from "@/lib/basePath";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { KeyVisualShape } from "@/components/ui/KeyVisualShape";
 
@@ -129,7 +130,7 @@ export function Hero() {
       >
         <div className="logo-inner h-full w-full flex items-center justify-start" style={{ opacity: prefersReduced ? 1 : 0 }}>
           <img
-            src="images/ajb-logo-new.png"
+            src={asset("/images/ajb-logo-new.png")}
             alt="Aljazira Bank Logo"
             className="max-h-full w-full object-contain object-left pointer-events-none"
           />
@@ -199,7 +200,7 @@ export function Hero() {
       >
         <div className="shapes-inner h-full w-full" style={{ opacity: prefersReduced ? 1 : 0 }}>
           <img
-            src="images/hero/shapes.png"
+            src={asset("/images/hero/shapes.png")}
             alt=""
             className="h-full w-full object-contain object-right"
           />

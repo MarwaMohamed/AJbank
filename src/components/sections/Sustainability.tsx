@@ -1,6 +1,7 @@
 "use client";
 
 import { content } from "@/lib/content";
+import { asset } from "@/lib/basePath";
 import { FadeInView } from "@/components/ui/FadeInView";
 import { SectionMarker } from "@/components/ui/SectionMarker";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
@@ -19,12 +20,12 @@ export function Sustainability() {
     >
       {/* Decorative Mask group SVG — brand key visual shape */}
       <div className="pointer-events-none absolute -left-20 bottom-12 md:-left-8 opacity-[0.05]">
-        <img src="images/mask-group.svg" alt="" className="h-[500px] w-auto md:h-[700px] lg:h-[900px]" />
+        <img src={asset("/images/mask-group.svg")} alt="" className="h-[500px] w-auto md:h-[700px] lg:h-[900px]" />
       </div>
 
       {/* Decorative Mask group SVG — right side, mirrored */}
       <div className="pointer-events-none absolute -right-20 top-12 md:-right-8 opacity-[0.04]" style={{ transform: "scaleX(-1)" }}>
-        <img src="images/mask-group.svg" alt="" className="h-[500px] w-auto md:h-[700px] lg:h-[900px]" />
+        <img src={asset("/images/mask-group.svg")} alt="" className="h-[500px] w-auto md:h-[700px] lg:h-[900px]" />
       </div>
 
       {/* Subtle line graphic accent */}

@@ -1,6 +1,7 @@
 "use client";
 
 import { content } from "@/lib/content";
+import { asset } from "@/lib/basePath";
 import { FadeInView } from "@/components/ui/FadeInView";
 
 export function Footer() {
@@ -24,7 +25,7 @@ export function Footer() {
         <FadeInView>
           <div className="mb-10 flex justify-center">
             <img
-              src="images/ajb-logo-new.png"
+              src={asset("/images/ajb-logo-new.png")}
               alt="Aljazira Bank"
               className="h-12 w-auto object-contain"
             />
