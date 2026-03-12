@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { content } from "@/lib/content";
+import { asset } from "@/lib/basePath";
 import { SectionMarker } from "@/components/ui/SectionMarker";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
@@ -258,7 +259,7 @@ export function LeadershipMessages() {
                       }}
                     />
                     <Image
-                      src={card.image}
+                      src={asset(card.image)}
                       alt={card.name}
                       fill
                       className="object-cover"

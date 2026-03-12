@@ -478,7 +478,7 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
             style={{ clipPath: `url(#brand-shape-${tab.key})` }}
           >
             <Image
-              src={"image" in tab ? (tab as any).image : ""}
+              src={asset("image" in tab ? (tab as any).image : "")}
               alt={tab.subtitle}
               fill
               className="object-cover"
