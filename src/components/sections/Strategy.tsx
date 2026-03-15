@@ -220,13 +220,13 @@ function StrategyHubDiagram({ items, isActive }: { items: readonly { heading: st
     side: "left" | "right";
   }[] = [
     // 0 — upper-left: "Launching the New Identity"
-    { bendX: 520, bendY: 180, endX: 280, endY: 180, side: "left" },
+    { bendX: 520, bendY: 160, endX: 280, endY: 160, side: "left" },
     // 1 — upper-right: "Digital-Led Growth"
     { bendX: 910, bendY: 250, endX: 1120, endY: 250, side: "right" },
-    // 2 — mid-right: "SME & Corporate Empowerment"
-    { bendX: 890, bendY: 475, endX: 1120, endY: 475, side: "right" },
+    // 2 — mid-left: "SME & Corporate Empowerment"
+    { bendX: 510, bendY: 430, endX: 280, endY: 430, side: "left" },
     // 3 — lower-left: "Value Realization"
-    { bendX: 505, bendY: 630, endX: 280, endY: 630, side: "left" },
+    { bendX: 505, bendY: 700, endX: 280, endY: 700, side: "left" },
     // 4 — lower-right: "Operational Resilience"
     { bendX: 875, bendY: 685, endX: 1120, endY: 685, side: "right" },
   ];
@@ -377,31 +377,33 @@ function StrategyHubDiagram({ items, isActive }: { items: readonly { heading: st
 
         const isLeft = spoke.side === "left";
         const xPct = (spoke.endX / vw) * 100;
-        const yPct = ((spoke.endY + 16) / vh) * 100;
+        const yPct = (spoke.endY / vh) * 100;
 
         return (
           <div
             key={i}
             ref={el => { labelsRef.current[i] = el; }}
-            className="absolute"
+            className="absolute flex flex-col"
             style={{
               left: `${xPct}%`,
               top: `${yPct}%`,
               transform: isLeft ? "translateX(-100%)" : "translateX(0)",
-              maxWidth: "230px",
+              maxWidth: "260px",
               textAlign: isLeft ? "right" : "left",
               opacity: 0,
             }}
           >
+            {/* Heading — above the line */}
             <div
-              className="text-[15px] lg:text-[17px] xl:text-lg font-bold leading-snug"
-              style={{ color: "#001421" }}
+              className="text-[18px] lg:text-[22px] xl:text-[26px] font-medium leading-tight"
+              style={{ color: "#001421", position: "absolute", bottom: "100%", left: 0, right: 0, paddingBottom: "6px" }}
             >
               {item.heading}
             </div>
+            {/* Description — below the line */}
             <p
-              className="mt-1 text-[11px] lg:text-xs xl:text-[13px] leading-relaxed"
-              style={{ color: "rgba(0,20,33,0.5)" }}
+              className="text-[11px] lg:text-xs xl:text-[13px] leading-relaxed"
+              style={{ color: "rgba(0,20,33,0.5)", paddingTop: "6px" }}
             >
               {item.desc}
             </p>
@@ -421,7 +423,7 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
     return (
       <div className="relative flex h-full w-full flex-col">
         {/* Title */}
-        <div className="z-10 px-6 md:pl-32 lg:pl-[12vw] xl:pl-[15vw] pt-2 lg:pt-4">
+        <div className="z-10 px-6 pt-2 lg:pt-4 text-center">
           <FadeInView>
             <h3 className="text-[28px] font-light leading-[1.15] md:text-[38px] lg:text-[44px]" style={{ color: "#001421" }}>
               {tab.subtitle}
@@ -490,7 +492,7 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
             alt={tab.subtitle}
             width={500}
             height={650}
-            className="h-auto w-full max-w-[420px] object-contain"
+            className="h-auto w-full max-w-[336px] object-contain"
           />
         </div>
 
