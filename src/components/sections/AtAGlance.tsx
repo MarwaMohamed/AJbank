@@ -43,6 +43,7 @@ const glassCards = [
     suffix: "%",
     label: "Growth in digital onboarding for SMEs",
     color: "rgba(178, 127, 89, 0.8)",
+    bgGradient: "linear-gradient(145deg, rgba(178,127,89,0.25) 0%, rgba(30,20,12,1) 60%, rgba(15,10,5,1) 100%)",
   },
   {
     id: 2,
@@ -50,6 +51,7 @@ const glassCards = [
     suffix: "%",
     label: "Net profit growth",
     color: "rgba(140, 104, 74, 0.8)",
+    bgGradient: "linear-gradient(145deg, rgba(140,104,74,0.25) 0%, rgba(25,18,10,1) 60%, rgba(12,8,4,1) 100%)",
   },
   {
     id: 3,
@@ -57,6 +59,7 @@ const glassCards = [
     suffix: "X",
     label: "Cumulative growth in digital account openings over 3 years",
     color: "rgba(62, 135, 211, 0.8)",
+    bgGradient: "linear-gradient(145deg, rgba(62,135,211,0.25) 0%, rgba(10,15,30,1) 60%, rgba(5,8,18,1) 100%)",
   },
 ];
 
@@ -67,12 +70,14 @@ function GlassCard({
   label,
   index,
   color,
+  bgGradient,
 }: {
   value: number;
   suffix: string;
   label: string;
   index: number;
   color: string;
+  bgGradient: string;
 }) {
   return (
     <div
@@ -90,7 +95,7 @@ function GlassCard({
         style={{
           clipPath: `url(#${SHAPE_ID})`,
           WebkitClipPath: `url(#${SHAPE_ID})`,
-          background: "linear-gradient(145deg, #1e140c, #0f0a05)",
+          background: bgGradient,
         }}
       />
       {/* Electric border glow */}
@@ -124,7 +129,7 @@ function GlassCard({
         style={{
           clipPath: `url(#${SHAPE_ID})`,
           WebkitClipPath: `url(#${SHAPE_ID})`,
-          background: "linear-gradient(145deg, rgba(30,20,12,1), rgba(15,10,5,1))",
+          background: bgGradient,
           boxShadow: "0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2)",
           overflow: "hidden",
         }}
@@ -394,6 +399,7 @@ export function AtAGlance() {
                 label={card.label}
                 index={index}
                 color={card.color}
+                bgGradient={card.bgGradient}
               />
             </div>
           ))}
