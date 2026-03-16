@@ -8,19 +8,22 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── AJB Key Visual Shape SVG path (landscape card adaptation) ──
-   Matches the brand shape: diagonal top-left cut, straight right,
-   large rounded bottom-right corner, bottom-left step/notch. */
+/* ── AJB Key Visual Shape SVG path (from brand guidelines PDF page 1) ──
+   Portrait-oriented shape with diagonal top edge, left-side notch,
+   and large sweeping curve at bottom-right. */
 const SHAPE_ID = "ajb-card-shape";
-const SHAPE_BORDER_ID = "ajb-card-shape-border";
 
-/* SVG path for the AJB key visual shape in a 1000x500 viewBox.
-   - Top-left diagonal cut from (0, 120) to top-right (1000, 0)
-   - Right side straight down
-   - Bottom-right: large rounded curve
-   - Bottom-left: step/notch indentation */
+/* ViewBox: 0 0 1000 1921 — exact proportions from brand PDF.
+   Shape features:
+   - Top-right peak at (1000, 0), diagonal down to mid-left (181, 622)
+   - Straight left edge down to (181, 1326)
+   - Bottom-left notch: (0, 1463) down to (0, 1921)
+   - Large sweeping curve from bottom-left to right side at (1000, 1025)
+   - Straight right edge up to top */
+const SHAPE_VB_W = 1000;
+const SHAPE_VB_H = 1921;
 const SHAPE_PATH =
-  "M 0 120 L 1000 0 L 1000 380 C 1000 450 950 500 880 500 L 120 500 L 60 440 L 0 460 Z";
+  "M 181 622 V 1326 L 0 1463 V 1921 C 0 1921 889 1247 900 1239 969 1186 1000 1119 1000 1025 V 0 Z";
 
 function ShapeDefs() {
   return (
@@ -33,9 +36,8 @@ function ShapeDefs() {
     >
       <defs>
         <clipPath id={SHAPE_ID} clipPathUnits="objectBoundingBox">
-          {/* Normalize path from 1000x500 viewBox to 0-1 range */}
           <path
-            d="M 0 0.24 L 1 0 L 1 0.76 C 1 0.9 0.95 1 0.88 1 L 0.12 1 L 0.06 0.88 L 0 0.92 Z"
+            d="M 0.181 0.3237 V 0.6902 L 0 0.7616 V 1 C 0 1 0.889 0.6489 0.8996 0.6447 0.9687 0.6175 1 0.5826 1 0.5334 V 0 Z"
           />
         </clipPath>
       </defs>
@@ -137,9 +139,10 @@ function GlassCard({
     >
       <div
         ref={cardRef}
-        className="relative w-[90%] md:w-[75%] lg:w-[65%] xl:w-[55%]"
+        className="relative w-[65%] sm:w-[50%] md:w-[40%] lg:w-[32%] xl:w-[28%]"
         style={{
-          height: "clamp(400px, 55vh, 540px)",
+          aspectRatio: `${SHAPE_VB_W} / ${SHAPE_VB_H}`,
+          maxHeight: "78vh",
           isolation: "isolate",
           top: `calc(-5vh + ${index * 25}px)`,
           transformOrigin: "top",
@@ -148,7 +151,7 @@ function GlassCard({
         {/* Electric border glow — shaped with the AJB key visual shape via SVG */}
         <svg
           className="absolute -inset-[3px] w-[calc(100%+6px)] h-[calc(100%+6px)] -z-10"
-          viewBox="0 0 1000 500"
+          viewBox={`0 0 ${SHAPE_VB_W} ${SHAPE_VB_H}`}
           preserveAspectRatio="none"
           style={{ filter: `drop-shadow(0 0 12px ${color})` }}
         >
@@ -190,7 +193,7 @@ function GlassCard({
           {/* Inner border that follows the shape */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none"
-            viewBox="0 0 1000 500"
+            viewBox={`0 0 ${SHAPE_VB_W} ${SHAPE_VB_H}`}
             preserveAspectRatio="none"
           >
             <path
@@ -205,20 +208,20 @@ function GlassCard({
           <div
             className="absolute top-0 left-0 right-0 pointer-events-none"
             style={{
-              height: "60%",
+              height: "45%",
               background:
-                "linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.08) 50%, transparent 100%)",
+                "linear-gradient(160deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.08) 50%, transparent 100%)",
             }}
           />
 
-          {/* Top shine line — follows the diagonal */}
+          {/* Top shine line — follows the diagonal from top-right to mid-left */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none"
-            viewBox="0 0 1000 500"
+            viewBox={`0 0 ${SHAPE_VB_W} ${SHAPE_VB_H}`}
             preserveAspectRatio="none"
           >
             <path
-              d="M 10 125 L 990 5"
+              d="M 190 625 L 995 5"
               fill="none"
               stroke="rgba(255,255,255,0.5)"
               strokeWidth="1.5"
@@ -228,11 +231,11 @@ function GlassCard({
           {/* Left edge reflection */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none"
-            viewBox="0 0 1000 500"
+            viewBox={`0 0 ${SHAPE_VB_W} ${SHAPE_VB_H}`}
             preserveAspectRatio="none"
           >
             <path
-              d="M 2 125 L 2 458"
+              d="M 183 630 L 183 1320"
               fill="none"
               stroke="rgba(255,255,255,0.25)"
               strokeWidth="2"
@@ -252,12 +255,14 @@ function GlassCard({
             }}
           />
 
-          {/* ─── Content ─── */}
-          <div className="relative z-10 flex flex-col h-full justify-between pt-8 md:pt-10">
+          {/* ─── Content — positioned within the visible shape area ─── */}
+          <div className="relative z-10 flex flex-col h-full justify-start"
+            style={{ paddingTop: "36%", paddingBottom: "46%", paddingLeft: "22%", paddingRight: "6%" }}
+          >
             {/* Label */}
             <div>
               <p
-                className="text-sm md:text-base font-medium uppercase tracking-[0.15em] leading-[1.2]"
+                className="text-[10px] sm:text-xs md:text-sm font-medium uppercase tracking-[0.15em] leading-[1.2]"
                 style={{ color: "rgba(255,255,255,0.65)" }}
               >
                 {label}
@@ -265,9 +270,9 @@ function GlassCard({
             </div>
 
             {/* Big number */}
-            <div className="flex items-end my-auto py-4">
+            <div className="flex items-end mt-auto mb-auto py-2">
               <div
-                className="text-[72px] sm:text-[90px] md:text-[110px] lg:text-[130px] font-light leading-[0.85] tracking-tighter text-white"
+                className="text-[48px] sm:text-[60px] md:text-[80px] lg:text-[100px] font-light leading-[0.85] tracking-tighter text-white"
                 style={{
                   fontFamily: "Tajawal, sans-serif",
                   fontVariantNumeric: "tabular-nums",
@@ -276,7 +281,7 @@ function GlassCard({
                 <AnimatedCounter value={value} />
               </div>
               <span
-                className="text-[36px] sm:text-[44px] md:text-[56px] lg:text-[64px] font-light ml-2 mb-1 md:mb-2"
+                className="text-[24px] sm:text-[32px] md:text-[40px] lg:text-[48px] font-light ml-1 mb-0.5 md:mb-1"
                 style={{ color: color.replace("0.8", "1") }}
               >
                 {suffix}
@@ -285,8 +290,8 @@ function GlassCard({
 
             {/* Description */}
             <p
-              className="text-sm md:text-base font-normal leading-[1.5] max-w-xl"
-              style={{ color: "rgba(255,255,255,0.55)" }}
+              className="text-[10px] sm:text-xs md:text-sm font-normal leading-[1.5]"
+              style={{ color: "rgba(255,255,255,0.55)", maxWidth: "65%" }}
             >
               {description}
             </p>
