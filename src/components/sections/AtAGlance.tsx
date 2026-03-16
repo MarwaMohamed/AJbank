@@ -1,23 +1,184 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { content } from "@/lib/content";
 import { SectionMarker } from "@/components/ui/SectionMarker";
+import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* ── AJB Key Visual Shape SVG (from KeyFactsGlassCards) ── */
+const SHAPE_ID = "ajb-card-shape";
+const SHAPE_VB_W = 1000;
+const SHAPE_VB_H = 1921;
+const SHAPE_PATH =
+  "M 181 622 V 1326 L 0 1463 V 1921 C 0 1921 889 1247 900 1239 969 1186 1000 1119 1000 1025 V 0 Z";
+
+function ShapeDefs() {
+  return (
+    <svg
+      width="0"
+      height="0"
+      className="absolute"
+      aria-hidden="true"
+      style={{ position: "absolute", width: 0, height: 0 }}
+    >
+      <defs>
+        <clipPath id={SHAPE_ID} clipPathUnits="objectBoundingBox">
+          <path d="M 0.181 0.3237 V 0.6902 L 0 0.7616 V 1 C 0 1 0.889 0.6489 0.8996 0.6447 0.9687 0.6175 1 0.5826 1 0.5334 V 0 Z" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}
+
+/* ── Card data ── */
+const glassCards = [
+  {
+    id: 1,
+    value: 223,
+    suffix: "%",
+    label: "Growth in digital onboarding for SMEs",
+    color: "rgba(178, 127, 89, 0.8)",
+  },
+  {
+    id: 2,
+    value: 22,
+    suffix: "%",
+    label: "Net profit growth",
+    color: "rgba(140, 104, 74, 0.8)",
+  },
+  {
+    id: 3,
+    value: 10,
+    suffix: "X",
+    label: "Cumulative growth in digital account openings over 3 years",
+    color: "rgba(62, 135, 211, 0.8)",
+  },
+];
+
+/* ── Single Glass Card (inline, no scroll-driven animation here) ── */
+function GlassCard({
+  value,
+  suffix,
+  label,
+  index,
+  color,
+}: {
+  value: number;
+  suffix: string;
+  label: string;
+  index: number;
+  color: string;
+}) {
+  return (
+    <div
+      className="glass-card relative"
+      style={{
+        width: "100%",
+        aspectRatio: `${SHAPE_VB_W} / ${SHAPE_VB_H}`,
+        maxHeight: "60vh",
+        isolation: "isolate",
+      }}
+    >
+      {/* Electric border glow */}
+      <svg
+        className="absolute -inset-[3px] w-[calc(100%+6px)] h-[calc(100%+6px)] -z-10"
+        viewBox={`0 0 ${SHAPE_VB_W} ${SHAPE_VB_H}`}
+        preserveAspectRatio="none"
+        style={{ filter: `drop-shadow(0 0 12px ${color})` }}
+      >
+        <defs>
+          <linearGradient id={`glow-aag-${index}`} gradientTransform="rotate(45)">
+            <stop offset="0%" stopColor="transparent" />
+            <stop offset="15%" stopColor={color} />
+            <stop offset="35%" stopColor={color.replace("0.8", "0.5")} />
+            <stop offset="50%" stopColor="transparent" />
+            <stop offset="70%" stopColor={color.replace("0.8", "0.3")} />
+            <stop offset="100%" stopColor="transparent" />
+          </linearGradient>
+        </defs>
+        <path
+          d={SHAPE_PATH}
+          fill="none"
+          stroke={`url(#glow-aag-${index})`}
+          strokeWidth="4"
+        />
+      </svg>
+
+      {/* Main glass card body */}
+      <div
+        className="relative w-full h-full flex flex-col justify-between p-8 md:p-12 lg:p-14"
+        style={{
+          clipPath: `url(#${SHAPE_ID})`,
+          WebkitClipPath: `url(#${SHAPE_ID})`,
+          background: "linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))",
+          backdropFilter: "blur(25px) saturate(180%)",
+          WebkitBackdropFilter: "blur(25px) saturate(180%)",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2)",
+          overflow: "hidden",
+        }}
+      >
+        {/* Inner border */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox={`0 0 ${SHAPE_VB_W} ${SHAPE_VB_H}`} preserveAspectRatio="none">
+          <path d={SHAPE_PATH} fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" />
+        </svg>
+
+        {/* Glass reflection */}
+        <div
+          className="absolute top-0 left-0 right-0 pointer-events-none"
+          style={{ height: "45%", background: "linear-gradient(160deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.08) 50%, transparent 100%)" }}
+        />
+
+        {/* Top shine line */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox={`0 0 ${SHAPE_VB_W} ${SHAPE_VB_H}`} preserveAspectRatio="none">
+          <path d="M 190 625 L 995 5" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" />
+        </svg>
+
+        {/* Left edge reflection */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox={`0 0 ${SHAPE_VB_W} ${SHAPE_VB_H}`} preserveAspectRatio="none">
+          <path d="M 183 630 L 183 1320" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="2" />
+        </svg>
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col h-full justify-center" style={{ paddingTop: "34%", paddingBottom: "44%", paddingLeft: "22%", paddingRight: "6%" }}>
+          <div className="card-text-item flex items-end">
+            <div
+              className="text-[64px] sm:text-[80px] md:text-[90px] lg:text-[110px] font-light leading-[0.85] tracking-tighter text-white"
+              style={{ fontFamily: "Tajawal, sans-serif", fontVariantNumeric: "tabular-nums" }}
+            >
+              <AnimatedCounter value={value} />
+            </div>
+            <span className="text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] font-light ml-1 mb-1 md:mb-2 text-white">
+              {suffix}
+            </span>
+          </div>
+          <div className="card-text-item mt-3 md:mt-4">
+            <p className="text-[10px] sm:text-xs md:text-sm font-medium uppercase tracking-[0.15em] leading-[1.2]" style={{ color: "rgba(255,255,255,0.65)" }}>
+              {label}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Combined At a Glance + Glass Cards Section ── */
 export function AtAGlance() {
   const c = content.atAGlance;
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const markerRef = useRef<HTMLDivElement>(null);
+  const textBlockRef = useRef<HTMLDivElement>(null);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
   const prefersReduced = useReducedMotion();
+  const [activeCard, setActiveCard] = useState(0);
 
-  /* Split title into words for the color-reveal effect */
   const titleWords = c.title.split(" ");
 
   useEffect(() => {
@@ -27,51 +188,104 @@ export function AtAGlance() {
     const words = titleRef.current.querySelectorAll<HTMLSpanElement>(".ag-word");
     const desc = descRef.current;
     const marker = markerRef.current;
+    const textBlock = textBlockRef.current;
+    const cardsContainer = cardsContainerRef.current;
+    const cards = cardsContainer?.querySelectorAll<HTMLElement>(".glass-card") ?? [];
 
     const ctx = gsap.context(() => {
-      /* Pin the section while the word reveal plays */
+      /* ── Phase 1: Pinned word reveal (centered text) ── */
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: `+=${window.innerHeight * 1.5}`, // Reduced from 2.2 to feel less redundant
+          end: `+=${window.innerHeight * 4}`,
           pin: true,
           scrub: 0.8,
           anticipatePin: 1,
         },
       });
 
-      /* Marker fade in */
+      /* 0–0.15: Marker fade in */
       if (marker) {
-        tl.fromTo(
-          marker,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.15, ease: "power2.out" },
-          0
-        );
+        tl.fromTo(marker, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 0);
       }
 
-      /* Word-by-word color reveal: dim → white */
+      /* 0–0.25: Word-by-word color reveal */
       words.forEach((word, i) => {
-        tl.to(
-          word,
-          {
-            color: "#ffffff",
-            duration: 0.2,
-            ease: "none",
-          },
-          (i / titleWords.length) * 0.8 // Fill most of the timeline
-        );
+        tl.to(word, { color: "#ffffff", duration: 0.12, ease: "none" }, (i / titleWords.length) * 0.22);
       });
 
-      /* Description paragraph fade in after title completes */
+      /* 0.2–0.3: Description fade in */
       if (desc) {
-        tl.fromTo(
-          desc,
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" },
-          0.7 // Arrive towards the end
+        tl.fromTo(desc, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.1, ease: "power3.out" }, 0.2);
+      }
+
+      /* ── Phase 2: Text moves left, cards appear right ── */
+      if (textBlock) {
+        // Move text block to the left
+        tl.to(textBlock, {
+          xPercent: -15,
+          scale: 0.85,
+          duration: 0.15,
+          ease: "power2.inOut",
+        }, 0.32);
+      }
+
+      // Cards container: fade in and slide from right
+      if (cardsContainer) {
+        gsap.set(cardsContainer, { opacity: 0, xPercent: 30 });
+        tl.to(cardsContainer, {
+          opacity: 1,
+          xPercent: 0,
+          duration: 0.15,
+          ease: "power3.out",
+        }, 0.35);
+      }
+
+      /* ── Phase 3: Cycle through cards with 3D flip ── */
+      if (cards.length > 0) {
+        // Set perspective on container
+        if (cardsContainer) {
+          gsap.set(cardsContainer, { perspective: 1200 });
+        }
+
+        // Initially hide all cards except first
+        cards.forEach((card, i) => {
+          if (i > 0) {
+            gsap.set(card, { opacity: 0, rotateY: -90, scale: 0.85 });
+          }
+        });
+
+        // Card 1 flip in
+        tl.fromTo(cards[0],
+          { opacity: 0, rotateY: -90, scale: 0.85 },
+          { opacity: 1, rotateY: 0, scale: 1, duration: 0.12, ease: "power3.out" },
+          0.42
         );
+
+        // Card transitions: flip out current, flip in next
+        for (let i = 1; i < cards.length; i++) {
+          const startTime = 0.42 + i * 0.18;
+
+          // Flip out previous
+          tl.to(cards[i - 1], {
+            rotateY: 90,
+            opacity: 0,
+            scale: 0.85,
+            duration: 0.08,
+            ease: "power2.in",
+          }, startTime);
+
+          // Flip in current
+          tl.fromTo(cards[i],
+            { opacity: 0, rotateY: -90, scale: 0.85 },
+            { opacity: 1, rotateY: 0, scale: 1, duration: 0.12, ease: "power3.out" },
+            startTime + 0.06
+          );
+        }
+
+        // Hold last card briefly
+        tl.to({}, { duration: 0.1 });
       }
     }, section);
 
@@ -84,7 +298,7 @@ export function AtAGlance() {
       id="at-a-glance"
       className="relative flex h-screen items-center justify-center overflow-hidden"
     >
-      {/* Background image with fallback gradient */}
+      {/* Background */}
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -94,7 +308,6 @@ export function AtAGlance() {
           backgroundColor: "#0a0700",
         }}
       />
-      {/* Fallback gradient matching the golden abstract aesthetic */}
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -103,13 +316,12 @@ export function AtAGlance() {
           mixBlendMode: "screen",
         }}
       />
-      {/* Dark overlay for text readability */}
-      <div
-        className="absolute inset-0 z-[1]"
-        style={{ background: "rgba(0,0,0,0.35)" }}
-      />
+      <div className="absolute inset-0 z-[1]" style={{ background: "rgba(0,0,0,0.35)" }} />
 
-      {/* Section marker – top-left */}
+      {/* SVG shape defs for glass cards */}
+      <ShapeDefs />
+
+      {/* Section marker */}
       <div
         ref={markerRef}
         className="absolute left-6 top-16 z-10 md:left-12 md:top-20"
@@ -118,37 +330,74 @@ export function AtAGlance() {
         <SectionMarker number={c.number} label={c.label} light />
       </div>
 
-      {/* Centered text block */}
-      <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-        <h2
-          ref={titleRef}
-          className="text-3xl font-light leading-[1.15] tracking-wide md:text-5xl lg:text-6xl"
+      {/* Main content area — flex row for text left + cards right */}
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-center px-6 md:px-12 lg:px-16 h-full">
+        {/* Text block — starts centered, moves left */}
+        <div
+          ref={textBlockRef}
+          className="flex-1 max-w-3xl text-center lg:text-left"
         >
-          {titleWords.map((word, i) => (
-            <span
-              key={i}
-              className="ag-word inline-block"
-              style={{
-                color: prefersReduced ? "#ffffff" : "rgba(255,255,255,0.35)",
-                transition: prefersReduced ? "none" : "color 0.2s ease",
-                marginRight: "0.3em",
-              }}
-            >
-              {word}
-            </span>
-          ))}
-        </h2>
+          <h2
+            ref={titleRef}
+            className="text-3xl font-light leading-[1.15] tracking-wide md:text-5xl lg:text-5xl"
+          >
+            {titleWords.map((word, i) => (
+              <span
+                key={i}
+                className="ag-word inline-block"
+                style={{
+                  color: prefersReduced ? "#ffffff" : "rgba(255,255,255,0.35)",
+                  transition: prefersReduced ? "none" : "color 0.2s ease",
+                  marginRight: "0.3em",
+                }}
+              >
+                {word}
+              </span>
+            ))}
+          </h2>
 
-        <p
-          ref={descRef}
-          className="mx-auto mt-10 max-w-2xl text-lg leading-[1.2] md:text-xl"
+          <p
+            ref={descRef}
+            className="mx-auto mt-10 max-w-xl text-lg leading-[1.2] md:text-xl lg:mx-0"
+            style={{
+              color: "rgba(255,255,255,0.65)",
+              opacity: prefersReduced ? 1 : 0,
+            }}
+          >
+            {c.description}
+          </p>
+        </div>
+
+        {/* Glass cards container — starts hidden, appears on right */}
+        <div
+          ref={cardsContainerRef}
+          className="flex flex-shrink-0 items-center justify-center"
           style={{
-            color: "rgba(255,255,255,0.65)",
+            width: "40%",
+            maxWidth: "380px",
             opacity: prefersReduced ? 1 : 0,
+            transformStyle: "preserve-3d",
           }}
         >
-          {c.description}
-        </p>
+          {glassCards.map((card, index) => (
+            <div
+              key={card.id}
+              className="absolute"
+              style={{
+                width: "100%",
+                transformStyle: "preserve-3d",
+              }}
+            >
+              <GlassCard
+                value={card.value}
+                suffix={card.suffix}
+                label={card.label}
+                index={index}
+                color={card.color}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

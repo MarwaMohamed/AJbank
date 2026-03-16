@@ -2,7 +2,8 @@ import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { Navigation } from "@/components/layout/Navigation";
 import { Hero } from "@/components/sections/Hero";
 import { AtAGlance } from "@/components/sections/AtAGlance";
-import { KeyFactsGlassCards } from "@/components/sections/KeyFactsGlassCards";
+// KeyFactsGlassCards merged into AtAGlance
+// import { KeyFactsGlassCards } from "@/components/sections/KeyFactsGlassCards";
 import { KeyFacts } from "@/components/sections/KeyFacts";
 import { LeadershipMessages } from "@/components/sections/LeadershipMessages";
 import { Strategy } from "@/components/sections/Strategy";
@@ -18,7 +19,6 @@ export default function HomePage() {
       <main>
         <Hero />
         <AtAGlance />
-        <KeyFactsGlassCards />
         <KeyFacts />
         <LeadershipMessages />
         <Strategy />
