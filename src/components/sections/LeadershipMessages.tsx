@@ -132,7 +132,7 @@ export function LeadershipMessages() {
     <section
       ref={sectionRef}
       id="leadership-messages"
-      className="relative h-screen w-full overflow-hidden text-white"
+      className="relative flex h-screen w-full flex-col overflow-hidden text-white"
     >
       {/* Dynamic background layers */}
       <div ref={bgRef} className="absolute inset-0 z-0">
@@ -158,12 +158,12 @@ export function LeadershipMessages() {
       </div>
 
       {/* Fixed header + navigation */}
-      <div className="relative z-10 px-6 pt-12 md:px-12 md:pt-14">
+      <div className="relative z-10 flex-shrink-0 px-6 pt-6 md:px-12 md:pt-8">
         <div className="mx-auto max-w-7xl">
           <SectionMarker number={c.number} label={c.label} light />
 
           {/* Tab navigation */}
-          <div className="mt-8 flex gap-1">
+          <div className="mt-4 flex gap-1">
             {cards.map((card, i) => (
               <button
                 key={i}
@@ -205,7 +205,7 @@ export function LeadershipMessages() {
       </div>
 
       {/* Horizontal scrolling panels */}
-      <div className="relative z-10 h-[calc(100vh-40px)]">
+      <div className="relative z-10 flex-1">
         <div ref={panelsWrapRef} className="flex h-full">
           {cards.map((card, i) => (
             <div
@@ -256,7 +256,7 @@ export function LeadershipMessages() {
                 </div>
 
                 {/* Portrait column (RIGHT) */}
-                <div className="relative flex h-full items-start justify-center md:justify-end pt-8 md:pt-12">
+                <div className="relative flex h-full items-end justify-center md:justify-end">
                   <div className="relative flex items-end">
                     <div className="lm-img relative z-10 aspect-[3/4] w-[250px] md:w-[300px] lg:w-[350px] overflow-hidden">
                     {/* Gradient overlay for blending */}
@@ -286,7 +286,7 @@ export function LeadershipMessages() {
       </div>
 
       {/* Progress indicator — top, next to tabs */}
-      <div className="absolute top-[72px] right-6 z-10 flex items-center gap-3 md:top-[80px] md:right-12">
+      <div className="absolute top-[52px] right-6 z-10 flex items-center gap-3 md:top-[56px] md:right-12">
         {cards.map((_, i) => (
           <div
             key={i}
