@@ -153,7 +153,7 @@ export function LeadershipMessages() {
         <img
           src={asset("/images/outlineframe.svg")}
           alt=""
-          className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-auto opacity-30"
+          className="absolute left-0 top-1/2 -translate-y-1/2 w-[70%] h-auto opacity-20"
         />
       </div>
 
@@ -212,9 +212,9 @@ export function LeadershipMessages() {
               key={i}
               className="lm-card flex h-full w-screen flex-shrink-0 items-center px-6 md:px-12"
             >
-              <div className="mx-auto grid h-full w-full max-w-6xl grid-cols-1 items-start gap-12 pt-8 md:grid-cols-[1fr_minmax(350px,450px)] md:gap-16 md:pt-12 lg:gap-24">
+              <div className="mx-auto grid h-full w-full max-w-6xl grid-cols-1 items-start gap-6 pt-4 md:grid-cols-[1fr_minmax(300px,400px)] md:gap-10 md:pt-6 lg:gap-16">
                 {/* Text column (LEFT) */}
-                <div className="flex flex-col justify-center py-8">
+                <div className="flex flex-col justify-start pt-2">
                   <div className="lm-reveal">
                     <p
                       className="text-xs font-medium uppercase tracking-[0.25em]"
@@ -224,7 +224,7 @@ export function LeadershipMessages() {
                     </p>
                   </div>
 
-                  <blockquote className="lm-reveal mt-8">
+                  <blockquote className="lm-reveal mt-4">
                     <p
                       className="text-xl font-medium leading-[1.15] md:text-2xl lg:text-3xl"
                       style={{ color: "rgba(255,255,255,0.85)" }}
@@ -234,13 +234,13 @@ export function LeadershipMessages() {
                   </blockquote>
 
                   <p
-                    className="lm-reveal mt-8 text-sm leading-[1.2] md:text-base"
+                    className="lm-reveal mt-4 text-sm leading-[1.2] md:text-base"
                     style={{ color: "rgba(255,255,255,0.65)" }}
                   >
                     {card.body}
                   </p>
 
-                  <div className="lm-reveal mt-10">
+                  <div className="lm-reveal mt-6">
                     <div
                       className="mb-3 h-px w-12"
                       style={{ background: "#b27f59" }}
@@ -256,8 +256,8 @@ export function LeadershipMessages() {
                 </div>
 
                 {/* Portrait column (RIGHT) */}
-                <div className="relative flex h-full items-end justify-center md:justify-end">
-                  <div className="relative flex items-end">
+                <div className="relative flex h-full items-start justify-center md:justify-end pt-2">
+                  <div className="relative flex items-start">
                     <div className="lm-img relative z-10 aspect-[3/4] w-[250px] md:w-[300px] lg:w-[350px] overflow-hidden">
                     {/* Gradient overlay for blending */}
                     <div
