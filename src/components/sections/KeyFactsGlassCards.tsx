@@ -338,7 +338,7 @@ export function KeyFactsGlassCards() {
     <section
       ref={containerRef}
       className="relative w-full"
-      style={{ background: "#0a0a0c" }}
+      style={{ background: "linear-gradient(180deg, #000D33 0%, #00071C 20%, #000000 42%, #301D10 58%, #7E4D2C 87%, #9E6137 100%)" }}
       aria-label="Key performance highlights"
     >
       {/* SVG clip-path definition for AJB key visual shape */}
@@ -406,7 +406,7 @@ export function KeyFactsGlassCards() {
         className="relative z-10 h-32 md:h-48"
         style={{
           background:
-            "linear-gradient(to bottom, #0a0a0c 0%, #0a0a0c 40%, #ffffff 100%)",
+            "linear-gradient(to bottom, #9E6137 0%, #9E6137 40%, #ffffff 100%)",
         }}
       />
     </section>
