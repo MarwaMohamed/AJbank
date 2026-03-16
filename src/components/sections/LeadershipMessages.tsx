@@ -212,7 +212,7 @@ export function LeadershipMessages() {
               key={i}
               className="lm-card flex h-full w-screen flex-shrink-0 items-center px-6 md:px-12"
             >
-              <div className="mx-auto grid h-full w-full max-w-6xl grid-cols-1 items-stretch gap-6 md:grid-cols-[1fr_minmax(300px,400px)] md:gap-10 lg:gap-16">
+              <div className="mx-auto grid h-full w-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-[1fr_minmax(250px,350px)] md:gap-10 lg:gap-16">
                 {/* Text column (LEFT) */}
                 <div className="flex flex-col justify-center">
                   <div className="lm-reveal">
@@ -256,9 +256,9 @@ export function LeadershipMessages() {
                 </div>
 
                 {/* Portrait column (RIGHT) */}
-                <div className="relative flex h-full items-stretch justify-center md:justify-end">
-                  <div className="relative flex items-stretch w-full">
-                    <div className="lm-img relative z-10 w-full h-full overflow-hidden">
+                <div className="relative flex h-full items-end justify-center md:justify-end">
+                  <div className="relative flex items-end">
+                    <div className="lm-img relative z-10 aspect-[3/4] w-[200px] md:w-[260px] lg:w-[300px] overflow-hidden">
                     {/* Gradient overlay for blending */}
                     <div
                       className="absolute inset-0 z-10"
