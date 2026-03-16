@@ -84,6 +84,15 @@ function GlassCard({
         isolation: "isolate",
       }}
     >
+      {/* Opaque backing layer to hide cards behind */}
+      <div
+        className="absolute inset-0 w-full h-full"
+        style={{
+          clipPath: `url(#${SHAPE_ID})`,
+          WebkitClipPath: `url(#${SHAPE_ID})`,
+          background: "linear-gradient(145deg, #1e140c, #0f0a05)",
+        }}
+      />
       {/* Electric border glow */}
       <svg
         className="absolute -inset-[3px] w-[calc(100%+6px)] h-[calc(100%+6px)] -z-10"
@@ -115,9 +124,7 @@ function GlassCard({
         style={{
           clipPath: `url(#${SHAPE_ID})`,
           WebkitClipPath: `url(#${SHAPE_ID})`,
-          background: "linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))",
-          backdropFilter: "blur(25px) saturate(180%)",
-          WebkitBackdropFilter: "blur(25px) saturate(180%)",
+          background: "linear-gradient(145deg, rgba(30,20,12,1), rgba(15,10,5,1))",
           boxShadow: "0 8px 32px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2)",
           overflow: "hidden",
         }}
@@ -242,50 +249,44 @@ export function AtAGlance() {
         }, 0.35);
       }
 
-      /* ── Phase 3: Cycle through cards with 3D flip ── */
+      /* ── Phase 3: Stacking cards — each slides in on top, previous scales down ── */
       if (cards.length > 0) {
-        // Set perspective on container
-        if (cardsContainer) {
-          gsap.set(cardsContainer, { perspective: 1200 });
-        }
-
-        // Initially hide all cards except first
-        cards.forEach((card, i) => {
-          if (i > 0) {
-            gsap.set(card, { opacity: 0, rotateY: -90, scale: 0.85 });
-          }
+        // All cards start hidden off to the right
+        cards.forEach((card) => {
+          gsap.set(card, { opacity: 0, xPercent: 60, scale: 0.85 });
         });
 
-        // Card 1 flip in
-        tl.fromTo(cards[0],
-          { opacity: 0, rotateY: -90, scale: 0.85 },
-          { opacity: 1, rotateY: 0, scale: 1, duration: 0.12, ease: "power3.out" },
-          0.42
-        );
+        // Card 1 slides in
+        tl.to(cards[0], {
+          opacity: 1, xPercent: 0, scale: 1,
+          duration: 0.12, ease: "power3.out",
+        }, 0.42);
 
-        // Card transitions: flip out current, flip in next
+        // Subsequent cards: slide in on top, previous cards scale down behind
         for (let i = 1; i < cards.length; i++) {
           const startTime = 0.42 + i * 0.18;
 
-          // Flip out previous
-          tl.to(cards[i - 1], {
-            rotateY: 90,
-            opacity: 0,
-            scale: 0.85,
-            duration: 0.08,
-            ease: "power2.in",
-          }, startTime);
+          // Scale down ALL previous cards
+          for (let j = 0; j < i; j++) {
+            const scaleTarget = 1 - (i - j) * 0.06;
+            const yTarget = -(i - j) * 18;
+            tl.to(cards[j], {
+              scale: scaleTarget,
+              y: yTarget,
+              duration: 0.12,
+              ease: "power2.inOut",
+            }, startTime);
+          }
 
-          // Flip in current
-          tl.fromTo(cards[i],
-            { opacity: 0, rotateY: -90, scale: 0.85 },
-            { opacity: 1, rotateY: 0, scale: 1, duration: 0.12, ease: "power3.out" },
-            startTime + 0.06
-          );
+          // Slide in new card on top
+          tl.to(cards[i], {
+            opacity: 1, xPercent: 0, scale: 1,
+            duration: 0.14, ease: "power3.out",
+          }, startTime + 0.02);
         }
 
-        // Hold last card briefly
-        tl.to({}, { duration: 0.1 });
+        // Hold final stack briefly
+        tl.to({}, { duration: 0.12 });
       }
     }, section);
 
@@ -376,7 +377,6 @@ export function AtAGlance() {
             width: "40%",
             maxWidth: "380px",
             opacity: prefersReduced ? 1 : 0,
-            transformStyle: "preserve-3d",
           }}
         >
           {glassCards.map((card, index) => (
@@ -385,7 +385,7 @@ export function AtAGlance() {
               className="absolute"
               style={{
                 width: "100%",
-                transformStyle: "preserve-3d",
+                zIndex: index + 1,
               }}
             >
               <GlassCard
