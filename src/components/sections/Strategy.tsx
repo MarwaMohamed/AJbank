@@ -205,27 +205,24 @@ function StrategyInitiativesList({ items, isActive }: { items: readonly { headin
 
   useEffect(() => { setMounted(true); }, []);
 
-  /* ── GSAP staggered reveal ── */
+  /* ── GSAP sequential reveal — one row at a time ── */
   useEffect(() => {
     if (!mounted || prefersReduced || !containerRef.current) return;
 
-    const rows = rowsRef.current.filter(Boolean);
+    const rows = rowsRef.current.filter(Boolean) as HTMLDivElement[];
+    gsap.set(rows, { opacity: 0, y: 40 });
 
     if (isActive) {
-      // Staggered fade-in from bottom, one row at a time
-      gsap.fromTo(rows,
-        { opacity: 0, y: 30 },
-        {
+      // Each row fades in one after another with a noticeable delay
+      rows.forEach((row, i) => {
+        gsap.to(row, {
           opacity: 1,
           y: 0,
-          duration: 0.7,
-          stagger: 0.12,
+          duration: 0.6,
           ease: "power3.out",
-          delay: 0.2,
-        }
-      );
-    } else {
-      gsap.set(rows, { opacity: 0, y: 30 });
+          delay: 0.3 + i * 0.4,
+        });
+      });
     }
   }, [isActive, mounted, prefersReduced]);
 
