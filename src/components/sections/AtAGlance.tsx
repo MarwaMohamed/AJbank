@@ -50,8 +50,8 @@ const glassCards = [
     value: 22,
     suffix: "%",
     label: "Net profit growth",
-    color: "rgba(140, 104, 74, 0.8)",
-    bgGradient: "linear-gradient(145deg, rgba(140,104,74,0.25) 0%, rgba(25,18,10,1) 60%, rgba(12,8,4,1) 100%)",
+    color: "rgba(255, 255, 255, 0.4)",
+    bgGradient: "linear-gradient(145deg, rgba(40,40,40,0.6) 0%, rgba(10,10,10,1) 60%, rgba(0,0,0,1) 100%)",
   },
   {
     id: 3,
