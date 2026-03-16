@@ -16,6 +16,8 @@ interface AnimatedCounterProps {
   duration?: number;
   className?: string;
   style?: React.CSSProperties;
+  /** If provided, counter only starts when active becomes true (ignores ScrollTrigger) */
+  active?: boolean;
 }
 
 export function AnimatedCounter({
@@ -26,11 +28,13 @@ export function AnimatedCounter({
   duration = ANIMATION.counter.duration,
   className = "",
   style,
+  active,
 }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const counterRef = useRef({ val: 0 });
   const [display, setDisplay] = useState(`${prefix}0${suffix}`);
   const prefersReduced = useReducedMotion();
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -41,6 +45,25 @@ export function AnimatedCounter({
       return;
     }
 
+    // If active prop is used, only animate when active becomes true
+    if (active !== undefined) {
+      if (!active || hasAnimated.current) return;
+      hasAnimated.current = true;
+      counterRef.current.val = 0;
+      const tween = gsap.to(counterRef.current, {
+        val: value,
+        duration,
+        ease: ANIMATION.counter.ease,
+        onUpdate: () => {
+          setDisplay(
+            `${prefix}${counterRef.current.val.toFixed(decimals)}${suffix}`
+          );
+        },
+      });
+      return () => { tween.kill(); };
+    }
+
+    // Default: ScrollTrigger-based
     const tween = gsap.to(counterRef.current, {
       val: value,
       duration,
@@ -60,7 +83,7 @@ export function AnimatedCounter({
     return () => {
       tween.kill();
     };
-  }, [value, prefix, suffix, decimals, duration, prefersReduced]);
+  }, [value, prefix, suffix, decimals, duration, prefersReduced, active]);
 
   /* Render an invisible placeholder of the final value to reserve width,
      preventing layout shift as the counter animates from 0 → target.    */

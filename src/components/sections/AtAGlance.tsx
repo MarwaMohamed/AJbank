@@ -71,6 +71,7 @@ function GlassCard({
   index,
   color,
   bgGradient,
+  active,
 }: {
   value: number;
   suffix: string;
@@ -78,6 +79,7 @@ function GlassCard({
   index: number;
   color: string;
   bgGradient: string;
+  active: boolean;
 }) {
   return (
     <div
@@ -158,12 +160,12 @@ function GlassCard({
         <div className="relative z-10 flex flex-col h-full justify-center" style={{ paddingTop: "34%", paddingBottom: "44%", paddingLeft: "22%", paddingRight: "6%" }}>
           <div className="card-text-item flex items-end">
             <div
-              className="text-[36px] sm:text-[44px] md:text-[52px] lg:text-[60px] font-light leading-[0.85] tracking-tighter text-white"
+              className="text-[40px] sm:text-[48px] md:text-[56px] lg:text-[68px] font-light leading-[0.85] tracking-tighter text-white"
               style={{ fontFamily: "Tajawal, sans-serif", fontVariantNumeric: "tabular-nums" }}
             >
-              <AnimatedCounter value={value} />
+              <AnimatedCounter value={value} active={active} />
             </div>
-            <span className="text-[20px] sm:text-[24px] md:text-[28px] lg:text-[32px] font-light ml-1 mb-0.5 md:mb-1 text-white">
+            <span className="text-[22px] sm:text-[26px] md:text-[30px] lg:text-[36px] font-light ml-1 mb-0.5 md:mb-1 text-white">
               {suffix}
             </span>
           </div>
@@ -189,6 +191,7 @@ export function AtAGlance() {
   const cardsContainerRef = useRef<HTMLDivElement>(null);
   const prefersReduced = useReducedMotion();
   const [activeCard, setActiveCard] = useState(0);
+  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
 
   const titleWords = c.title.split(" ");
 
@@ -269,6 +272,7 @@ export function AtAGlance() {
         tl.to(cards[0], {
           opacity: 1, yPercent: 0, scale: 1,
           duration: 0.12, ease: "power3.out",
+          onStart: () => setVisibleCards(prev => new Set(prev).add(0)),
         }, 0.42);
 
         // Subsequent cards: flip up from below, previous cards scale down behind
@@ -288,9 +292,11 @@ export function AtAGlance() {
           }
 
           // Flip up new card from below
+          const cardIndex = i;
           tl.to(cards[i], {
             opacity: 1, yPercent: 0, scale: 1,
             duration: 0.14, ease: "power3.out",
+            onStart: () => setVisibleCards(prev => new Set(prev).add(cardIndex)),
           }, startTime + 0.02);
         }
 
@@ -383,8 +389,8 @@ export function AtAGlance() {
           ref={cardsContainerRef}
           className="absolute right-[8%] top-1/2 -translate-y-1/2 flex items-center justify-center"
           style={{
-            width: "min(30vw, 260px)",
-            height: `calc(min(30vw, 260px) * ${SHAPE_VB_H} / ${SHAPE_VB_W})`,
+            width: "min(35vw, 320px)",
+            height: `calc(min(35vw, 320px) * ${SHAPE_VB_H} / ${SHAPE_VB_W})`,
             maxHeight: "70vh",
             opacity: prefersReduced ? 1 : 0,
           }}
@@ -405,6 +411,7 @@ export function AtAGlance() {
                 index={index}
                 color={card.color}
                 bgGradient={card.bgGradient}
+                active={visibleCards.has(index)}
               />
             </div>
           ))}
