@@ -212,7 +212,7 @@ export function LeadershipMessages() {
               key={i}
               className="lm-card flex h-full w-screen flex-shrink-0 items-center px-6 md:px-12"
             >
-              <div className="mx-auto grid h-full w-full max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-[1fr_minmax(350px,450px)] md:gap-16 lg:gap-24">
+              <div className="mx-auto grid h-full w-full max-w-6xl grid-cols-1 items-start gap-12 pt-8 md:grid-cols-[1fr_minmax(350px,450px)] md:gap-16 md:pt-12 lg:gap-24">
                 {/* Text column (LEFT) */}
                 <div className="flex flex-col justify-center py-8">
                   <div className="lm-reveal">
