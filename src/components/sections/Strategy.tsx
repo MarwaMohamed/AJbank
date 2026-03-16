@@ -241,30 +241,30 @@ function StrategyInitiativesList({ items, isActive }: { items: readonly { headin
           className="opacity-0"
           style={{ borderTop: "1px solid rgba(0,20,33,0.1)" }}
         >
-          <div className="flex items-center justify-between gap-4 py-4 lg:py-5">
-            {/* Left: number + heading inline */}
-            <div className="flex items-baseline gap-4 flex-1 min-w-0">
-              <span
-                className="flex-shrink-0 text-[32px] md:text-[40px] lg:text-[48px] font-light leading-none"
-                style={{ color: "rgba(0,20,33,0.12)" }}
-              >
-                {pad(i + 1)}
-              </span>
+          <div className="flex items-start gap-4 py-4 lg:py-5">
+            {/* Left: number */}
+            <span
+              className="flex-shrink-0 text-[32px] md:text-[40px] lg:text-[48px] font-light leading-none mt-1"
+              style={{ color: "rgba(0,20,33,0.12)" }}
+            >
+              {pad(i + 1)}
+            </span>
+
+            {/* Right: heading + description stacked */}
+            <div className="flex-1 min-w-0">
               <h4
                 className="text-[17px] md:text-[20px] lg:text-[24px] font-medium leading-tight"
                 style={{ color: "#001421" }}
               >
                 {item.heading}
               </h4>
+              <p
+                className="mt-2 text-[13px] lg:text-sm leading-relaxed"
+                style={{ color: "rgba(0,20,33,0.45)" }}
+              >
+                {item.desc}
+              </p>
             </div>
-
-            {/* Right: description, right-aligned */}
-            <p
-              className="hidden md:block flex-shrink-0 text-right text-[11px] lg:text-xs font-medium uppercase tracking-widest leading-snug max-w-[240px]"
-              style={{ color: "rgba(0,20,33,0.4)" }}
-            >
-              {item.desc}
-            </p>
           </div>
         </div>
       ))}
@@ -285,7 +285,7 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
         {/* Title */}
         <div className="z-10 px-6 pt-4 lg:pt-6 text-center">
           <FadeInView>
-            <h3 className="text-[28px] font-light leading-[1.15] md:text-[36px] lg:text-[42px]" style={{ color: "#001421" }}>
+            <h3 className="text-[22px] font-light leading-[1.15] md:text-[28px] lg:text-[32px]" style={{ color: "#001421" }}>
               {tab.subtitle}
             </h3>
           </FadeInView>
