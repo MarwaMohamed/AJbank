@@ -193,14 +193,14 @@ export function Hero() {
 
       </div>
 
-      {/* Shapes Image — moved outside max-w-7xl to prevent overlap */}
+      {/* AJB Key Visual Shape — right side */}
       <div
         ref={shapesRef}
         className="absolute right-4 md:right-8 lg:right-16 xl:right-32 top-1/2 z-[1] h-[50%] w-[30%] -translate-y-1/2 opacity-40 md:h-[65%] md:w-[35%] md:opacity-60 lg:h-[80%] lg:w-[38%] lg:opacity-100"
       >
         <div className="shapes-inner h-full w-full" style={{ opacity: prefersReduced ? 1 : 0 }}>
           <img
-            src={asset("/images/hero/shapes.png")}
+            src={asset("/images/hero/main-shape.svg")}
             alt=""
             className="h-full w-full object-contain object-right"
           />
