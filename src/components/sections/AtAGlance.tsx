@@ -158,17 +158,17 @@ function GlassCard({
         <div className="relative z-10 flex flex-col h-full justify-center" style={{ paddingTop: "34%", paddingBottom: "44%", paddingLeft: "22%", paddingRight: "6%" }}>
           <div className="card-text-item flex items-end">
             <div
-              className="text-[64px] sm:text-[80px] md:text-[90px] lg:text-[110px] font-light leading-[0.85] tracking-tighter text-white"
+              className="text-[36px] sm:text-[44px] md:text-[52px] lg:text-[60px] font-light leading-[0.85] tracking-tighter text-white"
               style={{ fontFamily: "Tajawal, sans-serif", fontVariantNumeric: "tabular-nums" }}
             >
               <AnimatedCounter value={value} />
             </div>
-            <span className="text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] font-light ml-1 mb-1 md:mb-2 text-white">
+            <span className="text-[20px] sm:text-[24px] md:text-[28px] lg:text-[32px] font-light ml-1 mb-0.5 md:mb-1 text-white">
               {suffix}
             </span>
           </div>
           <div className="card-text-item mt-3 md:mt-4">
-            <p className="text-[10px] sm:text-xs md:text-sm font-medium uppercase tracking-[0.15em] leading-[1.2]" style={{ color: "rgba(255,255,255,0.65)" }}>
+            <p className="text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs font-medium uppercase tracking-[0.15em] leading-[1.2]" style={{ color: "rgba(255,255,255,0.65)" }}>
               {label}
             </p>
           </div>
