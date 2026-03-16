@@ -231,12 +231,17 @@ export function AtAGlance() {
         tl.fromTo(desc, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.1, ease: "power3.out" }, 0.2);
       }
 
-      /* ── Phase 2: Text moves left, cards appear right ── */
+      /* ── Phase 2: Text shifts left, cards appear right ── */
       if (textBlock) {
-        // Move text block to the left
         tl.to(textBlock, {
-          xPercent: -5,
-          scale: 0.85,
+          textAlign: "left",
+          x: () => {
+            const vw = window.innerWidth;
+            // Smaller shift on mobile, larger on desktop
+            return vw < 768 ? -(vw * 0.04) : -(vw * 0.15);
+          },
+          scale: () => window.innerWidth < 768 ? 0.75 : 0.85,
+          transformOrigin: "left center",
           duration: 0.15,
           ease: "power2.inOut",
         }, 0.32);
@@ -335,12 +340,12 @@ export function AtAGlance() {
         <SectionMarker number={c.number} label={c.label} light />
       </div>
 
-      {/* Main content area — flex row for text left + cards right */}
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-center gap-6 md:gap-8 lg:gap-12 px-6 md:px-12 lg:px-16 h-full">
-        {/* Text block — starts centered, moves left */}
+      {/* Main content area */}
+      <div className="relative z-10 w-full h-full flex items-center justify-center px-6 md:px-12 lg:px-16">
+        {/* Text block — starts centered full width, moves left */}
         <div
           ref={textBlockRef}
-          className="flex-1 max-w-2xl text-center lg:text-left"
+          className="w-full max-w-2xl text-center"
         >
           <h2
             ref={titleRef}
@@ -373,10 +378,10 @@ export function AtAGlance() {
           </p>
         </div>
 
-        {/* Glass cards container — starts hidden, appears on right */}
+        {/* Glass cards container — absolutely positioned right, starts hidden */}
         <div
           ref={cardsContainerRef}
-          className="flex flex-shrink-0 items-center justify-center relative"
+          className="absolute right-[8%] top-1/2 -translate-y-1/2 flex items-center justify-center"
           style={{
             width: "min(30vw, 260px)",
             height: `calc(min(30vw, 260px) * ${SHAPE_VB_H} / ${SHAPE_VB_W})`,
