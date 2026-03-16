@@ -153,7 +153,7 @@ export function LeadershipMessages() {
         <img
           src={asset("/images/outlineframe.svg")}
           alt=""
-          className="absolute -right-32 top-1/2 -translate-y-1/2 h-[120%] w-auto opacity-[0.07]"
+          className="absolute -right-32 top-1/2 -translate-y-1/2 h-[120%] w-auto opacity-90"
         />
       </div>
 
