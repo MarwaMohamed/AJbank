@@ -64,7 +64,7 @@ export function Strategy() {
     <section
       ref={sectionRef}
       id="strategy"
-      className="relative w-full overflow-hidden pt-6 pb-8 md:pt-8 md:pb-10 lg:pt-8 lg:pb-12"
+      className="relative w-full min-h-screen overflow-hidden pt-6 pb-8 md:pt-8 md:pb-10 lg:pt-8 lg:pb-12"
       style={{ background: "linear-gradient(180deg, #f5f0eb 0%, #ede6df 50%, #f5f0eb 100%)" }}
     >
       {/* Decorative Mask group SVG — brand key visual shape */}
@@ -192,224 +192,84 @@ function AnimatedStrategyItem({ item, isActive, index }: { item: any, isActive: 
 }
 
 /* ─────────────────────────────────────────────
-   Radial Hub Diagram (Popp-inspired)
-   Bent leader lines: diagonal from center → horizontal arm
-   Labels hang below each arm endpoint
-   Decorative thin fan lines radiate between main spokes
+   Strategic Initiatives — Vertical stat-row list
+   Matches Social Impact layout: number left, label right,
+   thin dividers, staggered scroll-triggered fade-in
    ───────────────────────────────────────────── */
 
-function StrategyHubDiagram({ items, isActive }: { items: readonly { heading: string; desc: string }[]; isActive: boolean }) {
+function StrategyInitiativesList({ items, isActive }: { items: readonly { heading: string; desc: string }[]; isActive: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const svgRef = useRef<SVGSVGElement>(null);
-  const labelsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const rowsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [mounted, setMounted] = useState(false);
   const prefersReduced = useReducedMotion();
 
   useEffect(() => { setMounted(true); }, []);
 
-  /* ── Coordinate system ── */
-  const cx = 700, cy = 430;
-  const vw = 1400, vh = 900;
-
-  /* ── Spoke geometry — all integers, zero hydration risk ──
-     Each spoke: center → diagonal to bend → horizontal arm to end
-     Labels positioned just below arm endpoints                    */
-  const spokeData: {
-    bendX: number; bendY: number;
-    endX: number; endY: number;
-    side: "left" | "right";
-  }[] = [
-    // 0 — upper-left: "Launching the New Identity"
-    { bendX: 520, bendY: 160, endX: 280, endY: 160, side: "left" },
-    // 1 — upper-right: "Digital-Led Growth"
-    { bendX: 910, bendY: 250, endX: 1120, endY: 250, side: "right" },
-    // 2 — mid-left: "SME & Corporate Empowerment"
-    { bendX: 510, bendY: 430, endX: 280, endY: 430, side: "left" },
-    // 3 — lower-left: "Value Realization"
-    { bendX: 505, bendY: 700, endX: 280, endY: 700, side: "left" },
-    // 4 — lower-right: "Operational Resilience"
-    { bendX: 875, bendY: 685, endX: 1120, endY: 685, side: "right" },
-  ];
-
-  /* ── Decorative fan lines ──
-     Thin straight lines radiating from center between main spokes.
-     Angles precomputed from the spoke directions (degrees):
-       spoke angles ≈ -126, -42, 13, 132, 60
-       sorted: -126, -42, 13, 60, 132
-     Fan lines fill the gaps between these sorted angles.          */
-  const decorLen = 210;
-  const decorAngles = [
-    // gap -126° → -42° (84°)
-    -105, -84, -63,
-    // gap -42° → 13° (55°)
-    -28, -14, 0,
-    // gap 13° → 60° (47°)
-    25, 37, 49,
-    // gap 60° → 132° (72°)
-    78, 96, 114,
-    // gap 132° → 234° (102°)
-    158, 183, 208,
-  ];
-  const decorLines = decorAngles.map(deg => {
-    const rad = deg * Math.PI / 180;
-    return {
-      x: Math.round(cx + Math.cos(rad) * decorLen),
-      y: Math.round(cy + Math.sin(rad) * decorLen),
-    };
-  });
-
-  /* ── GSAP animation — 3 phases ── */
+  /* ── GSAP staggered reveal ── */
   useEffect(() => {
-    if (!mounted || prefersReduced || !svgRef.current || !containerRef.current) return;
+    if (!mounted || prefersReduced || !containerRef.current) return;
 
-    const mainPaths = svgRef.current.querySelectorAll<SVGPathElement>(".spoke-main");
-    const thinLines = svgRef.current.querySelectorAll<SVGLineElement>(".spoke-decor");
-    const centerGroup = svgRef.current.querySelector<SVGGElement>(".center-hub");
-    const labels = labelsRef.current.filter(Boolean);
+    const rows = rowsRef.current.filter(Boolean);
 
     if (isActive) {
-      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
-
-      // Center hub scales in
-      if (centerGroup) {
-        gsap.set(centerGroup, { scale: 0, transformOrigin: `${cx}px ${cy}px` });
-        tl.to(centerGroup, { scale: 1, duration: 0.5, ease: "back.out(2)" }, 0);
-      }
-
-      // Phase 1 — draw bent spoke paths outward
-      mainPaths.forEach((path) => {
-        const len = path.getTotalLength();
-        gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
-      });
-      tl.to(mainPaths, {
-        strokeDashoffset: 0,
-        duration: 1.2,
-        stagger: 0.1,
-        ease: "power2.inOut",
-      }, 0.15);
-
-      // Phase 2 — decorative fan lines
-      thinLines.forEach((line) => {
-        gsap.set(line, { strokeDasharray: decorLen, strokeDashoffset: decorLen });
-      });
-      tl.to(thinLines, {
-        strokeDashoffset: 0,
-        duration: 0.8,
-        stagger: 0.025,
-      }, "-=0.9");
-
-      // Phase 3 — labels fade up
-      tl.fromTo(labels,
-        { opacity: 0, y: 14 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.09 },
-        "-=0.35"
+      // Staggered fade-in from bottom, one row at a time
+      gsap.fromTo(rows,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.12,
+          ease: "power3.out",
+          delay: 0.2,
+        }
       );
     } else {
-      // Reset everything
-      mainPaths.forEach((path) => {
-        const len = path.getTotalLength();
-        gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
-      });
-      thinLines.forEach((line) => {
-        gsap.set(line, { strokeDasharray: decorLen, strokeDashoffset: decorLen });
-      });
-      if (centerGroup) gsap.set(centerGroup, { scale: 0, transformOrigin: `${cx}px ${cy}px` });
-      gsap.set(labels, { opacity: 0, y: 14 });
+      gsap.set(rows, { opacity: 0, y: 30 });
     }
   }, [isActive, mounted, prefersReduced]);
 
+  /* Number pad to 2 digits */
+  const pad = (n: number) => String(n).padStart(2, "0");
+
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full mx-auto"
-      style={{ maxWidth: "1100px", aspectRatio: `${vw} / ${vh}` }}
-    >
-      {/* ── SVG layer: lines, dots ── */}
-      <svg
-        ref={svgRef}
-        viewBox={`0 0 ${vw} ${vh}`}
-        className="absolute inset-0 w-full h-full"
-        fill="none"
-        preserveAspectRatio="xMidYMid meet"
-      >
-        {/* Thin decorative fan lines */}
-        {decorLines.map((pt, i) => (
-          <line
-            key={`d-${i}`}
-            x1={cx} y1={cy} x2={pt.x} y2={pt.y}
-            stroke="#cda991"
-            strokeWidth="1"
-            opacity={0.2}
-            className="spoke-decor"
-          />
-        ))}
-
-        {/* Main bent spoke paths: center → bend → horizontal arm end */}
-        {spokeData.map((s, i) => (
-          <path
-            key={`s-${i}`}
-            d={`M${cx},${cy} L${s.bendX},${s.bendY} L${s.endX},${s.endY}`}
-            stroke="#001421"
-            strokeWidth="2.5"
-            strokeLinejoin="round"
-            className="spoke-main"
-          />
-        ))}
-
-        {/* Center hub — black circle with logo overlay */}
-        <g className="center-hub">
-          <circle cx={cx} cy={cy} r="52" fill="#001421" />
-          <image
-            href={asset("/images/ajb-logo-new.png")}
-            x={cx - 38}
-            y={cy - 38}
-            width="76"
-            height="76"
-            preserveAspectRatio="xMidYMid meet"
-          />
-        </g>
-      </svg>
-
-      {/* ── HTML labels layer ── */}
-      {items.map((item, i) => {
-        const spoke = spokeData[i];
-        if (!spoke) return null;
-
-        const isLeft = spoke.side === "left";
-        const xPct = (spoke.endX / vw) * 100;
-        const yPct = (spoke.endY / vh) * 100;
-
-        return (
-          <div
-            key={i}
-            ref={el => { labelsRef.current[i] = el; }}
-            className="absolute flex flex-col"
-            style={{
-              left: `${xPct}%`,
-              top: `${yPct}%`,
-              transform: isLeft ? "translateX(-100%)" : "translateX(0)",
-              maxWidth: "260px",
-              textAlign: isLeft ? "right" : "left",
-              opacity: 0,
-            }}
-          >
-            {/* Heading — above the line */}
-            <div
-              className="text-[18px] lg:text-[22px] xl:text-[26px] font-medium leading-tight"
-              style={{ color: "#001421", position: "absolute", bottom: "100%", left: 0, right: 0, paddingBottom: "6px" }}
-            >
-              {item.heading}
+    <div ref={containerRef} className="w-full max-w-4xl mx-auto px-6 md:px-12 lg:px-16">
+      {items.map((item, i) => (
+        <div
+          key={i}
+          ref={el => { rowsRef.current[i] = el; }}
+          className="opacity-0"
+          style={{ borderTop: "1px solid rgba(0,20,33,0.1)" }}
+        >
+          <div className="flex items-center justify-between gap-4 py-4 lg:py-5">
+            {/* Left: number + heading inline */}
+            <div className="flex items-baseline gap-4 flex-1 min-w-0">
+              <span
+                className="flex-shrink-0 text-[32px] md:text-[40px] lg:text-[48px] font-light leading-none"
+                style={{ color: "rgba(0,20,33,0.12)" }}
+              >
+                {pad(i + 1)}
+              </span>
+              <h4
+                className="text-[17px] md:text-[20px] lg:text-[24px] font-medium leading-tight"
+                style={{ color: "#001421" }}
+              >
+                {item.heading}
+              </h4>
             </div>
-            {/* Description — below the line */}
+
+            {/* Right: description, right-aligned */}
             <p
-              className="text-[11px] lg:text-xs xl:text-[13px] leading-relaxed"
-              style={{ color: "rgba(0,20,33,0.5)", paddingTop: "6px" }}
+              className="hidden md:block flex-shrink-0 text-right text-[11px] lg:text-xs font-medium uppercase tracking-widest leading-snug max-w-[240px]"
+              style={{ color: "rgba(0,20,33,0.4)" }}
             >
               {item.desc}
             </p>
           </div>
-        );
-      })}
+        </div>
+      ))}
+      {/* Bottom border */}
+      <div style={{ borderTop: "1px solid rgba(0,20,33,0.1)" }} />
     </div>
   );
 }
@@ -418,22 +278,22 @@ function StrategyHubDiagram({ items, isActive }: { items: readonly { heading: st
 function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) {
   const isHubLayout = tab.key === "strategicFocus";
 
-  // Hub layout for items tab (radial diagram)
+  // Vertical list layout for strategic initiatives
   if (isHubLayout && "items" in tab) {
     return (
       <div className="relative flex h-full w-full flex-col">
         {/* Title */}
-        <div className="z-10 px-6 pt-2 lg:pt-4 text-center">
+        <div className="z-10 px-6 pt-4 lg:pt-6 text-center">
           <FadeInView>
-            <h3 className="text-[28px] font-light leading-[1.15] md:text-[38px] lg:text-[44px]" style={{ color: "#001421" }}>
+            <h3 className="text-[28px] font-light leading-[1.15] md:text-[36px] lg:text-[42px]" style={{ color: "#001421" }}>
               {tab.subtitle}
             </h3>
           </FadeInView>
         </div>
 
-        {/* Hub diagram — centered in remaining space */}
-        <div className="flex-1 flex items-center justify-center px-4 lg:px-8 py-2">
-          <StrategyHubDiagram items={tab.items} isActive={isActive ?? true} />
+        {/* Vertical stat-row list */}
+        <div className="mt-4 lg:mt-6 pb-4">
+          <StrategyInitiativesList items={tab.items} isActive={isActive ?? true} />
         </div>
       </div>
     );
