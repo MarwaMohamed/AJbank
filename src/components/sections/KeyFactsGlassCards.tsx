@@ -99,18 +99,27 @@ function GlassCard({
 }: GlassCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const prefersReduced = useReducedMotion();
 
   useEffect(() => {
     if (prefersReduced) return;
     const card = cardRef.current;
     const container = containerRef.current;
+    const content = contentRef.current;
     if (!card || !container) return;
 
     const targetScale = 1 - (totalCards - index) * 0.05;
 
     gsap.set(card, { scale: 1, transformOrigin: "center top" });
 
+    // Hide content initially
+    if (content) {
+      const items = content.querySelectorAll(".card-text-item");
+      gsap.set(items, { opacity: 0, y: 20 });
+    }
+
+    // Card scale-down on scroll
     const st = ScrollTrigger.create({
       trigger: container,
       start: "top center",
@@ -126,8 +135,29 @@ function GlassCard({
       },
     });
 
+    // Text reveal after card enters viewport
+    let textSt: ScrollTrigger | undefined;
+    if (content) {
+      const items = content.querySelectorAll(".card-text-item");
+      textSt = ScrollTrigger.create({
+        trigger: container,
+        start: "top 70%",
+        once: true,
+        onEnter: () => {
+          gsap.to(items, {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            stagger: 0.12,
+          });
+        },
+      });
+    }
+
     return () => {
       st.kill();
+      textSt?.kill();
     };
   }, [index, totalCards, prefersReduced]);
 
@@ -242,25 +272,12 @@ function GlassCard({
             />
           </svg>
 
-          {/* Frosted glass texture dots */}
-          <div
-            className="absolute inset-0 pointer-events-none opacity-70"
-            style={{
-              backgroundImage: `
-                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 1px, transparent 2px),
-                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.08) 1px, transparent 2px),
-                radial-gradient(circle at 40% 80%, rgba(255,255,255,0.06) 1px, transparent 2px)
-              `,
-              backgroundSize: "30px 30px, 25px 25px, 35px 35px",
-            }}
-          />
-
           {/* ─── Content — positioned within the visible shape area ─── */}
-          <div className="relative z-10 flex flex-col h-full justify-start"
+          <div ref={contentRef} className="relative z-10 flex flex-col h-full justify-start"
             style={{ paddingTop: "36%", paddingBottom: "46%", paddingLeft: "22%", paddingRight: "6%" }}
           >
             {/* Label */}
-            <div>
+            <div className="card-text-item">
               <p
                 className="text-[10px] sm:text-xs md:text-sm font-medium uppercase tracking-[0.15em] leading-[1.2]"
                 style={{ color: "rgba(255,255,255,0.65)" }}
@@ -270,7 +287,7 @@ function GlassCard({
             </div>
 
             {/* Big number */}
-            <div className="flex items-end mt-auto mb-auto py-2">
+            <div className="card-text-item flex items-end mt-auto mb-auto py-2">
               <div
                 className="text-[48px] sm:text-[60px] md:text-[80px] lg:text-[100px] font-light leading-[0.85] tracking-tighter text-white"
                 style={{
@@ -290,7 +307,7 @@ function GlassCard({
 
             {/* Description */}
             <p
-              className="text-[10px] sm:text-xs md:text-sm font-normal leading-[1.5]"
+              className="card-text-item text-[10px] sm:text-xs md:text-sm font-normal leading-[1.5]"
               style={{ color: "rgba(255,255,255,0.55)", maxWidth: "65%" }}
             >
               {description}
@@ -326,22 +343,6 @@ export function KeyFactsGlassCards() {
     >
       {/* SVG clip-path definition for AJB key visual shape */}
       <ShapeDefs />
-
-      {/* Subtle grid background */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, rgba(178,127,89,0.06) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(178,127,89,0.06) 1px, transparent 1px)
-          `,
-          backgroundSize: "54px 54px",
-          maskImage:
-            "radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%)",
-        }}
-      />
 
       {/* Hero intro */}
       <div
