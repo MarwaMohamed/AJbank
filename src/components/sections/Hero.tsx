@@ -51,12 +51,13 @@ export function Hero() {
         { opacity: 1, y: 0, duration: 0.7, ease: "power3.out", stagger: 0.12 }, 0.55
       );
 
-      // Shapes image slides up from below, synced with text
+      // Shapes — fade-in with 3D flip
       const shapesInner = shapesRef.current?.querySelector(".shapes-inner");
       if (shapesInner) {
+        gsap.set(shapesRef.current!, { perspective: 1200 });
         tl.fromTo(shapesInner,
-          { opacity: 0, y: 60 },
-          { opacity: 1, y: 0, duration: 1.1, ease: "power3.out" }, 0.25
+          { opacity: 0, rotateY: -90, scale: 0.85 },
+          { opacity: 1, rotateY: 0, scale: 1, duration: 1.4, ease: "power3.out" }, 0.3
         );
       }
 
@@ -198,7 +199,7 @@ export function Hero() {
         ref={shapesRef}
         className="absolute right-4 md:right-8 lg:right-16 xl:right-32 top-1/2 z-[1] h-[50%] w-[30%] -translate-y-1/2 opacity-40 md:h-[65%] md:w-[35%] md:opacity-60 lg:h-[80%] lg:w-[38%] lg:opacity-100"
       >
-        <div className="shapes-inner h-full w-full" style={{ opacity: prefersReduced ? 1 : 0 }}>
+        <div className="shapes-inner h-full w-full" style={{ opacity: prefersReduced ? 1 : 0, transformStyle: "preserve-3d" }}>
           <img
             src={asset("/images/hero/main-shape.svg")}
             alt=""
