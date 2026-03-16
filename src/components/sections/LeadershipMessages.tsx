@@ -148,8 +148,11 @@ export function LeadershipMessages() {
         ))}
       </div>
 
-      {/* Decorative outline frame — brand key visual shape */}
-      <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
+      {/* Decorative outline frame — brand key visual shape, clipped to end at portrait area */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1]"
+        style={{ clipPath: "inset(0 35% 0 0)" }}
+      >
         <img
           src={asset("/images/outlineframe.svg")}
           alt=""
