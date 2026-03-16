@@ -149,11 +149,11 @@ export function LeadershipMessages() {
       </div>
 
       {/* Decorative outline frame — brand key visual shape */}
-      <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <img
           src={asset("/images/outlineframe.svg")}
           alt=""
-          className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-auto opacity-50"
+          className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-auto opacity-30"
         />
       </div>
 
