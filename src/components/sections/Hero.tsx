@@ -111,6 +111,7 @@ export function Hero() {
             backgroundImage: "url(images/hero/hero-bg-final.png)",
             backgroundSize: "cover",
             backgroundPosition: "center",
+            opacity: 0,
           }}
         >
           <div
