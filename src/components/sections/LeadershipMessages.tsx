@@ -205,7 +205,7 @@ export function LeadershipMessages() {
       </div>
 
       {/* Horizontal scrolling panels */}
-      <div className="relative z-10 h-[calc(100vh-80px)]">
+      <div className="relative z-10 h-[calc(100vh-40px)]">
         <div ref={panelsWrapRef} className="flex h-full">
           {cards.map((card, i) => (
             <div
