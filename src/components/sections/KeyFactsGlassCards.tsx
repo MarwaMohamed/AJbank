@@ -8,6 +8,41 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* ── AJB Key Visual Shape SVG path (landscape card adaptation) ──
+   Matches the brand shape: diagonal top-left cut, straight right,
+   large rounded bottom-right corner, bottom-left step/notch. */
+const SHAPE_ID = "ajb-card-shape";
+const SHAPE_BORDER_ID = "ajb-card-shape-border";
+
+/* SVG path for the AJB key visual shape in a 1000x500 viewBox.
+   - Top-left diagonal cut from (0, 120) to top-right (1000, 0)
+   - Right side straight down
+   - Bottom-right: large rounded curve
+   - Bottom-left: step/notch indentation */
+const SHAPE_PATH =
+  "M 0 120 L 1000 0 L 1000 380 C 1000 450 950 500 880 500 L 120 500 L 60 440 L 0 460 Z";
+
+function ShapeDefs() {
+  return (
+    <svg
+      width="0"
+      height="0"
+      className="absolute"
+      aria-hidden="true"
+      style={{ position: "absolute", width: 0, height: 0 }}
+    >
+      <defs>
+        <clipPath id={SHAPE_ID} clipPathUnits="objectBoundingBox">
+          {/* Normalize path from 1000x500 viewBox to 0-1 range */}
+          <path
+            d="M 0 0.24 L 1 0 L 1 0.76 C 1 0.9 0.95 1 0.88 1 L 0.12 1 L 0.06 0.88 L 0 0.92 Z"
+          />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}
+
 /* ── Card data: pulled from keyFacts content ── */
 const glassCards = [
   {
@@ -104,80 +139,105 @@ function GlassCard({
         ref={cardRef}
         className="relative w-[90%] md:w-[75%] lg:w-[65%] xl:w-[55%]"
         style={{
-          height: "clamp(380px, 50vh, 500px)",
-          borderRadius: "24px",
+          height: "clamp(400px, 55vh, 540px)",
           isolation: "isolate",
           top: `calc(-5vh + ${index * 25}px)`,
           transformOrigin: "top",
         }}
       >
-        {/* Electric border glow — brand-colored conic gradient */}
-        <div
-          className="absolute -inset-[3px] -z-10"
-          style={{
-            borderRadius: "27px",
-            padding: "3px",
-            background: `conic-gradient(
-              from 0deg,
-              transparent 0deg,
-              ${color} 60deg,
-              ${color.replace("0.8", "0.5")} 120deg,
-              transparent 180deg,
-              ${color.replace("0.8", "0.3")} 240deg,
-              transparent 360deg
-            )`,
-          }}
-        />
+        {/* Electric border glow — shaped with the AJB key visual shape via SVG */}
+        <svg
+          className="absolute -inset-[3px] w-[calc(100%+6px)] h-[calc(100%+6px)] -z-10"
+          viewBox="0 0 1000 500"
+          preserveAspectRatio="none"
+          style={{ filter: `drop-shadow(0 0 12px ${color})` }}
+        >
+          <defs>
+            <linearGradient id={`glow-${index}`} gradientTransform="rotate(45)">
+              <stop offset="0%" stopColor="transparent" />
+              <stop offset="15%" stopColor={color} />
+              <stop offset="35%" stopColor={color.replace("0.8", "0.5")} />
+              <stop offset="50%" stopColor="transparent" />
+              <stop offset="70%" stopColor={color.replace("0.8", "0.3")} />
+              <stop offset="100%" stopColor="transparent" />
+            </linearGradient>
+          </defs>
+          <path
+            d={SHAPE_PATH}
+            fill="none"
+            stroke={`url(#glow-${index})`}
+            strokeWidth="4"
+          />
+        </svg>
 
-        {/* Main glass card body */}
+        {/* Main glass card body — clipped to AJB key visual shape */}
         <div
           className="relative w-full h-full flex flex-col justify-between p-8 md:p-12 lg:p-14"
           style={{
-            borderRadius: "24px",
+            clipPath: `url(#${SHAPE_ID})`,
+            WebkitClipPath: `url(#${SHAPE_ID})`,
             background:
               "linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))",
             backdropFilter: "blur(25px) saturate(180%)",
             WebkitBackdropFilter: "blur(25px) saturate(180%)",
-            border: "1px solid rgba(255,255,255,0.2)",
             boxShadow: `
               0 8px 32px rgba(0,0,0,0.3),
-              0 2px 8px rgba(0,0,0,0.2),
-              inset 0 1px 0 rgba(255,255,255,0.3),
-              inset 0 -1px 0 rgba(255,255,255,0.1)
+              0 2px 8px rgba(0,0,0,0.2)
             `,
             overflow: "hidden",
           }}
         >
+          {/* Inner border that follows the shape */}
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            viewBox="0 0 1000 500"
+            preserveAspectRatio="none"
+          >
+            <path
+              d={SHAPE_PATH}
+              fill="none"
+              stroke="rgba(255,255,255,0.2)"
+              strokeWidth="2"
+            />
+          </svg>
+
           {/* Glass reflection overlay */}
           <div
             className="absolute top-0 left-0 right-0 pointer-events-none"
             style={{
               height: "60%",
               background:
-                "linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 50%, transparent 100%)",
-              borderRadius: "24px 24px 0 0",
+                "linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.08) 50%, transparent 100%)",
             }}
           />
 
-          {/* Top shine line */}
-          <div
-            className="absolute top-[10px] left-[10px] right-[10px] h-[2px] pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%)",
-              borderRadius: "1px",
-            }}
-          />
+          {/* Top shine line — follows the diagonal */}
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            viewBox="0 0 1000 500"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M 10 125 L 990 5"
+              fill="none"
+              stroke="rgba(255,255,255,0.5)"
+              strokeWidth="1.5"
+            />
+          </svg>
 
           {/* Left edge reflection */}
-          <div
-            className="absolute top-0 left-0 w-[2px] h-full pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 50%)",
-              borderRadius: "24px 0 0 24px",
-            }}
-          />
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            viewBox="0 0 1000 500"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M 2 125 L 2 458"
+              fill="none"
+              stroke="rgba(255,255,255,0.25)"
+              strokeWidth="2"
+            />
+          </svg>
 
           {/* Frosted glass texture dots */}
           <div
@@ -189,12 +249,11 @@ function GlassCard({
                 radial-gradient(circle at 40% 80%, rgba(255,255,255,0.06) 1px, transparent 2px)
               `,
               backgroundSize: "30px 30px, 25px 25px, 35px 35px",
-              borderRadius: "24px",
             }}
           />
 
           {/* ─── Content ─── */}
-          <div className="relative z-10 flex flex-col h-full justify-between">
+          <div className="relative z-10 flex flex-col h-full justify-between pt-8 md:pt-10">
             {/* Label */}
             <div>
               <p
@@ -260,6 +319,9 @@ export function KeyFactsGlassCards() {
       style={{ background: "#0a0a0c" }}
       aria-label="Key performance highlights"
     >
+      {/* SVG clip-path definition for AJB key visual shape */}
+      <ShapeDefs />
+
       {/* Subtle grid background */}
       <div
         className="absolute inset-0 pointer-events-none"
