@@ -354,10 +354,10 @@ export function KeyFactsGlassCards() {
 
       {/* Bottom fade into white KeyFacts section */}
       <div
-        className="relative z-10 h-32 md:h-48"
+        className="relative z-10 h-16 md:h-24"
         style={{
           background:
-            "linear-gradient(to bottom, #1a0f08 0%, #1a0f08 40%, #ffffff 100%)",
+            "linear-gradient(to bottom, #1a0f08 0%, #ffffff 100%)",
         }}
       />
     </section>
