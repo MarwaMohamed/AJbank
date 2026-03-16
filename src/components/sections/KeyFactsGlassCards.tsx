@@ -274,7 +274,7 @@ function GlassCard({
 
           {/* ─── Content — positioned within the visible shape area ─── */}
           <div ref={contentRef} className="relative z-10 flex flex-col h-full justify-start"
-            style={{ paddingTop: "36%", paddingBottom: "46%", paddingLeft: "22%", paddingRight: "6%" }}
+            style={{ paddingTop: "34%", paddingBottom: "44%", paddingLeft: "22%", paddingRight: "6%" }}
           >
             {/* Label */}
             <div className="card-text-item">
@@ -286,10 +286,10 @@ function GlassCard({
               </p>
             </div>
 
-            {/* Big number */}
+            {/* Big number — dominant */}
             <div className="card-text-item flex items-end mt-auto mb-auto py-2">
               <div
-                className="text-[48px] sm:text-[60px] md:text-[80px] lg:text-[100px] font-light leading-[0.85] tracking-tighter text-white"
+                className="text-[64px] sm:text-[80px] md:text-[110px] lg:text-[140px] font-light leading-[0.85] tracking-tighter text-white"
                 style={{
                   fontFamily: "Tajawal, sans-serif",
                   fontVariantNumeric: "tabular-nums",
@@ -298,20 +298,12 @@ function GlassCard({
                 <AnimatedCounter value={value} />
               </div>
               <span
-                className="text-[24px] sm:text-[32px] md:text-[40px] lg:text-[48px] font-light ml-1 mb-0.5 md:mb-1"
+                className="text-[32px] sm:text-[40px] md:text-[56px] lg:text-[68px] font-light ml-1 mb-1 md:mb-2"
                 style={{ color: color.replace("0.8", "1") }}
               >
                 {suffix}
               </span>
             </div>
-
-            {/* Description */}
-            <p
-              className="card-text-item text-[10px] sm:text-xs md:text-sm font-normal leading-[1.5]"
-              style={{ color: "rgba(255,255,255,0.55)", maxWidth: "65%" }}
-            >
-              {description}
-            </p>
           </div>
         </div>
       </div>
@@ -343,46 +335,6 @@ export function KeyFactsGlassCards() {
     >
       {/* SVG clip-path definition for AJB key visual shape */}
       <ShapeDefs />
-
-      {/* Hero intro */}
-      <div
-        className="relative z-10 flex flex-col items-center justify-center text-center px-6"
-        style={{ height: "60vh" }}
-      >
-        {/* Section marker */}
-        <div className="flex items-center gap-3 mb-6">
-          <span
-            className="text-xs font-bold tabular-nums tracking-wider"
-            style={{ color: "#b27f59" }}
-          >
-            003
-          </span>
-          <span
-            className="h-px w-6"
-            style={{ background: "#b27f59", opacity: 0.4 }}
-          />
-          <span
-            className="text-[11px] font-bold uppercase tracking-[0.2em]"
-            style={{ color: "rgba(255,255,255,0.9)" }}
-          >
-            Key Highlights
-          </span>
-        </div>
-
-        <h2
-          className="text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] font-light leading-[1.15] tracking-tight text-white max-w-3xl"
-          style={{ fontFamily: "Tajawal, sans-serif" }}
-        >
-          Performance That{" "}
-          <span style={{ color: "#b27f59" }}>Speaks</span> for Itself
-        </h2>
-        <p
-          className="mt-4 text-base md:text-lg font-normal leading-[1.5] max-w-xl"
-          style={{ color: "rgba(255,255,255,0.5)" }}
-        >
-          Three numbers that define our 2025 transformation story.
-        </p>
-      </div>
 
       {/* Stacking glass cards */}
       <div className="relative w-full">
