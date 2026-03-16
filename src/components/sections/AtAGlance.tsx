@@ -236,7 +236,7 @@ export function AtAGlance() {
       if (textBlock) {
         // Move text block to the left
         tl.to(textBlock, {
-          xPercent: -15,
+          xPercent: -5,
           scale: 0.85,
           duration: 0.15,
           ease: "power2.inOut",
@@ -337,11 +337,11 @@ export function AtAGlance() {
       </div>
 
       {/* Main content area — flex row for text left + cards right */}
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-center px-6 md:px-12 lg:px-16 h-full">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-center gap-6 md:gap-8 lg:gap-12 px-6 md:px-12 lg:px-16 h-full">
         {/* Text block — starts centered, moves left */}
         <div
           ref={textBlockRef}
-          className="flex-1 max-w-3xl text-center lg:text-left"
+          className="flex-1 max-w-2xl text-center lg:text-left"
         >
           <h2
             ref={titleRef}
