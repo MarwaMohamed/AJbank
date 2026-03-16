@@ -241,7 +241,7 @@ export function AtAGlance() {
           x: () => {
             const vw = window.innerWidth;
             // Smaller shift on mobile, larger on desktop
-            return vw < 768 ? -(vw * 0.04) : -(vw * 0.15);
+            return vw < 768 ? -(vw * 0.04) : -(vw * 0.08);
           },
           scale: () => window.innerWidth < 768 ? 0.75 : 0.85,
           transformOrigin: "left center",
@@ -387,7 +387,7 @@ export function AtAGlance() {
         {/* Glass cards container — absolutely positioned right, starts hidden */}
         <div
           ref={cardsContainerRef}
-          className="absolute right-[8%] top-1/2 -translate-y-1/2 flex items-center justify-center"
+          className="absolute right-[18%] top-1/2 -translate-y-1/2 flex items-center justify-center"
           style={{
             width: "min(35vw, 320px)",
             height: `calc(min(35vw, 320px) * ${SHAPE_VB_H} / ${SHAPE_VB_W})`,
