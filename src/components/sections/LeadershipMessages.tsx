@@ -158,7 +158,7 @@ export function LeadershipMessages() {
       </div>
 
       {/* Fixed header + navigation */}
-      <div className="relative z-10 px-6 pt-16 md:px-12 md:pt-20">
+      <div className="relative z-10 px-6 pt-12 md:px-12 md:pt-14">
         <div className="mx-auto max-w-7xl">
           <SectionMarker number={c.number} label={c.label} light />
 
@@ -205,7 +205,7 @@ export function LeadershipMessages() {
       </div>
 
       {/* Horizontal scrolling panels */}
-      <div className="relative z-10 mt-8 h-[calc(100vh-200px)]">
+      <div className="relative z-10 mt-4 h-[calc(100vh-100px)]">
         <div ref={panelsWrapRef} className="flex h-full">
           {cards.map((card, i) => (
             <div
