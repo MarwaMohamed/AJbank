@@ -85,7 +85,6 @@ function GlassCard({
       style={{
         width: "100%",
         aspectRatio: `${SHAPE_VB_W} / ${SHAPE_VB_H}`,
-        maxHeight: "60vh",
         isolation: "isolate",
       }}
     >
@@ -377,10 +376,11 @@ export function AtAGlance() {
         {/* Glass cards container — starts hidden, appears on right */}
         <div
           ref={cardsContainerRef}
-          className="flex flex-shrink-0 items-center justify-center"
+          className="flex flex-shrink-0 items-center justify-center relative"
           style={{
-            width: "40%",
-            maxWidth: "380px",
+            width: "min(30vw, 260px)",
+            height: `calc(min(30vw, 260px) * ${SHAPE_VB_H} / ${SHAPE_VB_W})`,
+            maxHeight: "70vh",
             opacity: prefersReduced ? 1 : 0,
           }}
         >
