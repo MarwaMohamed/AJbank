@@ -254,20 +254,20 @@ export function AtAGlance() {
         }, 0.35);
       }
 
-      /* ── Phase 3: Stacking cards — each slides in on top, previous scales down ── */
+      /* ── Phase 3: Stacking cards — each flips up from below, previous scales down ── */
       if (cards.length > 0) {
-        // All cards start hidden off to the right
+        // All cards start hidden below
         cards.forEach((card) => {
-          gsap.set(card, { opacity: 0, xPercent: 60, scale: 0.85 });
+          gsap.set(card, { opacity: 0, yPercent: 80, scale: 0.85 });
         });
 
-        // Card 1 slides in
+        // Card 1 flips up
         tl.to(cards[0], {
-          opacity: 1, xPercent: 0, scale: 1,
+          opacity: 1, yPercent: 0, scale: 1,
           duration: 0.12, ease: "power3.out",
         }, 0.42);
 
-        // Subsequent cards: slide in on top, previous cards scale down behind
+        // Subsequent cards: flip up from below, previous cards scale down behind
         for (let i = 1; i < cards.length; i++) {
           const startTime = 0.42 + i * 0.18;
 
@@ -283,9 +283,9 @@ export function AtAGlance() {
             }, startTime);
           }
 
-          // Slide in new card on top
+          // Flip up new card from below
           tl.to(cards[i], {
-            opacity: 1, xPercent: 0, scale: 1,
+            opacity: 1, yPercent: 0, scale: 1,
             duration: 0.14, ease: "power3.out",
           }, startTime + 0.02);
         }
