@@ -191,9 +191,8 @@ export function KeyFacts() {
 
           {/* Column 2 */}
           <div className="flex flex-col gap-6 md:gap-8 w-full lg:w-1/3">
-            <div className="kf-grid-item flex-[1.2] relative min-h-[350px] rounded-[16px] overflow-hidden shadow-sm">
-              <img src={asset("/images/one-bank-shape.png")} className="absolute inset-0 w-full h-full object-contain" alt="" />
-              <div className="absolute inset-0" style={{ background: "rgba(0,20,33,0.10)" }} />
+            <div className="kf-grid-item flex-[1.2] relative min-h-[350px] rounded-[16px] overflow-hidden shadow-sm" style={{ background: "#f5f0eb" }}>
+              <img src={asset("/images/one-bank-shape.png")} className="absolute inset-0 w-full h-full object-contain mix-blend-multiply" alt="" />
             </div>
             <FactCard card={cards[1]} index={1} className="flex-1 min-h-[300px] bg-[#001421]" />
           </div>
