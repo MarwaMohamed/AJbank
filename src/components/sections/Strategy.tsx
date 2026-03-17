@@ -349,7 +349,7 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
             alt={tab.subtitle}
             width={500}
             height={650}
-            className="h-auto w-full max-w-[400px] object-contain"
+            className="h-auto w-full max-w-[400px] object-contain mix-blend-multiply"
           />
         </div>
 
