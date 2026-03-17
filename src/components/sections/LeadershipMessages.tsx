@@ -132,8 +132,7 @@ export function LeadershipMessages() {
     <section
       ref={sectionRef}
       id="leadership-messages"
-      className="relative flex w-full flex-col overflow-hidden text-white"
-      style={{ height: "75vh" }}
+      className="relative flex h-screen w-full flex-col overflow-hidden text-white"
     >
       {/* Dynamic background layers */}
       <div ref={bgRef} className="absolute inset-0 z-0">
