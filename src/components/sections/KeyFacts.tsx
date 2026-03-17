@@ -171,7 +171,7 @@ export function KeyFacts() {
       className="relative w-full overflow-hidden bg-white py-24 md:py-32 lg:py-40"
     >
       {/* Header */}
-      <div className="relative z-10 mx-auto max-w-[1400px] px-6 md:px-12 w-full" style={{ color: "#001421" }}>
+      <div className="relative z-10 mx-auto max-w-[1400px] px-6 md:px-12 xl:pl-28 w-full" style={{ color: "#001421" }}>
         <SectionMarker number={c.number} label={c.label} />
         <div className="mt-4 mb-6 h-px w-full" style={{ background: "rgba(0,20,33,0.1)" }} />
         <h2 className="text-[32px] md:text-[40px] lg:text-[50px] font-light leading-[1.15] max-w-2xl tracking-tight" style={{ fontFamily: "Tajawal, sans-serif", color: "#001421" }}>
@@ -180,7 +180,7 @@ export function KeyFacts() {
       </div>
 
       {/* Grid Layout (3 Flex Columns mimicking CSS Grid) */}
-      <div className="relative z-10 mx-auto mt-12 md:mt-16 max-w-[1400px] px-6 md:px-12 w-full">
+      <div className="relative z-10 mx-auto mt-12 md:mt-16 max-w-[1400px] px-6 md:px-12 xl:pl-28 w-full">
         <div className="flex flex-col lg:flex-row gap-6 md:gap-8 min-h-[800px] xl:min-h-[900px]">
 
           {/* Column 1 */}
