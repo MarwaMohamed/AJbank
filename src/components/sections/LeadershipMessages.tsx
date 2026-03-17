@@ -201,10 +201,10 @@ export function LeadershipMessages() {
           {cards.map((card, i) => (
             <div
               key={i}
-              className="lm-card flex h-full w-screen flex-shrink-0 items-center px-6 md:px-12 xl:pl-28"
-              style={{ paddingTop: "1vh", paddingBottom: "1vh" }}
+              className="lm-card flex h-full w-screen flex-shrink-0 items-start px-6 md:px-12 xl:pl-28"
+              style={{ paddingTop: "1vh" }}
             >
-              <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-[1fr_minmax(250px,350px)] md:gap-10 lg:gap-16">
+              <div className="mx-auto grid w-full h-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-[1fr_minmax(250px,350px)] md:gap-10 lg:gap-16">
                 {/* Text column (LEFT) */}
                 <div className="flex flex-col justify-center">
                   <div className="lm-reveal">
