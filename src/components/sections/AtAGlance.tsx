@@ -10,12 +10,12 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── AJB Key Visual Shape SVG (from KeyFactsGlassCards) ── */
+/* ── AJB Key Visual Shape SVG (official brand shape from NO GRADIENT CMYK PDF) ── */
 const SHAPE_ID = "ajb-card-shape";
-const SHAPE_VB_W = 1000;
-const SHAPE_VB_H = 1921;
+const SHAPE_VB_W = 1134;
+const SHAPE_VB_H = 2179;
 const SHAPE_PATH =
-  "M 181 622 V 1326 L 0 1463 V 1921 C 0 1921 889 1247 900 1239 969 1186 1000 1119 1000 1025 V 0 Z";
+  "M204.725 705.175V1503.72L0 1659.26V2178.56C0 2178.56 1008.03 1413.69 1020.07 1404.56C1098.37 1345.2 1133.86 1269.22 1133.86 1161.98V0L204.725 705.175Z";
 
 function ShapeDefs() {
   return (
@@ -28,7 +28,7 @@ function ShapeDefs() {
     >
       <defs>
         <clipPath id={SHAPE_ID} clipPathUnits="objectBoundingBox">
-          <path d="M 0.181 0.3237 V 0.6902 L 0 0.7616 V 1 C 0 1 0.889 0.6489 0.8996 0.6447 0.9687 0.6175 1 0.5826 1 0.5334 V 0 Z" />
+          <path d="M 0.1806 0.3237 V 0.6902 L 0 0.7616 V 1 C 0 1 0.8891 0.6489 0.8997 0.6447 0.9687 0.6175 1 0.5826 1 0.5334 V 0 Z" />
         </clipPath>
       </defs>
     </svg>
