@@ -248,7 +248,7 @@ export function LeadershipMessages() {
 
                 {/* Portrait column (RIGHT) */}
                 <div className="relative flex h-full items-center justify-center md:justify-end">
-                  <div className="relative flex flex-col items-end">
+                  <div className="relative flex flex-col items-start">
                     <div className="lm-img relative z-10 aspect-[3/4] w-[200px] md:w-[260px] lg:w-[300px] overflow-hidden">
                     {/* Gradient overlay for blending */}
                     <div
