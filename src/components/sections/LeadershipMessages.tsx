@@ -272,7 +272,7 @@ export function LeadershipMessages() {
                     <img
                       src={asset("/images/line1.svg")}
                       alt=""
-                      className="mt-3 w-[60%]"
+                      className="mt-3 w-[60%] -scale-x-100"
                     />
                   </div>
                 </div>
