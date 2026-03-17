@@ -271,12 +271,6 @@ export function LeadershipMessages() {
                       priority={i === 0}
                     />
                   </div>
-                    {/* Decorative line under portrait */}
-                    <img
-                      src={asset("/images/line1.svg")}
-                      alt=""
-                      className="mt-3 w-[40%] -scale-x-100"
-                    />
                   </div>
                 </div>
               </div>
