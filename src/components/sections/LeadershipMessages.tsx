@@ -150,7 +150,7 @@ export function LeadershipMessages() {
       </div>
 
       {/* Fixed header + navigation */}
-      <div className="relative z-10 flex-shrink-0 px-6 pt-5 md:px-12 md:pt-6">
+      <div className="relative z-10 flex-shrink-0 px-6 pt-5 md:px-12 md:pt-6 xl:pl-28">
         <div className="mx-auto max-w-7xl">
           <SectionMarker number={c.number} label={c.label} light />
 
@@ -202,7 +202,7 @@ export function LeadershipMessages() {
           {cards.map((card, i) => (
             <div
               key={i}
-              className="lm-card flex h-full w-screen flex-shrink-0 items-center px-6 md:px-12"
+              className="lm-card flex h-full w-screen flex-shrink-0 items-center px-6 md:px-12 xl:pl-28"
               style={{ paddingTop: "1vh", paddingBottom: "1vh" }}
             >
               <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-[1fr_minmax(250px,350px)] md:gap-10 lg:gap-16">
