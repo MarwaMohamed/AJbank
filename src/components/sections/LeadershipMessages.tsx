@@ -149,7 +149,7 @@ export function LeadershipMessages() {
       </div>
 
       {/* Fixed header + navigation */}
-      <div className="relative z-10 flex-shrink-0 px-6 pt-6 md:px-12 md:pt-8">
+      <div className="relative z-10 flex-shrink-0 px-6 pt-1 md:px-12 md:pt-1.5">
         <div className="mx-auto max-w-7xl">
           <SectionMarker number={c.number} label={c.label} light />
 
