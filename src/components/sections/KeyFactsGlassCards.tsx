@@ -69,7 +69,7 @@ const glassCards = [
     id: 3,
     value: 10,
     suffix: "X",
-    label: "Cumulative growth in digital account openings over 3 years",
+    label: "Cumulative growth in digital account over 3 years",
     description:
       "A tenfold increase reflecting the Bank's successful digital-first strategy and customer-centric transformation journey.",
     color: "rgba(62, 135, 211, 0.8)", // Sky Blue

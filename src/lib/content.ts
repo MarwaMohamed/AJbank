@@ -39,7 +39,7 @@ export const content = {
       {
         value: 10,
         suffix: "X",
-        label: "Cumulative growth in digital account openings over 3 years",
+        label: "Cumulative growth in digital account over 3 years",
       },
       {
         value: 223,

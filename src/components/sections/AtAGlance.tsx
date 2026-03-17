@@ -57,7 +57,7 @@ const glassCards = [
     id: 3,
     value: 10,
     suffix: "X",
-    label: "Cumulative growth in digital account openings over 3 years",
+    label: "Cumulative growth in digital account over 3 years",
     color: "rgba(140, 104, 74, 0.8)",
     bgGradient: "linear-gradient(145deg, rgba(140,104,74,0.12) 0%, #000000 60%, #000000 100%)",
   },
@@ -120,7 +120,7 @@ function GlassCard({
           d={SHAPE_PATH}
           fill="none"
           stroke={`url(#glow-aag-${index})`}
-          strokeWidth="8"
+          strokeWidth="16"
         />
       </svg>
 
@@ -137,7 +137,7 @@ function GlassCard({
       >
         {/* Inner border */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox={`0 0 ${SHAPE_VB_W} ${SHAPE_VB_H}`} preserveAspectRatio="none">
-          <path d={SHAPE_PATH} fill="none" stroke="rgba(140,104,74,0.4)" strokeWidth="4" />
+          <path d={SHAPE_PATH} fill="none" stroke="rgba(140,104,74,0.4)" strokeWidth="8" />
         </svg>
 
         {/* Glass reflection */}
@@ -148,12 +148,12 @@ function GlassCard({
 
         {/* Top shine line */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox={`0 0 ${SHAPE_VB_W} ${SHAPE_VB_H}`} preserveAspectRatio="none">
-          <path d="M 190 625 L 995 5" fill="none" stroke="rgba(140,104,74,0.35)" strokeWidth="3" />
+          <path d="M 190 625 L 995 5" fill="none" stroke="rgba(140,104,74,0.35)" strokeWidth="6" />
         </svg>
 
         {/* Left edge reflection */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox={`0 0 ${SHAPE_VB_W} ${SHAPE_VB_H}`} preserveAspectRatio="none">
-          <path d="M 183 630 L 183 1320" fill="none" stroke="rgba(140,104,74,0.25)" strokeWidth="4" />
+          <path d="M 183 630 L 183 1320" fill="none" stroke="rgba(140,104,74,0.25)" strokeWidth="8" />
         </svg>
 
         {/* Content */}
