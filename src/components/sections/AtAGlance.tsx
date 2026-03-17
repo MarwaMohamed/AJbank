@@ -42,24 +42,24 @@ const glassCards = [
     value: 223,
     suffix: "%",
     label: "Growth in digital onboarding for SMEs",
-    color: "rgba(178, 127, 89, 0.8)",
-    bgGradient: "linear-gradient(145deg, rgba(178,127,89,0.25) 0%, rgba(30,20,12,1) 60%, rgba(15,10,5,1) 100%)",
+    color: "rgba(140, 104, 74, 0.8)",
+    bgGradient: "linear-gradient(145deg, rgba(140,104,74,0.15) 0%, #000000 60%, #000000 100%)",
   },
   {
     id: 2,
     value: 22,
     suffix: "%",
     label: "Net profit growth",
-    color: "rgba(255, 255, 255, 0.4)",
-    bgGradient: "linear-gradient(145deg, rgba(40,40,40,0.6) 0%, rgba(10,10,10,1) 60%, rgba(0,0,0,1) 100%)",
+    color: "rgba(140, 104, 74, 0.8)",
+    bgGradient: "linear-gradient(145deg, rgba(140,104,74,0.1) 0%, #000000 60%, #000000 100%)",
   },
   {
     id: 3,
     value: 10,
     suffix: "X",
     label: "Cumulative growth in digital account openings over 3 years",
-    color: "rgba(62, 135, 211, 0.8)",
-    bgGradient: "linear-gradient(145deg, rgba(62,135,211,0.25) 0%, rgba(10,15,30,1) 60%, rgba(5,8,18,1) 100%)",
+    color: "rgba(140, 104, 74, 0.8)",
+    bgGradient: "linear-gradient(145deg, rgba(140,104,74,0.12) 0%, #000000 60%, #000000 100%)",
   },
 ];
 
@@ -137,23 +137,23 @@ function GlassCard({
       >
         {/* Inner border */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox={`0 0 ${SHAPE_VB_W} ${SHAPE_VB_H}`} preserveAspectRatio="none">
-          <path d={SHAPE_PATH} fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" />
+          <path d={SHAPE_PATH} fill="none" stroke="rgba(140,104,74,0.4)" strokeWidth="2" />
         </svg>
 
         {/* Glass reflection */}
         <div
           className="absolute top-0 left-0 right-0 pointer-events-none"
-          style={{ height: "45%", background: "linear-gradient(160deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.08) 50%, transparent 100%)" }}
+          style={{ height: "45%", background: "linear-gradient(160deg, rgba(140,104,74,0.15) 0%, rgba(140,104,74,0.05) 50%, transparent 100%)" }}
         />
 
         {/* Top shine line */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox={`0 0 ${SHAPE_VB_W} ${SHAPE_VB_H}`} preserveAspectRatio="none">
-          <path d="M 190 625 L 995 5" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" />
+          <path d="M 190 625 L 995 5" fill="none" stroke="rgba(140,104,74,0.35)" strokeWidth="1.5" />
         </svg>
 
         {/* Left edge reflection */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox={`0 0 ${SHAPE_VB_W} ${SHAPE_VB_H}`} preserveAspectRatio="none">
-          <path d="M 183 630 L 183 1320" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="2" />
+          <path d="M 183 630 L 183 1320" fill="none" stroke="rgba(140,104,74,0.25)" strokeWidth="2" />
         </svg>
 
         {/* Content */}
