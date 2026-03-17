@@ -343,14 +343,13 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
         </div>
 
         {/* Right: Image as-is, no clip-path, no cropping */}
-        <div className="hidden lg:flex lg:w-[55%] xl:w-[58%] justify-start pt-0 overflow-hidden">
+        <div className="hidden lg:flex lg:w-[55%] xl:w-[58%] justify-start pt-0">
           <Image
             src={asset((tab as any).image)}
             alt={tab.subtitle}
             width={500}
             height={650}
-            className="h-auto w-full max-w-[336px] object-cover mix-blend-multiply"
-            style={{ clipPath: "inset(6% 4% 14% 18%)", borderRadius: "4px" }}
+            className="h-auto w-full max-w-[400px] object-contain"
           />
         </div>
 
