@@ -202,11 +202,11 @@ export function LeadershipMessages() {
             <div
               key={i}
               className="lm-card flex h-full w-screen flex-shrink-0 items-start px-6 md:px-12"
-              style={{ paddingTop: "6vh" }}
+              style={{ paddingTop: "0.5vh" }}
             >
-              <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-[1fr_minmax(250px,350px)] md:gap-10 lg:gap-16" style={{ height: "100%" }}>
+              <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-[1fr_minmax(250px,350px)] md:gap-10 lg:gap-16">
                 {/* Text column (LEFT) */}
-                <div className="flex flex-col justify-center">
+                <div className="flex flex-col justify-start">
                   <div className="lm-reveal">
                     <p
                       className="text-xs font-medium uppercase tracking-[0.25em]"
