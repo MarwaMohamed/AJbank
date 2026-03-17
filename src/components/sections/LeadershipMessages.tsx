@@ -149,7 +149,7 @@ export function LeadershipMessages() {
       </div>
 
       {/* Fixed header + navigation */}
-      <div className="relative z-10 flex-shrink-0 px-6 pt-1 md:px-12 md:pt-1.5">
+      <div className="relative z-10 flex-shrink-0 px-6 pt-4 md:px-12 md:pt-5">
         <div className="mx-auto max-w-7xl">
           <SectionMarker number={c.number} label={c.label} light />
 
@@ -203,7 +203,7 @@ export function LeadershipMessages() {
               key={i}
               className="lm-card flex h-full w-screen flex-shrink-0 items-center px-6 md:px-12"
             >
-              <div className="mx-auto grid h-full w-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-[1fr_minmax(250px,350px)] md:gap-10 lg:gap-16">
+              <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-[1fr_minmax(250px,350px)] md:gap-10 lg:gap-16" style={{ paddingTop: "2vh", paddingBottom: "6vh", height: "100%" }}>
                 {/* Text column (LEFT) */}
                 <div className="flex flex-col justify-center">
                   <div className="lm-reveal">
