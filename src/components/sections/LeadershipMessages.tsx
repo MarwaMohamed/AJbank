@@ -13,14 +13,14 @@ import { useSmoothScroll } from "../layout/SmoothScroll";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── Background gradients per card (brand-aligned: Black ↔ Midnight Blue, page 61) ── */
+/* ── Brand gradient: Dark Sand (#8c684a) → Black (#000000) from guidelines ── */
 const CARD_GRADIENTS = [
-  /* Chairman: deep Midnight Blue dominant, Black lower-right corner */
-  "linear-gradient(145deg, #001421 0%, #000d1a 45%, #000000 100%)",
-  /* CEO: diagonal, Midnight Blue bottom-left, Black top-right, subtle Dark Sand warmth */
-  "linear-gradient(215deg, #000000 0%, #001421 55%, #0a1e2d 100%)",
-  /* CFO: Black dominant upper, Midnight Blue sweep from bottom corner */
-  "linear-gradient(170deg, #000000 0%, #000a14 50%, #001421 100%)",
+  /* Chairman */
+  "linear-gradient(160deg, #8c684a 0%, #3d2414 35%, #000000 100%)",
+  /* CEO */
+  "linear-gradient(180deg, #8c684a 0%, #3d2414 40%, #000000 100%)",
+  /* CFO */
+  "linear-gradient(200deg, #8c684a 0%, #3d2414 35%, #000000 100%)",
 ];
 
 export function LeadershipMessages() {
