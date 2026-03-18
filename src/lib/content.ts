@@ -105,7 +105,7 @@ export const content = {
         subtitle: "The One Bank Approach",
         description:
           "Aljazira Bank's 2025 business model represents the culmination of a multi-year journey of institutional development and operational transformation, shaped by digital-led growth and cross-sector integration. Our model is anchored in a robust Shariah governance framework, integrating Retail, Corporate, SME, Treasury, and Aljazira Capital within a unified operating model.",
-        image: "/images/one-bank-shape.png",
+        image: "/images/onebank.png",
       },
       {
         key: "strategicFocus",
