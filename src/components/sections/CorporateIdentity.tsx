@@ -40,9 +40,17 @@ export function CorporateIdentity() {
       <div className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('images/vision-2030-model.png')", opacity: 0.675 }}
+          style={{ backgroundImage: "url('images/vision-2030-model.png')", opacity: 0.35 }}
         />
       </div>
+      {/* Brand gradient overlay (Black → Midnight Blue from guidelines) */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          background: "linear-gradient(165deg, #000000 0%, #001421 40%, #001421 60%, #000000 100%)",
+          opacity: 0.6,
+        }}
+      />
 
       {/* Decorative key visual shape */}
       <div className="pointer-events-none absolute -right-12 top-16 md:right-8 lg:right-16">
