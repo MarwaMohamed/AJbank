@@ -342,14 +342,14 @@ function StrategyPanel({ tab, isActive }: { tab: TabData; isActive?: boolean }) 
           </FadeInView>
         </div>
 
-        {/* Right: Image as-is, no clip-path, no cropping */}
-        <div className="hidden lg:flex lg:w-[55%] xl:w-[58%] justify-start pt-0">
+        {/* Right: Image flush to top, aligned with tab line */}
+        <div className="hidden lg:flex lg:w-[55%] xl:w-[58%] justify-start -mt-2">
           <Image
             src={asset((tab as any).image)}
             alt={tab.subtitle}
             width={500}
             height={650}
-            className="h-auto w-full max-w-[400px] object-contain"
+            className="h-auto w-full max-w-[500px] object-contain"
           />
         </div>
 
