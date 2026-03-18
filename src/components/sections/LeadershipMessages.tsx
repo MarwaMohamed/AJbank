@@ -179,58 +179,10 @@ export function LeadershipMessages() {
         </div>
       </div>
 
-      {/* Main content: left images + right text */}
+      {/* Main content: left text + right images */}
       <div className="relative z-10 mx-auto flex h-[calc(100vh-120px)] max-w-7xl items-stretch gap-8 px-6 md:px-12 xl:pl-28 lg:gap-12">
 
-        {/* LEFT: Stacked portrait images (~35%) */}
-        <div className="relative hidden w-[35%] md:block">
-          <div className="relative h-full w-full overflow-hidden rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[10px]">
-            {cards.map((card, i) => (
-              <div
-                key={i}
-                ref={(el) => { imageRefs.current[i] = el; }}
-                className="absolute inset-0"
-                style={{
-                  zIndex: i + 1,
-                  clipPath: i === 0 ? "inset(0% 0% 0% 0%)" : "inset(100% 0% 0% 0%)",
-                  willChange: "clip-path",
-                }}
-              >
-                {/* Inner wrapper with decorative diagonal clip */}
-                <div
-                  className="absolute inset-0 overflow-hidden"
-                  style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 92%)" }}
-                >
-                  <Image
-                    src={asset(card.image)}
-                    alt={card.name}
-                    fill
-                    className="object-cover"
-                    style={{ objectPosition: i === 0 ? "center 5%" : "center top" }}
-                    sizes="(max-width: 768px) 100vw, 35vw"
-                    priority={i === 0}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Name + title below portrait — one per card, crossfade with active */}
-          {cards.map((card, i) => (
-            <div
-              key={i}
-              className="absolute bottom-8 left-0 z-20 px-4 transition-opacity duration-500"
-              style={{ opacity: activeCard === i ? 1 : 0 }}
-            >
-              <p className="text-sm font-bold text-white">{card.name}</p>
-              <p className="mt-1 text-xs" style={{ color: "rgba(178,127,89,0.7)" }}>
-                {card.title}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* RIGHT: Stacked text panels (~55%) */}
+        {/* LEFT: Stacked text panels (~55%) */}
         <div className="relative flex-1">
           {cards.map((card, i) => (
             <div
@@ -268,8 +220,8 @@ export function LeadershipMessages() {
                 {card.body}
               </p>
 
-              {/* Signature (mobile only — desktop shows below portrait) */}
-              <div className="mt-8 md:hidden">
+              {/* Signature */}
+              <div className="mt-8">
                 <div className="mb-3 h-px w-12" style={{ background: "#b27f59" }} />
                 <p className="text-sm font-bold text-white">{card.name}</p>
                 <p className="mt-1 text-xs" style={{ color: "rgba(178,127,89,0.7)" }}>
@@ -278,6 +230,39 @@ export function LeadershipMessages() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* RIGHT: Stacked portrait images (~35%) */}
+        <div className="relative hidden w-[35%] md:block">
+          <div className="relative h-full w-full overflow-hidden rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[10px]">
+            {cards.map((card, i) => (
+              <div
+                key={i}
+                ref={(el) => { imageRefs.current[i] = el; }}
+                className="absolute inset-0"
+                style={{
+                  zIndex: i + 1,
+                  clipPath: i === 0 ? "inset(0% 0% 0% 0%)" : "inset(100% 0% 0% 0%)",
+                  willChange: "clip-path",
+                }}
+              >
+                <div
+                  className="absolute inset-0 overflow-hidden"
+                  style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 92%)" }}
+                >
+                  <Image
+                    src={asset(card.image)}
+                    alt={card.name}
+                    fill
+                    className="object-cover"
+                    style={{ objectPosition: i === 0 ? "center 5%" : "center top" }}
+                    sizes="(max-width: 768px) 100vw, 35vw"
+                    priority={i === 0}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
