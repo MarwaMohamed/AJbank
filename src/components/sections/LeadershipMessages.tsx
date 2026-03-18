@@ -273,20 +273,22 @@ export function LeadershipMessages() {
                         priority={i === 0}
                       />
                     </div>
-                    {/* Steep diagonal decorative line — tight to image bottom */}
-                    <svg
-                      viewBox="0 0 270 120"
-                      className="w-full"
-                      preserveAspectRatio="none"
-                      style={{ marginTop: "-120px" }}
-                    >
-                      <line
-                        x1="0" y1="120"
-                        x2="270" y2="0"
-                        stroke="#b27f59"
-                        strokeWidth="1.5"
-                      />
-                    </svg>
+                    {/* Diagonal decorative line — aligned left with image, starts at bottom of clip */}
+                    <div className="w-full overflow-visible" style={{ marginTop: "-3px" }}>
+                      <svg
+                        viewBox="0 0 300 135"
+                        className="w-[140%]"
+                        preserveAspectRatio="none"
+                        style={{ marginLeft: 0 }}
+                      >
+                        <line
+                          x1="0" y1="0"
+                          x2="300" y2="135"
+                          stroke="#b27f59"
+                          strokeWidth="1"
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
