@@ -274,7 +274,7 @@ export function LeadershipMessages() {
                       />
                     </div>
                     {/* Diagonal decorative line — parallel to image bottom clip edge, right-aligned */}
-                    <div className="w-full overflow-visible flex justify-end" style={{ marginTop: "-20px" }}>
+                    <div className="w-full overflow-visible flex justify-end" style={{ marginTop: "-36px" }}>
                       <svg
                         viewBox="0 0 100 45"
                         className="w-[50%]"
