@@ -273,11 +273,12 @@ export function LeadershipMessages() {
                         priority={i === 0}
                       />
                     </div>
-                    {/* Steep diagonal decorative line — matches the clip angle */}
+                    {/* Steep diagonal decorative line — tight to image bottom */}
                     <svg
                       viewBox="0 0 270 120"
-                      className="w-full -mt-[1px]"
+                      className="w-full"
                       preserveAspectRatio="none"
+                      style={{ marginTop: "-120px" }}
                     >
                       <line
                         x1="0" y1="120"
