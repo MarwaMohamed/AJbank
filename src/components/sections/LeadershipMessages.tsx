@@ -250,10 +250,10 @@ export function LeadershipMessages() {
                 {/* Portrait column (RIGHT) */}
                 <div className="relative flex h-full items-center justify-center md:justify-end">
                   <div className="relative flex flex-col items-start w-[180px] md:w-[230px] lg:w-[270px]">
-                    {/* Portrait image with diagonal bottom cutout — higher on right, lower on left */}
+                    {/* Portrait image with steep diagonal bottom cutout */}
                     <div
                       className="lm-img relative z-10 aspect-[3/4] w-full overflow-hidden"
-                      style={{ clipPath: "polygon(0 0, 100% 0, 100% 85%, 0 100%)" }}
+                      style={{ clipPath: "polygon(0 0, 100% 0, 100% 55%, 0 100%)" }}
                     >
                       {/* Gradient overlay for blending */}
                       <div
@@ -273,18 +273,17 @@ export function LeadershipMessages() {
                         priority={i === 0}
                       />
                     </div>
-                    {/* Diagonal decorative line — matches the clip angle */}
+                    {/* Steep diagonal decorative line — matches the clip angle */}
                     <svg
-                      viewBox="0 0 300 8"
+                      viewBox="0 0 270 120"
                       className="w-full -mt-[1px]"
                       preserveAspectRatio="none"
-                      style={{ transform: "translateY(-15%)" }}
                     >
                       <line
-                        x1="0" y1="8"
-                        x2="300" y2="0"
+                        x1="0" y1="120"
+                        x2="270" y2="0"
                         stroke="#b27f59"
-                        strokeWidth="1"
+                        strokeWidth="1.5"
                       />
                     </svg>
                   </div>
