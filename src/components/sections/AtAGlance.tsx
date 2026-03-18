@@ -314,14 +314,24 @@ export function AtAGlance() {
       id="at-a-glance"
       className="relative flex h-screen items-center justify-center overflow-hidden"
     >
-      {/* Background */}
+      {/* Background: solar farm image */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: "url(images/solar-farm.png)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundColor: "#0a0700",
+        }}
+      />
+      {/* Original gradient layer at 20% opacity */}
       <div
         className="absolute inset-0 z-0"
         style={{
           backgroundImage: "url(images/glance/glance-bg-new.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundColor: "#0a0700",
+          opacity: 0.2,
         }}
       />
       <div
@@ -330,9 +340,10 @@ export function AtAGlance() {
           background:
             "radial-gradient(ellipse 80% 60% at 55% 45%, rgba(160,115,55,0.35) 0%, transparent 70%), radial-gradient(ellipse 60% 50% at 25% 55%, rgba(140,100,40,0.25) 0%, transparent 65%), radial-gradient(ellipse 40% 30% at 70% 30%, rgba(180,130,60,0.3) 0%, transparent 60%)",
           mixBlendMode: "screen",
+          opacity: 0.2,
         }}
       />
-      <div className="absolute inset-0 z-[1]" style={{ background: "rgba(0,0,0,0.35)" }} />
+      <div className="absolute inset-0 z-[1]" style={{ background: "rgba(0,0,0,0.5)" }} />
 
       {/* SVG shape defs for glass cards */}
       <ShapeDefs />
