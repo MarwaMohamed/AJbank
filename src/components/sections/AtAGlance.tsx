@@ -343,6 +343,17 @@ export function AtAGlance() {
           opacity: 0.2,
         }}
       />
+      {/* Gold glow overlay — multiply blend at 70% opacity */}
+      <div
+        className="absolute inset-0 z-[1]"
+        style={{
+          backgroundImage: "url(images/glance/gold-glow.png)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          mixBlendMode: "multiply",
+          opacity: 0.7,
+        }}
+      />
       <div className="absolute inset-0 z-[1]" style={{ background: "rgba(0,0,0,0.5)" }} />
 
       {/* SVG shape defs for glass cards */}
