@@ -40,7 +40,7 @@ export function CorporateIdentity() {
       <div className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('images/vision-2030-model.png')", opacity: 0.25 }}
+          style={{ backgroundImage: "url('images/vision-2030-model.png')", opacity: 0.375 }}
         />
       </div>
 
