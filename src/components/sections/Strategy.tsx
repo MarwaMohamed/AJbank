@@ -242,7 +242,7 @@ function StrategyInitiativesList({ items, isActive }: { items: readonly { headin
             {/* Left: number */}
             <span
               className="flex-shrink-0 text-[32px] md:text-[40px] lg:text-[48px] font-light leading-none mt-1"
-              style={{ color: "rgba(0,20,33,0.12)" }}
+              style={{ color: "#b27f59" }}
             >
               {pad(i + 1)}
             </span>
@@ -257,7 +257,7 @@ function StrategyInitiativesList({ items, isActive }: { items: readonly { headin
               </h4>
               <p
                 className="mt-2 text-[13px] lg:text-sm leading-relaxed"
-                style={{ color: "rgba(0,20,33,0.45)" }}
+                style={{ color: "#8c684a" }}
               >
                 {item.desc}
               </p>
