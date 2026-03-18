@@ -202,7 +202,7 @@ export function Hero() {
       >
         <div className="shapes-inner h-full w-full" style={{ opacity: prefersReduced ? 1 : 0, transformStyle: "preserve-3d" }}>
           <img
-            src={asset("/images/hero/main-shape.svg")}
+            src={asset("/images/hero/herImg.svg")}
             alt=""
             className="h-full w-full object-contain object-right"
           />
