@@ -277,7 +277,7 @@ export function LeadershipMessages() {
                     <div className="w-full overflow-visible" style={{ marginTop: "-3px" }}>
                       <svg
                         viewBox="0 0 300 135"
-                        className="w-[90%]"
+                        className="w-[50%]"
                         preserveAspectRatio="none"
                         style={{ marginLeft: 0 }}
                       >
