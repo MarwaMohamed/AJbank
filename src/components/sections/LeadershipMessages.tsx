@@ -201,14 +201,6 @@ export function LeadershipMessages() {
                   className="absolute inset-0 overflow-hidden"
                   style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 92%)" }}
                 >
-                  {/* Gradient overlay */}
-                  <div
-                    className="absolute inset-0 z-10"
-                    style={{
-                      background:
-                        "linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 40%, transparent 75%, rgba(0,0,0,0.08) 100%)",
-                    }}
-                  />
                   <Image
                     src={asset(card.image)}
                     alt={card.name}
