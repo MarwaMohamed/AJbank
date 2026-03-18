@@ -266,7 +266,7 @@ export function LeadershipMessages() {
                       alt={card.name}
                       fill
                       className="object-cover"
-                      style={{ objectPosition: i === 0 ? "center 15%" : "center top" }}
+                      style={{ objectPosition: i === 0 ? "center 5%" : "center top" }}
                       sizes="(max-width: 768px) 100vw, 50vw"
                       priority={i === 0}
                     />
