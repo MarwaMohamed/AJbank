@@ -250,7 +250,7 @@ export function LeadershipMessages() {
                 {/* Portrait column (RIGHT) */}
                 <div className="relative flex h-full items-center justify-center md:justify-end">
                   <div
-                    className="lm-img relative z-10 aspect-[3/4] w-[180px] md:w-[230px] lg:w-[270px] overflow-hidden"
+                    className="lm-img relative z-10 aspect-[3/4] w-[360px] md:w-[460px] lg:w-[540px] overflow-hidden"
                     style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 92%)" }}
                   >
                     {/* Gradient overlay for blending */}
