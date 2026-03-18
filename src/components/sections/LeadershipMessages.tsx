@@ -249,29 +249,44 @@ export function LeadershipMessages() {
 
                 {/* Portrait column (RIGHT) */}
                 <div className="relative flex h-full items-center justify-center md:justify-end">
-                  <div className="relative flex flex-col items-start">
+                  <div className="relative flex flex-col items-start w-[180px] md:w-[230px] lg:w-[270px]">
+                    {/* Portrait image with diagonal bottom cutout — higher on right, lower on left */}
                     <div
-                      className="lm-img relative z-10 aspect-[3/4] w-[200px] md:w-[260px] lg:w-[300px] overflow-hidden"
-                      style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 92%)" }}
+                      className="lm-img relative z-10 aspect-[3/4] w-full overflow-hidden"
+                      style={{ clipPath: "polygon(0 0, 100% 0, 100% 85%, 0 100%)" }}
                     >
-                    {/* Gradient overlay for blending */}
-                    <div
-                      className="absolute inset-0 z-10"
-                      style={{
-                        background:
-                          "linear-gradient(to top, rgba(0,0,0,0.25) 0%, transparent 35%, transparent 75%, rgba(0,0,0,0.08) 100%)",
-                      }}
-                    />
-                    <Image
-                      src={asset(card.image)}
-                      alt={card.name}
-                      fill
-                      className="object-cover"
-                      style={{ objectPosition: i === 0 ? "center 15%" : "center top" }}
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      priority={i === 0}
-                    />
-                  </div>
+                      {/* Gradient overlay for blending */}
+                      <div
+                        className="absolute inset-0 z-10"
+                        style={{
+                          background:
+                            "linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 40%, transparent 75%, rgba(0,0,0,0.08) 100%)",
+                        }}
+                      />
+                      <Image
+                        src={asset(card.image)}
+                        alt={card.name}
+                        fill
+                        className="object-cover"
+                        style={{ objectPosition: i === 0 ? "center 15%" : "center top" }}
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        priority={i === 0}
+                      />
+                    </div>
+                    {/* Diagonal decorative line — matches the clip angle */}
+                    <svg
+                      viewBox="0 0 300 8"
+                      className="w-full -mt-[1px]"
+                      preserveAspectRatio="none"
+                      style={{ transform: "translateY(-15%)" }}
+                    >
+                      <line
+                        x1="0" y1="8"
+                        x2="300" y2="0"
+                        stroke="#b27f59"
+                        strokeWidth="1"
+                      />
+                    </svg>
                   </div>
                 </div>
               </div>
