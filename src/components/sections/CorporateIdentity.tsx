@@ -35,12 +35,12 @@ export function CorporateIdentity() {
   }, [prefersReduced]);
 
   return (
-    <section id="corporate-identity" className="relative py-32 md:py-40 overflow-hidden" style={{ backgroundColor: "#001421" }}>
+    <section id="corporate-identity" className="relative py-32 md:py-40 overflow-hidden" style={{ background: "linear-gradient(160deg, #001421 0%, #0a2a3f 30%, #3E87D3 70%, #001421 100%)" }}>
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('images/vision-2030-model.png')", opacity: 0.3 }}
+          style={{ backgroundImage: "url('images/vision-2030-model.png')", opacity: 0.25 }}
         />
       </div>
 
