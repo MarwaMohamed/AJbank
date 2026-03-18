@@ -69,7 +69,7 @@ export const content = {
         role: "Chairman's Message",
         name: "Faisal Hamad Almansour",
         title: "Chairman of the Board",
-        image: "/images/leadership/chairman-new.png",
+        image: "/images/board/Faisal-Almansour.png",
         quote:
           "The Board's strategic oversight has guided the Bank through a transformative era, ensuring that governance, risk discipline, and innovation remain at the core of every decision we take.",
         body: "Our commitment to shareholder value is matched only by our dedication to the communities we serve and the national agenda we proudly support.",
