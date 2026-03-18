@@ -27,31 +27,30 @@ export function LeadershipMessages() {
   const c = content.leadershipMessages;
   const smoothScroll = useSmoothScroll();
   const sectionRef = useRef<HTMLElement>(null);
-  const panelsWrapRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
+  const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const textRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeCard, setActiveCard] = useState(0);
   const prefersReduced = useReducedMotion();
   const cards = c.cards;
 
   useEffect(() => {
-    if (prefersReduced || !sectionRef.current || !panelsWrapRef.current) return;
+    if (prefersReduced || !sectionRef.current) return;
 
     const section = sectionRef.current;
-    const panels = panelsWrapRef.current;
     const totalCards = cards.length;
     const bgLayers = bgRef.current?.querySelectorAll<HTMLElement>(".lm-bg") ?? [];
+    const images = imageRefs.current.filter(Boolean) as HTMLDivElement[];
+    const texts = textRefs.current.filter(Boolean) as HTMLDivElement[];
 
     const ctx = gsap.context(() => {
-      // Pin section and scrub the panels horizontally
-      const totalWidth = panels.scrollWidth - window.innerWidth;
+      const scrollDistance = window.innerHeight * (totalCards - 1) * 1.2;
 
-      const mainTween = gsap.to(panels, {
-        x: -totalWidth,
-        ease: "none",
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: `+=${totalWidth * 1.8}`,
+          end: `+=${scrollDistance}`,
           pin: true,
           scrub: 1,
           anticipatePin: 1,
@@ -75,54 +74,39 @@ export function LeadershipMessages() {
         },
       });
 
-      // Animate each card's inner elements on scroll using containerAnimation
-      const cardEls = panels.querySelectorAll<HTMLElement>(".lm-card");
-      cardEls.forEach((card) => {
-        const img = card.querySelector(".lm-img");
-        const textEls = card.querySelectorAll(".lm-reveal");
+      // Each transition occupies 1/(totalCards-1) of the timeline
+      for (let i = 1; i < totalCards; i++) {
+        const pos = (i - 1) / (totalCards - 1); // 0 for card 1, 0.5 for card 2
 
-        // Image: scale up from 1.15 and fade in
-        if (img) {
-          gsap.fromTo(
-            img,
-            { scale: 1.2, opacity: 0 },
-            {
-              scale: 1,
-              opacity: 1,
-              duration: 1,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: card,
-                start: "left 85%",
-                end: "left 40%",
-                scrub: 1,
-                containerAnimation: mainTween,
-              },
-            }
+        // Image[i] reveals from bottom via clip-path
+        if (images[i]) {
+          tl.fromTo(
+            images[i],
+            { clipPath: "inset(100% 0% 0% 0%)" },
+            { clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "power2.inOut" },
+            pos
           );
         }
 
-        // Text elements: staggered fade up
-        if (textEls.length) {
-          gsap.fromTo(
-            textEls,
-            { y: 50, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.9,
-              stagger: 0.15,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: card,
-                start: "left 70%",
-                containerAnimation: mainTween,
-                toggleActions: "play none none none",
-              },
-            }
+        // Text[i-1] fades out
+        if (texts[i - 1]) {
+          tl.to(
+            texts[i - 1],
+            { opacity: 0, y: -40, duration: 0.25, ease: "power2.in" },
+            pos
           );
         }
-      });
+
+        // Text[i] fades in
+        if (texts[i]) {
+          tl.fromTo(
+            texts[i],
+            { opacity: 0, y: 40 },
+            { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" },
+            pos + 0.25
+          );
+        }
+      }
     }, section);
 
     return () => ctx.revert();
@@ -132,7 +116,7 @@ export function LeadershipMessages() {
     <section
       ref={sectionRef}
       id="leadership-messages"
-      className="relative flex h-screen w-full flex-col overflow-hidden text-white"
+      className="relative h-screen w-full overflow-hidden text-white"
     >
       {/* Dynamic background layers */}
       <div ref={bgRef} className="absolute inset-0 z-0">
@@ -195,90 +179,117 @@ export function LeadershipMessages() {
         </div>
       </div>
 
-      {/* Horizontal scrolling panels */}
-      <div className="relative z-10 flex-1">
-        <div ref={panelsWrapRef} className="flex h-full">
+      {/* Main content: left images + right text */}
+      <div className="relative z-10 mx-auto flex h-[calc(100vh-120px)] max-w-7xl items-stretch gap-8 px-6 md:px-12 xl:pl-28 lg:gap-12">
+
+        {/* LEFT: Stacked portrait images (~35%) */}
+        <div className="relative hidden w-[35%] md:block">
+          <div className="relative h-full w-full overflow-hidden rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[10px]">
+            {cards.map((card, i) => (
+              <div
+                key={i}
+                ref={(el) => { imageRefs.current[i] = el; }}
+                className="absolute inset-0"
+                style={{
+                  zIndex: i + 1,
+                  clipPath: i === 0 ? "inset(0% 0% 0% 0%)" : "inset(100% 0% 0% 0%)",
+                  willChange: "clip-path",
+                }}
+              >
+                {/* Inner wrapper with decorative diagonal clip */}
+                <div
+                  className="absolute inset-0 overflow-hidden"
+                  style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 92%)" }}
+                >
+                  {/* Gradient overlay */}
+                  <div
+                    className="absolute inset-0 z-10"
+                    style={{
+                      background:
+                        "linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 40%, transparent 75%, rgba(0,0,0,0.08) 100%)",
+                    }}
+                  />
+                  <Image
+                    src={asset(card.image)}
+                    alt={card.name}
+                    fill
+                    className="object-cover"
+                    style={{ objectPosition: i === 0 ? "center 5%" : "center top" }}
+                    sizes="(max-width: 768px) 100vw, 35vw"
+                    priority={i === 0}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Name + title below portrait — one per card, crossfade with active */}
           {cards.map((card, i) => (
             <div
               key={i}
-              className="lm-card flex h-full w-screen flex-shrink-0 items-start px-6 md:px-12 xl:pl-28"
-              style={{ paddingTop: "1vh" }}
+              className="absolute bottom-8 left-0 z-20 px-4 transition-opacity duration-500"
+              style={{ opacity: activeCard === i ? 1 : 0 }}
             >
-              <div className="mx-auto grid w-full h-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-[1fr_minmax(250px,350px)] md:gap-10 lg:gap-16">
-                {/* Text column (LEFT) */}
-                <div className="flex flex-col justify-center">
-                  <div className="lm-reveal">
-                    <p
-                      className="text-xs font-medium uppercase tracking-[0.25em]"
-                      style={{ color: "rgba(178,127,89,0.6)" }}
-                    >
-                      {card.role}
-                    </p>
-                  </div>
+              <p className="text-sm font-bold text-white">{card.name}</p>
+              <p className="mt-1 text-xs" style={{ color: "rgba(178,127,89,0.7)" }}>
+                {card.title}
+              </p>
+            </div>
+          ))}
+        </div>
 
-                  <blockquote className="lm-reveal mt-4">
-                    <p
-                      className="text-xl font-medium leading-[1.15] md:text-2xl lg:text-3xl"
-                      style={{ color: "rgba(255,255,255,0.85)" }}
-                    >
-                      &ldquo;{card.quote}&rdquo;
-                    </p>
-                  </blockquote>
+        {/* RIGHT: Stacked text panels (~55%) */}
+        <div className="relative flex-1">
+          {cards.map((card, i) => (
+            <div
+              key={i}
+              ref={(el) => { textRefs.current[i] = el; }}
+              className="absolute inset-0 flex flex-col justify-center px-4 md:px-8 lg:px-12"
+              style={{
+                opacity: i === 0 ? 1 : 0,
+                willChange: "opacity, transform",
+              }}
+            >
+              {/* Role label */}
+              <p
+                className="text-xs font-medium uppercase tracking-[0.25em]"
+                style={{ color: "rgba(178,127,89,0.6)" }}
+              >
+                {card.role}
+              </p>
 
-                  <p
-                    className="lm-reveal mt-4 text-sm leading-[1.2] md:text-base"
-                    style={{ color: "rgba(255,255,255,0.65)" }}
-                  >
-                    {card.body}
-                  </p>
+              {/* Quote */}
+              <blockquote className="mt-6">
+                <p
+                  className="text-xl font-medium leading-[1.15] md:text-2xl lg:text-3xl xl:text-4xl"
+                  style={{ color: "rgba(255,255,255,0.85)" }}
+                >
+                  &ldquo;{card.quote}&rdquo;
+                </p>
+              </blockquote>
 
-                  <div className="lm-reveal mt-6">
-                    <div
-                      className="mb-3 h-px w-12"
-                      style={{ background: "#b27f59" }}
-                    />
-                    <p className="text-sm font-bold text-white">{card.name}</p>
-                    <p
-                      className="mt-1 text-xs"
-                      style={{ color: "rgba(178,127,89,0.7)" }}
-                    >
-                      {card.title}
-                    </p>
-                  </div>
-                </div>
+              {/* Body */}
+              <p
+                className="mt-6 text-sm leading-[1.5] md:text-base lg:text-lg"
+                style={{ color: "rgba(255,255,255,0.65)" }}
+              >
+                {card.body}
+              </p>
 
-                {/* Portrait column (RIGHT) */}
-                <div className="relative flex h-full items-center justify-center md:justify-end">
-                  <div
-                    className="lm-img relative z-10 aspect-[3/4] w-[360px] md:w-[460px] lg:w-[540px] overflow-hidden"
-                    style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 92%)" }}
-                  >
-                    {/* Gradient overlay for blending */}
-                    <div
-                      className="absolute inset-0 z-10"
-                      style={{
-                        background:
-                          "linear-gradient(to top, rgba(0,0,0,0.25) 0%, transparent 35%, transparent 75%, rgba(0,0,0,0.08) 100%)",
-                      }}
-                    />
-                    <Image
-                      src={asset(card.image)}
-                      alt={card.name}
-                      fill
-                      className="object-cover"
-                      style={{ objectPosition: i === 0 ? "center 5%" : "center top" }}
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      priority={i === 0}
-                    />
-                  </div>
-                </div>
+              {/* Signature (mobile only — desktop shows below portrait) */}
+              <div className="mt-8 md:hidden">
+                <div className="mb-3 h-px w-12" style={{ background: "#b27f59" }} />
+                <p className="text-sm font-bold text-white">{card.name}</p>
+                <p className="mt-1 text-xs" style={{ color: "rgba(178,127,89,0.7)" }}>
+                  {card.title}
+                </p>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Progress indicator — top, next to tabs */}
+      {/* Progress indicator — top right */}
       <div className="absolute top-[52px] right-6 z-10 flex items-center gap-3 md:top-[56px] md:right-12">
         {cards.map((_, i) => (
           <div
